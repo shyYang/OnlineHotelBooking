@@ -21,31 +21,31 @@ public class ${modelNameUpperCamel}Controller {
     private ${modelNameUpperCamel}Service ${modelNameLowerCamel}Service;
 
     @PostMapping("/add")
-    public Result<${modelNameUpperCamel}> add(${modelNameUpperCamel} ${modelNameLowerCamel}) {
+    public Result add(${modelNameUpperCamel} ${modelNameLowerCamel}) {
         ${modelNameLowerCamel}Service.save(${modelNameLowerCamel});
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/delete")
-    public Result<${modelNameUpperCamel}> delete(@RequestParam Integer id) {
+    public Result delete(@RequestParam Integer id) {
         ${modelNameLowerCamel}Service.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/update")
-    public Result<${modelNameUpperCamel}> update(${modelNameUpperCamel} ${modelNameLowerCamel}) {
+    public Result update(${modelNameUpperCamel} ${modelNameLowerCamel}) {
         ${modelNameLowerCamel}Service.update(${modelNameLowerCamel});
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/detail")
-    public Result<${modelNameUpperCamel}> detail(@RequestParam Integer id) {
+    public Result detail(@RequestParam Integer id) {
         ${modelNameUpperCamel} ${modelNameLowerCamel} = ${modelNameLowerCamel}Service.findById(id);
         return ResultGenerator.genSuccessResult(${modelNameLowerCamel});
     }
 
     @PostMapping("/list")
-    public Result<${modelNameUpperCamel}> list() {
+    public Result list() {
         List<${modelNameUpperCamel}> list = ${modelNameLowerCamel}Service.findAll();
         return ResultGenerator.genSuccessResult(list);
     }
