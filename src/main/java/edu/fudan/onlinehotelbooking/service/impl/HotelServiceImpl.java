@@ -9,12 +9,14 @@ import edu.fudan.onlinehotelbooking.mapper.HotelMapper;
 import edu.fudan.onlinehotelbooking.mapper.RoomTypeMapper;
 import edu.fudan.onlinehotelbooking.mapper.UserMapper;
 import edu.fudan.onlinehotelbooking.service.HotelService;
+import org.springframework.stereotype.Service;
+
 import java.math.BigDecimal;
 
 import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
-
+@Service
 public class HotelServiceImpl extends AbstractService<Hotel> implements HotelService {
     @Resource
     private HotelMapper hotelMapper;

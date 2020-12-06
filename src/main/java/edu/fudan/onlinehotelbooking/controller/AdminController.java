@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/admin")
+//@RequestMapping("/admin")
 public class AdminController {
     @Resource
     private UserService userService;
@@ -43,7 +43,7 @@ public class AdminController {
     }
 
     //列出指定用户的所有订单记录
-    @GetMapping("/orders")
+    @GetMapping("/orders_all")
     public Result listOrdersOfUser(int userID)
     {
         return ResultGenerator.genSuccessResult(orderService.getOrderOfUser(userID));
@@ -56,7 +56,7 @@ public class AdminController {
     }
 
     //列出所有用户的评价
-    @GetMapping("/comments")
+    @GetMapping("/comments_all")
     public Result listComments()
     {
         return ResultGenerator.genSuccessResult(commentService.getAllComments());
@@ -64,7 +64,7 @@ public class AdminController {
 
     //这里删除指定消费者和商家这里的实现分开了，需要前端根据显示出的用户类型写参数名。或者前端就指定id，后端检查角色也是可以的。
     //删除指定id的消费者
-    @GetMapping("/delete")
+    @GetMapping("/delete_consumer")
     public Result deleteCustomer(int customerID)
     {
         int result=userService.delCustomer(customerID);
@@ -81,7 +81,7 @@ public class AdminController {
     }
 
     //删除指定id的商家
-    @GetMapping("/delete")
+    @GetMapping("/delete_seller")
     public Result deleteSeller(int sellerID)
     {
         int result=userService.delSeller(sellerID);
