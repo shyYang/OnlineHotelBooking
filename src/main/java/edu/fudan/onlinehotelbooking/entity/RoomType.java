@@ -1,51 +1,121 @@
 package edu.fudan.onlinehotelbooking.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Table(name = "room_type")
 public class RoomType {
     @Id
     @Column(name = "type_id")
-    private int type_id;
+    private Integer typeId;
 
     @Column(name = "hotel_id")
-    private int hotel_id;
+    private Integer hotelId;
 
-    @Column(name = "price")
-    private int price;
+    private Integer price;
 
-    @Column(name = "photo")
-    private int photo;
+    private String photo;
 
-    public int getType_id() {
-        return type_id;
+    private Integer number;
+
+    private String name;
+
+    private String introduction;
+
+    /**
+     * @return type_id
+     */
+    public Integer getTypeId() {
+        return typeId;
     }
 
-    public void setType_id(int type_id) {
-        this.type_id = type_id;
+    /**
+     * @param typeId
+     */
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
     }
 
-    public int getHotel_id() {
-        return hotel_id;
+    /**
+     * @return hotel_id
+     */
+    public Integer getHotelId() {
+        return hotelId;
     }
 
-    public void setHotel_id(int hotel_id) {
-        this.hotel_id = hotel_id;
+    /**
+     * @param hotelId
+     */
+    public void setHotelId(Integer hotelId) {
+        this.hotelId = hotelId;
     }
 
-    public int getPrice() {
+    /**
+     * @return price
+     */
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    /**
+     * @param price
+     */
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public int getPhoto() {
+    /**
+     * @return photo
+     */
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(int photo) {
+    /**
+     * @param photo
+     */
+    public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    /**
+     * @return number
+     */
+    public Integer getNumber() {
+        return number;
+    }
+
+    /**
+     * @param number
+     */
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    /**
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return introduction
+     */
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    /**
+     * @param introduction
+     */
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
     }
 }

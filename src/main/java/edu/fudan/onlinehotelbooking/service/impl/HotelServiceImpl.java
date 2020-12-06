@@ -50,7 +50,7 @@ public class HotelServiceImpl extends AbstractService<Hotel> implements HotelSer
         hotel.setHotelId(hotelID);
         hotelMapper.delete(hotel);
         RoomType roomType=new RoomType();
-        roomType.setHotel_id(hotelID);
+        roomType.setHotelId(hotelID);
         roomtypeMapper.delete(roomType);
         return hotelID;
     }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.fudan.onlinehotelbooking.mapper.RoomTypeMapper">
+  <resultMap id="BaseResultMap" type="edu.fudan.onlinehotelbooking.entity.RoomType">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="type_id" jdbcType="INTEGER" property="typeId" />
+    <result column="hotel_id" jdbcType="INTEGER" property="hotelId" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="introduction" jdbcType="LONGVARCHAR" property="introduction" />
+  </resultMap>
+</mapper>
