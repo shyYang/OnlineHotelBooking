@@ -9,3 +9,5 @@ import edu.fudan.onlinehotelbooking.core.Service;
 public interface ExampleService extends Service<Example> {
 
 }
+
+

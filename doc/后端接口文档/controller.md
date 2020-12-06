@@ -14,5 +14,19 @@
 
 **注意请求方式规定：表单请求为POST，其余为GET，也可以理解为添加为POST，其余都是GET**
 
+**AdminController**
+
+| 函数名          | 函数功能        | 请求方式 | 对应地址        | 所需参数                    | 返回值（data）   |
+| --------------- | --------------- | -------- | --------------- | --------------------------- | ---------------- |
+| listUsers()   | 列出所有用户     | GET     | /admin/users    | null | 所有user组成的list             |
+| listOrderOfID(int orderID) | 列出指定订单记录     | GET     | /admin/orders | 订单的orderID         | 该orderID对应的order            |
+| listOrdersOfUser(int userID)          | 列出指定id用户的所有订单记录 | GET     | /admin/orders   | userID                        | list<该用户的Order> |
+| listComments()    | 列出所有用户的所有评价     | GET     | /admin/comments    | userID | list<该用户的Comment>             |
+| listCommentsOfUser(int userID) | 列出指定id用户的所有评价     | GET     | /admin/comments | null       | list<所有comment>           |
+| deleteCustomer(int customerID)         | 删除指定id的消费者 | GET     | /admin/delete   | customerID                        | 成功：customerID 失败：FailResult("User not a customer")或者FailResult("User don't exist")  |
+| deleteSeller(int sellerID)    | 删除指定id的商家     | GET     | /admin/delete    | sellerID | 成功：sellerID 失败：FailResult("User not a seller")或FailResult("User don't exist")       |
+| deleteHotel(int hotelID) | 删除指定id的酒店     | GET     | /admin/delete | hotelID         | hotelID              |
+| listSellers()          | 列出所有商家 | GET     | /admin/sellers   | null                        | Map中有两部分，seller字段内容是list<User>为所有商家，hotels字段内容是list<Hotel>，为对应前面商家顺序的hotel list （这里假设每个商家只对应一个hotel）|
+
 
 

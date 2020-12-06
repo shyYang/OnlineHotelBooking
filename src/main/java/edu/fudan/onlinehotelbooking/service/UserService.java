@@ -1,13 +1,12 @@
 package edu.fudan.onlinehotelbooking.service;
-import edu.fudan.onlinehotelbooking.entity.User;
+
 import edu.fudan.onlinehotelbooking.core.Service;
-import edu.fudan.onlinehotelbooking.entity.UserOfCustomer;
+import edu.fudan.onlinehotelbooking.entity.User;
 
+import java.util.List;
 
-/**
- * Created by CodeGenerator on 2020/12/04.
- */
-public interface UserService extends Service<User> {
-
-
+public interface UserService extends Service<User>{
+    List<User> listSellers ();
+    int delCustomer(int customerID);
+    int delSeller(int sellerID);
 }

@@ -1,15 +1,16 @@
 package edu.fudan.onlinehotelbooking.service;
-import edu.fudan.onlinehotelbooking.entity.Hotel;
+
 import edu.fudan.onlinehotelbooking.core.Service;
+import edu.fudan.onlinehotelbooking.entity.Hotel;
+import edu.fudan.onlinehotelbooking.entity.User;
 import edu.fudan.onlinehotelbooking.entity.HotelType;
 
 
-/**
- * Created by CodeGenerator on 2020/12/04.
- */
-public interface HotelService extends Service<Hotel> {
+import java.util.List;
 
-    //商家注册
-    //返回商家id
+public interface HotelService extends Service<Hotel> {
+    int delHotel(int hotelID);
+    int delHotelOfUser(int userID);
+    List<Hotel> listHotelOfUsers(List<User> users);
     int sellerSignUp(HotelType hotel);
 }

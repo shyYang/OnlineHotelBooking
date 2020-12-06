@@ -7,3 +7,4 @@ import edu.fudan.onlinehotelbooking.entity.UserOfCustomer;
 public interface CustomerMapper extends Mapper<Customer> {
 
 }
+
