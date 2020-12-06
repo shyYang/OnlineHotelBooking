@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 03/12/2020 19:28:55
+ Date: 06/12/2020 15:07:03
 */
 
 SET NAMES utf8mb4;
@@ -78,9 +78,12 @@ CREATE TABLE `order`  (
   `status` int(10) NOT NULL DEFAULT 0 COMMENT '0表示未支付，1表示已支付但未入住，2表示入住中，3表示已退房但未评论，4表示已评论',
   `time` datetime(0) NOT NULL,
   `payment` int(10) NOT NULL,
+  `user_id` int(20) NOT NULL,
   PRIMARY KEY (`order_id`) USING BTREE,
   INDEX `room_id`(`room_id`) USING BTREE,
-  CONSTRAINT `order_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  INDEX `user_id`(`user_id`) USING BTREE,
+  CONSTRAINT `order_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `order_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Compact;
 
 -- ----------------------------

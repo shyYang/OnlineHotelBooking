@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.fudan.onlinehotelbooking.mapper.HotelMapper">
+  <resultMap id="BaseResultMap" type="edu.fudan.onlinehotelbooking.entity.Hotel">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="hotel_id" jdbcType="INTEGER" property="hotelId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="hotel_name" jdbcType="VARCHAR" property="hotelName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="rating" jdbcType="DECIMAL" property="rating" />
+    <result column="guest_number" jdbcType="INTEGER" property="guestNumber" />
+    <result column="introduction" jdbcType="LONGVARCHAR" property="introduction" />
+  </resultMap>
+</mapper>
