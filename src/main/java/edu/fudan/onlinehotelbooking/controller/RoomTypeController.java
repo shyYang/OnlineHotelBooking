@@ -1,12 +1,12 @@
 package edu.fudan.onlinehotelbooking.controller;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import edu.fudan.onlinehotelbooking.core.Result;
 import edu.fudan.onlinehotelbooking.core.ResultGenerator;
+import edu.fudan.onlinehotelbooking.entity.Hotel;
 import edu.fudan.onlinehotelbooking.entity.RoomType;
+import edu.fudan.onlinehotelbooking.service.HotelService;
 import edu.fudan.onlinehotelbooking.service.RoomTypeService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -19,10 +19,21 @@ import java.util.List;
 public class RoomTypeController {
     @Resource
     private RoomTypeService roomTypeService;
+    @Resource
+    private HotelService hotelService;
 
     @PostMapping("/add")
-    public Result add(RoomType roomType) {
-        roomTypeService.save(roomType);
+    public Result add(@RequestBody RoomType roomType) {
+        //roomTypeService.save(roomType);
+        
+//        System.out.println(roomType.getName());
+//        System.out.println(roomType.getPrice());
+//        System.out.println(roomType.getHotelId());
+//        System.out.println();
+
+//        Hotel hotel=hotelService.findById(roomType.getHotelId());
+//        roomType.setHotelId(hotel.getHotelId());
+        roomTypeService.addRoomType(roomType);
         return ResultGenerator.genSuccessResult();
     }
 

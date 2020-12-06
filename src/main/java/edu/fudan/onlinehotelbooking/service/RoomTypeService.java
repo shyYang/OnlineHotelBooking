@@ -1,4 +1,5 @@
 package edu.fudan.onlinehotelbooking.service;
+import edu.fudan.onlinehotelbooking.entity.HotelType;
 import edu.fudan.onlinehotelbooking.entity.RoomType;
 import edu.fudan.onlinehotelbooking.core.Service;
 
@@ -8,4 +9,5 @@ import edu.fudan.onlinehotelbooking.core.Service;
  */
 public interface RoomTypeService extends Service<RoomType> {
 
+    void addRoomType(RoomType roomType);
 }

@@ -19,4 +19,15 @@ public class RoomTypeServiceImpl extends AbstractService<RoomType> implements Ro
     @Resource
     private RoomTypeMapper roomTypeMapper;
 
+    @Override
+    public void addRoomType(RoomType roomType) {
+        RoomType rt = new RoomType();
+        rt.setHotelId(roomType.getHotelId());
+        rt.setPrice(roomType.getPrice());
+        rt.setPhoto(roomType.getPhoto());
+        rt.setNumber(roomType.getNumber());
+        rt.setIntroduction(roomType.getIntroduction());
+        rt.setName(roomType.getName());
+        roomTypeMapper.insert(rt);
+    }
 }

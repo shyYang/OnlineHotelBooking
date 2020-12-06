@@ -4,12 +4,9 @@ import javax.persistence.*;
 
 @Table(name = "room_type")
 public class RoomType {
-    @Id
-    @Column(name = "type_id")
-    private Integer typeId;
 
     @Column(name = "hotel_id")
-    private Integer hotelId;
+    private int hotelId;
 
     private Integer price;
 
@@ -21,6 +18,9 @@ public class RoomType {
 
     private String introduction;
 
+    @Id
+    @Column(name = "type_id")
+    private Integer typeId;
     /**
      * @return type_id
      */
