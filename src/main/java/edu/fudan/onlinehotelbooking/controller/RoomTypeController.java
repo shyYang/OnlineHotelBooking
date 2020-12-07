@@ -62,9 +62,13 @@ public class RoomTypeController {
     }
 
     @PostMapping("/detail")
-    public Result detail(@RequestParam Integer id) {
-        RoomType roomType = roomTypeService.findById(id);
-        return ResultGenerator.genSuccessResult(roomType);
+    public Result detail(@RequestParam int typeId) {
+        //RoomType roomType = roomTypeService.findById(id);
+        RoomType roomType = roomTypeService.findById(typeId);
+        if (roomType==null){
+            return ResultGenerator.genFailResult("null");
+        }else return ResultGenerator.genSuccessResult(roomTypeService.roomTypeFindById(typeId));
+        //return ResultGenerator.genSuccessResult(roomType);
     }
 
     @PostMapping("/list")
