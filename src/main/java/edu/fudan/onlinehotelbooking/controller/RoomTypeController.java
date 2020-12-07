@@ -73,7 +73,7 @@ public class RoomTypeController {
 
     @PostMapping("/list")
     public Result list() {
-        List<RoomType> list = roomTypeService.findAll();
+        List<RoomType> list = roomTypeService.findAllType();
         return ResultGenerator.genSuccessResult(list);
     }
 }

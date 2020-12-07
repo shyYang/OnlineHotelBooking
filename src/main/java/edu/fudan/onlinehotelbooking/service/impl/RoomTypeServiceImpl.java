@@ -81,4 +81,9 @@ public class RoomTypeServiceImpl extends AbstractService<RoomType> implements Ro
     public RoomType roomTypeFindById(int typeId) {
         return roomTypeMapper.selectByPrimaryKey(typeId);
     }
+
+    @Override
+    public List<RoomType> findAllType() {
+        return roomTypeMapper.selectAll();
+    }
 }
