@@ -1,9 +1,15 @@
 package edu.fudan.onlinehotelbooking.service.impl;
 
 import edu.fudan.onlinehotelbooking.entity.Hotel;
+import edu.fudan.onlinehotelbooking.entity.Order;
+import edu.fudan.onlinehotelbooking.entity.Room;
+import edu.fudan.onlinehotelbooking.mapper.OrderMapper;
+import edu.fudan.onlinehotelbooking.mapper.RoomMapper;
 import edu.fudan.onlinehotelbooking.mapper.RoomTypeMapper;
 import edu.fudan.onlinehotelbooking.entity.RoomType;
 import edu.fudan.onlinehotelbooking.service.HotelService;
+import edu.fudan.onlinehotelbooking.service.OrderService;
+import edu.fudan.onlinehotelbooking.service.RoomService;
 import edu.fudan.onlinehotelbooking.service.RoomTypeService;
 import edu.fudan.onlinehotelbooking.core.AbstractService;
 import org.springframework.stereotype.Service;
@@ -23,6 +29,14 @@ public class RoomTypeServiceImpl extends AbstractService<RoomType> implements Ro
     private RoomTypeMapper roomTypeMapper;
     @Resource
     private HotelService hotelService;
+    @Resource
+    private RoomService roomService;
+    @Resource
+    private OrderService orderService;
+    @Resource
+    private OrderMapper orderMapper;
+    @Resource
+    private RoomMapper roomMapper;
 
     @Override
     public int addRoomType(RoomType roomType) {
@@ -52,5 +66,27 @@ public class RoomTypeServiceImpl extends AbstractService<RoomType> implements Ro
     @Override
     public List<RoomType> findByHotelId(int hotelId) {
         return roomTypeMapper.selectByHotelId(hotelId);
+    }
+    public int updateRoomType(RoomType roomType) {
+
+        int roomTypeTypeId = roomType.getTypeId();
+        List<Room> room = roomMapper.selectByCondition(roomType.getTypeId());
+        //roomMapper.select
+        //Order order = r
+
+        //for (orderService.g)
+        //int number = orderMapper.selectCountByCondition(orderService.);
+        int roomTypeNumber = roomType.getNumber();
+        return roomTypeMapper.updateByPrimaryKey(roomType);
+    }
+
+    @Override
+    public RoomType roomTypeFindById(int typeId) {
+        return roomTypeMapper.selectByPrimaryKey(typeId);
+    }
+
+    @Override
+    public List<RoomType> findAllType() {
+        return roomTypeMapper.selectAll();
     }
 }

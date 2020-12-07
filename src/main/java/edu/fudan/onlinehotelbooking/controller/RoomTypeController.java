@@ -54,20 +54,26 @@ public class RoomTypeController {
     }
 
     @PostMapping("/update")
-    public Result update(RoomType roomType) {
-        roomTypeService.update(roomType);
+    public Result update(@RequestBody RoomType roomType) {
+        //roomTypeService.update(roomType);
+        System.out.println(roomType.getNumber());
+        int resultId = roomTypeService.updateRoomType(roomType);
         return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/detail")
-    public Result detail(@RequestParam Integer id) {
-        RoomType roomType = roomTypeService.findById(id);
-        return ResultGenerator.genSuccessResult(roomType);
+    public Result detail(@RequestParam int typeId) {
+        //RoomType roomType = roomTypeService.findById(id);
+        RoomType roomType = roomTypeService.findById(typeId);
+        if (roomType==null){
+            return ResultGenerator.genFailResult("null");
+        }else return ResultGenerator.genSuccessResult(roomTypeService.roomTypeFindById(typeId));
+        //return ResultGenerator.genSuccessResult(roomType);
     }
 
     @PostMapping("/list")
     public Result list() {
-        List<RoomType> list = roomTypeService.findAll();
+        List<RoomType> list = roomTypeService.findAllType();
         return ResultGenerator.genSuccessResult(list);
     }
 }
