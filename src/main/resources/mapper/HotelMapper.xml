@@ -15,4 +15,9 @@
     <result column="guest_number" jdbcType="INTEGER" property="guestNumber" />
     <result column="introduction" jdbcType="LONGVARCHAR" property="introduction" />
   </resultMap>
+
+  <select id="selectOrderByRating"  resultType="edu.fudan.onlinehotelbooking.entity.Hotel">
+        select hotel_id as hotelId, user_id as userId, hotel_name as hotelName,
+               address, phone, photo, rating, guest_number as guestNumber, introduction from hotel order by rating desc
+  </select>
 </mapper>

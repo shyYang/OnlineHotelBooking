@@ -13,4 +13,6 @@ public interface HotelService extends Service<Hotel> {
     int delHotelOfUser(int userID);
     List<Hotel> listHotelOfUsers(List<User> users);
     int sellerSignUp(HotelType hotel);
+
+    List<Hotel> findOrderByRating();
 }

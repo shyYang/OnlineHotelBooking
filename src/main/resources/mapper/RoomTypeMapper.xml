@@ -13,4 +13,8 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="introduction" jdbcType="LONGVARCHAR" property="introduction" />
   </resultMap>
+    <select id="selectByHotelId" resultType="edu.fudan.onlinehotelbooking.entity.RoomType">
+        select hotel_id as hotelId, price, photo, number, name, introduction
+        from room_type where hotel_id = #{hotelId}
+    </select>
 </mapper>

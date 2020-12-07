@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -46,5 +47,10 @@ public class RoomTypeServiceImpl extends AbstractService<RoomType> implements Ro
 //        roomTypeMapper.delete(roomType);
 
         return roomTypeMapper.deleteByPrimaryKey(typeId);
+    }
+
+    @Override
+    public List<RoomType> findByHotelId(int hotelId) {
+        return roomTypeMapper.selectByHotelId(hotelId);
     }
 }

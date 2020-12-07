@@ -9,7 +9,11 @@ import edu.fudan.onlinehotelbooking.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
+
+import static edu.fudan.onlinehotelbooking.core.ProjectConstant.*;
 
 /**
 * Created by CodeGenerator on 2020/12/04.
@@ -23,7 +27,7 @@ public class UserController {
     private CustomerService customerService;
 
     @PostMapping("/login")
-    public Result login(@RequestBody UserOfCustomer userOfCustomer) {
+    public Result login(@RequestBody UserOfCustomer userOfCustomer, HttpServletRequest request) {
         System.out.println(userOfCustomer.getUsername());
         System.out.println(userOfCustomer.getRole());
         int role = userOfCustomer.getRole();
@@ -38,10 +42,8 @@ public class UserController {
                 return ResultGenerator.genFailResult(message);
             } else {
                 if (password.equals(user.getPassword())  && role == user.getRole()) { //登陆成功
-                    message = "登陆成功";
-                    //todo: Token
-                    user.setPassword("*********");
-                    return ResultGenerator.genSuccessResult("token", user);
+                    handleSession(request, user.getUserId());
+                    return ResultGenerator.genSuccessResult();
                 } else {  //密码错误
                     message = "用户不存在或密码错误";
                     return ResultGenerator.genFailResult(message);
@@ -57,10 +59,8 @@ public class UserController {
                     return ResultGenerator.genFailResult(message);
                 } else {
                     if (password.equals(user.getPassword()) && role == user.getRole()) {
-                        message = "登陆成功";
-                        //todo: Token
-                        user.setPassword("*********");
-                        return ResultGenerator.genSuccessResult("token", user);
+                        handleSession(request, user.getUserId());
+                        return ResultGenerator.genSuccessResult();
                     } else {  //密码错误
                         message = "用户不存在或密码错误";
                         return ResultGenerator.genFailResult(message);
@@ -73,10 +73,8 @@ public class UserController {
                 } else {
                     User user = userService.findById(customer.getUserId());
                     if (password.equals(user.getPassword()) && role == user.getRole()) {   //登陆成功
-                        message = "登陆成功";
-                        //todo: Token
-                        user.setPassword("*********");
-                        return ResultGenerator.genSuccessResult("token", user);
+                        handleSession(request, user.getUserId());
+                        return ResultGenerator.genSuccessResult();
                     } else {  //密码错误
                         message = "用户不存在或密码错误";
                         return ResultGenerator.genFailResult(message);
@@ -84,6 +82,20 @@ public class UserController {
                 }
             }
         }
+    }
+
+    @GetMapping("/logout")
+    public Result logout(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.removeAttribute(USER_ID_SESSION);
+        return ResultGenerator.genSuccessResult();
+    }
+
+    private void handleSession(HttpServletRequest request, int id) {
+        HttpSession session = request.getSession();
+        session.setAttribute(USER_ID_SESSION, id);
+        //        设置失效时间30分钟
+        session.setMaxInactiveInterval(1800);
     }
 
 
