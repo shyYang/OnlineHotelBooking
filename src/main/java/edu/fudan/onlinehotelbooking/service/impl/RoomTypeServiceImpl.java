@@ -47,4 +47,10 @@ public class RoomTypeServiceImpl extends AbstractService<RoomType> implements Ro
 
         return roomTypeMapper.deleteByPrimaryKey(typeId);
     }
+
+    @Override
+    public int updateRoomType(RoomType roomType) {
+
+        return roomTypeMapper.updateByPrimaryKey(roomType);
+    }
 }

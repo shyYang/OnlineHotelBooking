@@ -12,4 +12,6 @@ public interface RoomTypeService extends Service<RoomType> {
     int addRoomType(RoomType roomType);
 
     int deleteRoomType(int typeId);
+
+    int updateRoomType(RoomType roomType);
 }

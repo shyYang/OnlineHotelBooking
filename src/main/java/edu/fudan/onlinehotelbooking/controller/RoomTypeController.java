@@ -54,8 +54,10 @@ public class RoomTypeController {
     }
 
     @PostMapping("/update")
-    public Result update(RoomType roomType) {
-        roomTypeService.update(roomType);
+    public Result update(@RequestBody RoomType roomType) {
+        //roomTypeService.update(roomType);
+        System.out.println(roomType.getNumber());
+        int resultId = roomTypeService.updateRoomType(roomType);
         return ResultGenerator.genSuccessResult();
     }
 
