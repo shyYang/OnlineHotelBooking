@@ -28,5 +28,24 @@
 | deleteHotel(int hotelID) | 删除指定id的酒店     | GET     | /admin/delete | hotelID         | hotelID              |
 | listSellers()          | 列出所有商家 | GET     | /admin/sellers   | null                        | Map中有两部分，seller字段内容是list<User>为所有商家，hotels字段内容是list<Hotel>，为对应前面商家顺序的hotel list （这里假设每个商家只对应一个hotel）|
 
+**UserController**
 
+| 函数名  | 函数功能       | 请求方式 | 对应地址    | 所需参数                                          | 返回值（data）                                 |
+| ------- | -------------- | -------- | ----------- | ------------------------------------------------- | ---------------------------------------------- |
+| login() | 所有人员的登陆 | POST     | /user/login | userId/username、password(管理员和商家必须userId) | 成功：返回token和userId,role; 失败返回错误信息 |
+|         |                |          |             |                                                   |                                                |
+
+**HotelController**
+
+| 函数名   | 函数功能 | 请求方式 | 对应地址       | 所需参数                                            | 返回值（data）                           |
+| -------- | -------- | -------- | -------------- | --------------------------------------------------- | ---------------------------------------- |
+| signUp() | 商家注册 | POST     | /hotel/sign-up | hotelName,password,address,phone,photo,introduction | 成功：返回商家管理员userId; 失败返回信息 |
+|          |          |          |                |                                                     |                                          |
+
+**CustomerController**
+
+| 函数名   | 函数功能 | 请求方式 | 对应地址          | 所需参数                       | 返回值（data）                     |
+| -------- | -------- | -------- | ----------------- | ------------------------------ | ---------------------------------- |
+| signUp() | 用户注册 | POST     | /customer/sign-up | username,gender,phone,password | 成功：返回用户userId; 失败返回信息 |
+|          |          |          |                   |                                |                                    |
 

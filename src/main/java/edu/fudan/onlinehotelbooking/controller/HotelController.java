@@ -22,8 +22,8 @@ public class HotelController {
     private HotelService hotelService;
 
     @PostMapping("/sign-up")
-    public Result add(HotelType hotel) {
-        hotelService.sellerSignUp(hotel);
-        return ResultGenerator.genSuccessResult();
+    public Result signUp(HotelType hotel) {
+        int id = hotelService.sellerSignUp(hotel);
+        return ResultGenerator.genSuccessResult(id);
     }
 }

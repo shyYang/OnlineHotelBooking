@@ -1,5 +1,4 @@
 package edu.fudan.onlinehotelbooking.controller;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import edu.fudan.onlinehotelbooking.core.Result;
 import edu.fudan.onlinehotelbooking.core.ResultGenerator;
 import edu.fudan.onlinehotelbooking.entity.Hotel;

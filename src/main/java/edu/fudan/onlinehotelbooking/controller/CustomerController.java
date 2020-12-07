@@ -19,10 +19,10 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PostMapping("/sign-up")
-    public Result add(@RequestBody UserOfCustomer customer) {
+    public Result signUp(@RequestBody UserOfCustomer customer) {
         System.out.println(customer.getUsername());
-        customerService.saveCustomer(customer);
-        return ResultGenerator.genSuccessResult();
+        int id = customerService.saveCustomer(customer);
+        return ResultGenerator.genSuccessResult(id);
     }
 
 

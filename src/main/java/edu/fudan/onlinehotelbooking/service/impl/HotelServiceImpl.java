@@ -20,7 +20,9 @@ import java.util.List;
 public class HotelServiceImpl extends AbstractService<Hotel> implements HotelService {
     @Resource
     private HotelMapper hotelMapper;
+    @Resource
     private RoomTypeMapper roomtypeMapper;
+    @Resource
     private UserMapper userMapper;
 
     @Override
@@ -80,6 +82,5 @@ public class HotelServiceImpl extends AbstractService<Hotel> implements HotelSer
         }
         return hotels;
     }
-
 
 }

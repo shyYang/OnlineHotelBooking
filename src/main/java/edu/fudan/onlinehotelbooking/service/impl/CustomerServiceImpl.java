@@ -25,18 +25,18 @@ public class CustomerServiceImpl extends AbstractService<Customer> implements Cu
     private UserMapper userMapper;
 
     @Override
-    public void saveCustomer(UserOfCustomer customer) {
+    public int saveCustomer(UserOfCustomer customer) {
         User user = new User();
-        user.setUserId(customer.getUserId());
         user.setPassword(customer.getPassword());
-        user.setRole(customer.getRole());
+        user.setRole(2);
+        userMapper.insertUser(user);
         Customer customer1 = new Customer();
-        customer1.setUserId(customer.getUserId());
+        customer1.setUserId(user.getUserId());
         customer1.setUsername(customer.getUsername());
         customer1.setGender(customer.getGender());
         customer1.setPhone(customer.getPhone());
         customer1.setAccount(0);
         customerMapper.insert(customer1);
-        userMapper.insert(user);
+        return user.getUserId();
     }
 }

@@ -10,6 +10,6 @@ import edu.fudan.onlinehotelbooking.entity.UserOfCustomer;
 public interface CustomerService extends Service<Customer> {
 
     //用户注册
-    void saveCustomer(UserOfCustomer customer);
+    int saveCustomer(UserOfCustomer customer);
 
 }
