@@ -32,14 +32,25 @@ public class RoomTypeController {
 
 //        Hotel hotel=hotelService.findById(roomType.getHotelId());
 //        roomType.setHotelId(hotel.getHotelId());
-        roomTypeService.addRoomType(roomType);
-        return ResultGenerator.genSuccessResult();
+        int resultId = roomTypeService.addRoomType(roomType);
+        if (resultId <= 0 ){
+            return ResultGenerator.genFailResult("增加新房型失败");
+        }else return ResultGenerator.genSuccessResult("增加新房型成功");
     }
 
     @PostMapping("/delete")
-    public Result delete(@RequestParam Integer id) {
-        roomTypeService.deleteById(id);
-        return ResultGenerator.genSuccessResult();
+    public Result delete(@RequestParam int typeId) {
+        //roomTypeService.deleteById(id);
+        RoomType roomType = roomTypeService.findById(typeId);
+        //System.out.println(roomType.getPrice());
+        if (roomType==null){
+            return ResultGenerator.genFailResult("删除失败，无此类型房型");
+        }
+        //System.out.println(roomTypeService.deleteRoomType(typeId));
+        int resultId = roomTypeService.deleteRoomType(typeId);
+        if (resultId <= 0){
+            return ResultGenerator.genFailResult("删除房型失败");
+        }else return ResultGenerator.genSuccessResult("删除房型成功");
     }
 
     @PostMapping("/update")

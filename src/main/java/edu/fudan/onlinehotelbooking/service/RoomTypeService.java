@@ -9,5 +9,7 @@ import edu.fudan.onlinehotelbooking.core.Service;
  */
 public interface RoomTypeService extends Service<RoomType> {
 
-    void addRoomType(RoomType roomType);
+    int addRoomType(RoomType roomType);
+
+    int deleteRoomType(int typeId);
 }

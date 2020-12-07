@@ -30,6 +30,7 @@
 
 **UserController**
 
+<<<<<<< Updated upstream
 | 函数名  | 函数功能       | 请求方式 | 对应地址    | 所需参数                                          | 返回值（data）                                 |
 | ------- | -------------- | -------- | ----------- | ------------------------------------------------- | ---------------------------------------------- |
 | login() | 所有人员的登陆 | POST     | /user/login | userId/username、password(管理员和商家必须userId) | 成功：返回token和userId,role; 失败返回错误信息 |
@@ -49,3 +50,11 @@
 | signUp() | 用户注册 | POST     | /customer/sign-up | username,gender,phone,password | 成功：返回用户userId; 失败返回信息 |
 |          |          |          |                   |                                |                                    |
 
+**RoomTypeController**
+
+
+| 函数名          | 函数功能        | 请求方式 | 对应地址        | 所需参数                    | 返回值（data）   |
+| --------------- | --------------- | -------- | --------------- | --------------------------- | ---------------- |
+| add(RoomType roomType)| 添加新房型     | POST  |/room/type/add|"hotelId""price""photo""number""introduction""name"| 成功："增加新房型成功" 失败："增加新房型失败"            |
+| deleteRoomType(int typeId) | 删除房型    | POST     | /room/type/delete | 被删除的房型的typeId         |  成功："删除房型成功" 失败：“删除房型失败” "删除失败，无此类型房型"            |
+| list()          | 查询所有example | POST     | /example/list   | null                        | id, name, school |

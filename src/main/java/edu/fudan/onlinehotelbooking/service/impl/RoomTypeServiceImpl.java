@@ -1,7 +1,9 @@
 package edu.fudan.onlinehotelbooking.service.impl;
 
+import edu.fudan.onlinehotelbooking.entity.Hotel;
 import edu.fudan.onlinehotelbooking.mapper.RoomTypeMapper;
 import edu.fudan.onlinehotelbooking.entity.RoomType;
+import edu.fudan.onlinehotelbooking.service.HotelService;
 import edu.fudan.onlinehotelbooking.service.RoomTypeService;
 import edu.fudan.onlinehotelbooking.core.AbstractService;
 import org.springframework.stereotype.Service;
@@ -18,9 +20,15 @@ import javax.annotation.Resource;
 public class RoomTypeServiceImpl extends AbstractService<RoomType> implements RoomTypeService {
     @Resource
     private RoomTypeMapper roomTypeMapper;
+    @Resource
+    private HotelService hotelService;
 
     @Override
-    public void addRoomType(RoomType roomType) {
+    public int addRoomType(RoomType roomType) {
+        Hotel hotel=hotelService.findById(roomType.getHotelId());
+        if (hotel == null){
+            return 0;
+        }
         RoomType rt = new RoomType();
         rt.setHotelId(roomType.getHotelId());
         rt.setPrice(roomType.getPrice());
@@ -28,6 +36,15 @@ public class RoomTypeServiceImpl extends AbstractService<RoomType> implements Ro
         rt.setNumber(roomType.getNumber());
         rt.setIntroduction(roomType.getIntroduction());
         rt.setName(roomType.getName());
-        roomTypeMapper.insert(rt);
+        return roomTypeMapper.insert(rt);
+    }
+
+    @Override
+    public int deleteRoomType(int typeId) {
+//        RoomType roomType = new RoomType();
+//        roomType.setTypeId(typeId);
+//        roomTypeMapper.delete(roomType);
+
+        return roomTypeMapper.deleteByPrimaryKey(typeId);
     }
 }
