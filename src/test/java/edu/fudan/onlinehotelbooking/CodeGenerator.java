@@ -43,7 +43,7 @@ public class CodeGenerator {
 //        genCode("user");
 //        genCode("score_distribute");
 //        genCode("teacher");
-        genCode("room_type");
+        genCode("room");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 

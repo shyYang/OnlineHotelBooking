@@ -23,6 +23,7 @@ public class RoomTypeServiceImpl extends AbstractService<RoomType> implements Ro
     @Resource
     private HotelService hotelService;
 
+
     @Override
     public int addRoomType(RoomType roomType) {
         Hotel hotel=hotelService.findById(roomType.getHotelId());
@@ -51,6 +52,9 @@ public class RoomTypeServiceImpl extends AbstractService<RoomType> implements Ro
     @Override
     public int updateRoomType(RoomType roomType) {
 
+        int roomTypeTypeId = roomType.getTypeId();
+
+        int roomTypeNumber = roomType.getNumber();
         return roomTypeMapper.updateByPrimaryKey(roomType);
     }
 }
