@@ -3,11 +3,13 @@ import edu.fudan.onlinehotelbooking.core.Result;
 import edu.fudan.onlinehotelbooking.core.ResultGenerator;
 import edu.fudan.onlinehotelbooking.entity.Hotel;
 import edu.fudan.onlinehotelbooking.entity.RoomType;
+import edu.fudan.onlinehotelbooking.mapper.RoomTypeMapper;
 import edu.fudan.onlinehotelbooking.service.HotelService;
 import edu.fudan.onlinehotelbooking.service.RoomTypeService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -17,6 +19,8 @@ import java.util.List;
 @RequestMapping("/room/type")
 public class RoomTypeController {
     @Resource
+    private RoomTypeMapper roomTypeMapper;
+    @Resource
     private RoomTypeService roomTypeService;
     @Resource
     private HotelService hotelService;
@@ -24,9 +28,14 @@ public class RoomTypeController {
     @PostMapping("/add")
     public Result add(@RequestBody RoomType roomType) {
         //roomTypeService.save(roomType);
-        
-//        System.out.println(roomType.getName());
-//        System.out.println(roomType.getPrice());
+
+//        DecimalFormat price = new DecimalFormat("#.00");
+//        String str = price.format(roomType.getPrice());
+//        double roomTypePrice = Double.parseDouble(str);
+////        System.out.println(roomType.getName());
+//        System.out.println(roomTypePrice);
+//        roomType.setPrice(roomTypePrice);
+        //return ResultGenerator.genSuccessResult();
 //        System.out.println(roomType.getHotelId());
 //        System.out.println();
 
@@ -55,10 +64,25 @@ public class RoomTypeController {
 
     @PostMapping("/update")
     public Result update(@RequestBody RoomType roomType) {
-        //roomTypeService.update(roomType);
-        System.out.println(roomType.getNumber());
-        int resultId = roomTypeService.updateRoomType(roomType);
-        return ResultGenerator.genSuccessResult();
+        RoomType rt = roomTypeMapper.selectByPrimaryKey(roomType.getTypeId());
+        if (rt==null){
+            return ResultGenerator.genFailResult("更改失败，无此类型房型");
+        } else{
+            int roomTypeNumber = rt.getNumber();//数据库中房间数
+            int roomTypeFreeNumber = rt.getFreeNumber();//数据库中空闲数
+            int number = roomTypeNumber - roomTypeFreeNumber;//已入住房间数
+            if (number>roomType.getNumber()){
+                return ResultGenerator.genFailResult("更改信息失败，room-type的数量不能小于已入住该种类数量");
+            }else if (roomType.getNumber()<roomType.getFreeNumber()){
+                return ResultGenerator.genFailResult("更改信息失败，room-type的数量不能小于该种类空闲数量");
+            } else {
+                int resultId = roomTypeService.updateRoomType(roomType);
+                if (resultId <= 0 ){
+                    return ResultGenerator.genFailResult("更新新房型失败");
+                }else return ResultGenerator.genSuccessResult("更新新房型成功");
+//                return ResultGenerator.genSuccessResult(roomTypeService.updateRoomType(roomType));
+            }
+        }
     }
 
     @PostMapping("/detail")

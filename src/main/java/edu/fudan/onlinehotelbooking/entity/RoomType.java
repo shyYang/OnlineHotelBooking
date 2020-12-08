@@ -7,7 +7,7 @@ public class RoomType {
 
     @Column(name = "hotel_id")
     private int hotelId;
-
+    @Column(name = "price")
     private double price;
 
     private String photo;
@@ -18,12 +18,14 @@ public class RoomType {
 
     private String introduction;
 
+    @Column(name = "free_number")
+    private int freeNumber;
+
     @Id
     @Column(name = "type_id")
     private Integer typeId;
 
-    @Column(name = "free_number")
-    private Integer freeNumber;
+
     /**
      * @return type_id
      */

@@ -51,6 +51,7 @@ public class RoomTypeServiceImpl extends AbstractService<RoomType> implements Ro
         rt.setNumber(roomType.getNumber());
         rt.setIntroduction(roomType.getIntroduction());
         rt.setName(roomType.getName());
+        rt.setFreeNumber(roomType.getFreeNumber());
         return roomTypeMapper.insert(rt);
     }
 
@@ -67,16 +68,15 @@ public class RoomTypeServiceImpl extends AbstractService<RoomType> implements Ro
     public List<RoomType> findByHotelId(int hotelId) {
         return roomTypeMapper.selectByHotelId(hotelId);
     }
-    public int updateRoomType(RoomType roomType) {
 
-        int roomTypeTypeId = roomType.getTypeId();
-        List<Room> room = roomMapper.selectByCondition(roomType.getTypeId());
+    @Override
+    public int updateRoomType(RoomType roomType) {
         //roomMapper.select
         //Order order = r
 
         //for (orderService.g)
         //int number = orderMapper.selectCountByCondition(orderService.);
-        int roomTypeNumber = roomType.getNumber();
+
         return roomTypeMapper.updateByPrimaryKey(roomType);
     }
 
