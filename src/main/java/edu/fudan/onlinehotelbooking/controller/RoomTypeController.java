@@ -28,9 +28,12 @@ public class RoomTypeController {
     @PostMapping("/add")
     public Result add(@RequestBody RoomType roomType) {
         //roomTypeService.save(roomType);
+//        System.out.println(roomType.getName());
+//        System.out.println(roomType.getName()=="");
+        boolean valid = (roomType.getNumber()==null|roomType.getFreeNumber()==null|roomType.getPrice()==0.0|roomType.getPhoto()==""|roomType.getIntroduction()==""|roomType.getName()=="");//        DecimalFormat price = new DecimalFormat("#.00");
 
-//        DecimalFormat price = new DecimalFormat("#.00");
 //        String str = price.format(roomType.getPrice());
+        //System.out.println(valid);
 //        double roomTypePrice = Double.parseDouble(str);
 ////        System.out.println(roomType.getName());
 //        System.out.println(roomTypePrice);
@@ -39,12 +42,19 @@ public class RoomTypeController {
 //        System.out.println(roomType.getHotelId());
 //        System.out.println();
 
-//        Hotel hotel=hotelService.findById(roomType.getHotelId());
-//        roomType.setHotelId(hotel.getHotelId());
-        int resultId = roomTypeService.addRoomType(roomType);
-        if (resultId <= 0 ){
-            return ResultGenerator.genFailResult("增加新房型失败");
-        }else return ResultGenerator.genSuccessResult("增加新房型成功");
+        Hotel hotel=hotelService.findById(roomType.getHotelId());
+        if (hotel==null){
+            return ResultGenerator.genFailResult("hotel_id不存在，增加新房型失败");
+        }else if (valid==true){
+            return ResultGenerator.genFailResult("更改信息失败，有信息为null");
+        }else if (roomType.getNumber()<roomType.getFreeNumber()){
+            return ResultGenerator.genFailResult("更改信息失败，room-type的数量不能小于该种类空闲数量");
+        }else {
+            int resultId = roomTypeService.addRoomType(roomType);
+            if (resultId <= 0 ){
+                return ResultGenerator.genFailResult("增加新房型失败");
+            }else return ResultGenerator.genSuccessResult("增加新房型成功");
+        }
     }
 
     @PostMapping("/delete")
@@ -65,9 +75,17 @@ public class RoomTypeController {
     @PostMapping("/update")
     public Result update(@RequestBody RoomType roomType) {
         RoomType rt = roomTypeMapper.selectByPrimaryKey(roomType.getTypeId());
-        if (rt==null){
+//        System.out.println(roomType.getHotelId()==0);
+        //todo : hotel_id =0
+        boolean valid = (roomType.getNumber()==null|roomType.getFreeNumber()==null|roomType.getPrice()==0.0|roomType.getPhoto()==""|roomType.getIntroduction()==""|roomType.getName()==""|roomType.getHotelId()==null);
+        Hotel hotel=hotelService.findById(roomType.getHotelId());
+        if (hotel==null){
+            return ResultGenerator.genFailResult("hotel_id不存在，增加新房型失败");
+        }else if (rt==null){
             return ResultGenerator.genFailResult("更改失败，无此类型房型");
-        } else{
+        }else if (valid==true){
+            return ResultGenerator.genFailResult("更改信息失败，有信息为null");
+        }else{
             int roomTypeNumber = rt.getNumber();//数据库中房间数
             int roomTypeFreeNumber = rt.getFreeNumber();//数据库中空闲数
             int number = roomTypeNumber - roomTypeFreeNumber;//已入住房间数
@@ -83,6 +101,7 @@ public class RoomTypeController {
 //                return ResultGenerator.genSuccessResult(roomTypeService.updateRoomType(roomType));
             }
         }
+        //return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/detail")

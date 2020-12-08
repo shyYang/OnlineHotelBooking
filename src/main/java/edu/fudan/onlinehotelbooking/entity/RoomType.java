@@ -18,8 +18,7 @@ public class RoomType {
 
     private String introduction;
 
-    @Column(name = "free_number")
-    private int freeNumber;
+    private Integer freeNumber;
 
     @Id
     @Column(name = "type_id")
