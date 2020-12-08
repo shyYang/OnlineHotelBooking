@@ -11,10 +11,6 @@ public class User {
 
     private Integer role;
 
-
-    public User() {
-    }
-
     public Integer getUserId() {
         return userId;
     }

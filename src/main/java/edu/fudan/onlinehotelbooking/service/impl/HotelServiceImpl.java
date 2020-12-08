@@ -48,8 +48,12 @@ public class HotelServiceImpl extends AbstractService<Hotel> implements HotelSer
 
     @Override
     public List<Hotel> findOrderByRating() {
-        List<Hotel> list = hotelMapper.selectOrderByRating();
-        return list;
+        return hotelMapper.selectOrderByRating();
+    }
+
+    @Override
+    public List<Hotel> findByHotelName(String hotelName) {
+        return hotelMapper.selectByHotelName(hotelName);
     }
 
     public int delHotel(int hotelID)

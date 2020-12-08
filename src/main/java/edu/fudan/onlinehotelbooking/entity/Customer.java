@@ -11,9 +11,9 @@ public class Customer {
 
     private String gender;
 
-    private Integer phone;
+    private String phone;
 
-    private Integer account;
+    private double account;
 
     /**
      * @return user_id
@@ -60,28 +60,28 @@ public class Customer {
     /**
      * @return phone
      */
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
     /**
      * @param phone
      */
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
     /**
      * @return account
      */
-    public Integer getAccount() {
+    public double getAccount() {
         return account;
     }
 
     /**
      * @param account
      */
-    public void setAccount(Integer account) {
+    public void setAccount(double account) {
         this.account = account;
     }
 }

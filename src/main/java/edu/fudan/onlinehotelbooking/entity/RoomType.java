@@ -8,7 +8,7 @@ public class RoomType {
     @Column(name = "hotel_id")
     private int hotelId;
 
-    private Integer price;
+    private double price;
 
     private String photo;
 
@@ -21,6 +21,9 @@ public class RoomType {
     @Id
     @Column(name = "type_id")
     private Integer typeId;
+
+    @Column(name = "free_number")
+    private Integer freeNumber;
     /**
      * @return type_id
      */
@@ -52,14 +55,14 @@ public class RoomType {
     /**
      * @return price
      */
-    public Integer getPrice() {
+    public double getPrice() {
         return price;
     }
 
     /**
      * @param price
      */
-    public void setPrice(Integer price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -117,5 +120,13 @@ public class RoomType {
      */
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    public Integer getFreeNumber() {
+        return freeNumber;
+    }
+
+    public void setFreeNumber(Integer freeNumber) {
+        this.freeNumber = freeNumber;
     }
 }

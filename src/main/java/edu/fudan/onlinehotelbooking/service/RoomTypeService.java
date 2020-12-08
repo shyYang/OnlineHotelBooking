@@ -1,4 +1,5 @@
 package edu.fudan.onlinehotelbooking.service;
+import edu.fudan.onlinehotelbooking.entity.Hotel;
 import edu.fudan.onlinehotelbooking.entity.HotelType;
 import edu.fudan.onlinehotelbooking.entity.RoomType;
 import edu.fudan.onlinehotelbooking.core.Service;

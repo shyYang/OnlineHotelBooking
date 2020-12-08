@@ -15,4 +15,6 @@ public interface HotelService extends Service<Hotel> {
     int sellerSignUp(HotelType hotel);
 
     List<Hotel> findOrderByRating();
+
+    List<Hotel> findByHotelName(String hotelName);
 }

@@ -60,6 +60,12 @@ public class HotelController {
     @GetMapping("/find_room_type")
     public Result findRoomType(@RequestParam int hotelId){
         List<RoomType> list = roomTypeService.findByHotelId(hotelId);
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult(list);
+    }
+
+    @GetMapping("search_hotel")
+    public Result searchHotels(@RequestParam String hotelName) {
+        List<Hotel> list = hotelService.findByHotelName(hotelName);
+        return ResultGenerator.genSuccessResult(list);
     }
 }

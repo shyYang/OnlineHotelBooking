@@ -31,7 +31,7 @@ public class Order {
     private Date time;
 
     @Column(name = "payment")
-    private int payment;
+    private double payment;
 
     public int getOrder_id() {
         return order_id;
@@ -65,11 +65,11 @@ public class Order {
         this.time = time;
     }
 
-    public int getPayment() {
+    public double getPayment() {
         return payment;
     }
 
-    public void setPayment(int payment) {
+    public void setPayment(double payment) {
         this.payment = payment;
     }
 }

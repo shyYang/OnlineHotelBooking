@@ -11,9 +11,9 @@ public class UserOfCustomer {
 
     private String gender;
 
-    private Integer phone;
+    private String phone;
 
-    private Integer account;
+    private double account;
 
     private String password;
 
@@ -43,19 +43,19 @@ public class UserOfCustomer {
         this.gender = gender;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public Integer getAccount() {
+    public double getAccount() {
         return account;
     }
 
-    public void setAccount(Integer account) {
+    public void setAccount(double account) {
         this.account = account;
     }
 

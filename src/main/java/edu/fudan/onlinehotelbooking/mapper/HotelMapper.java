@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface HotelMapper extends Mapper<Hotel> {
     List<Hotel> selectOrderByRating();
+
+    List<Hotel> selectByHotelName(String hotelName);
 }

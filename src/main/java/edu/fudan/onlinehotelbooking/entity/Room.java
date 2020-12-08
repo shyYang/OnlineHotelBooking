@@ -1,5 +1,7 @@
 package edu.fudan.onlinehotelbooking.entity;
 
+import io.swagger.models.auth.In;
+
 import javax.persistence.*;
 
 public class Room {
@@ -15,6 +17,8 @@ public class Room {
      */
     @Column(name = "room_number")
     private Integer roomNumber;
+
+    private Integer status;
 
     /**
      * @return room_id
@@ -60,5 +64,13 @@ public class Room {
      */
     public void setRoomNumber(Integer roomNumber) {
         this.roomNumber = roomNumber;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }
