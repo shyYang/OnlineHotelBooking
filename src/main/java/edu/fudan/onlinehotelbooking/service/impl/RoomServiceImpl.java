@@ -12,7 +12,7 @@ import java.util.List;
 
 
 /**
- * Created by CodeGenerator on 2020/12/07.
+ * Created by whw on 2020/12/07.
  */
 @Service
 @Transactional
@@ -23,5 +23,33 @@ public class RoomServiceImpl extends AbstractService<Room> implements RoomServic
     @Override
     public List<Room> findByTypeId(int typeId) {
         return null;
+    }
+    public int addRoom(Room room) {
+        Room rm = new Room();
+        rm.setRoomNumber(room.getRoomNumber());
+        rm.setTypeId(room.getTypeId());
+        rm.setStatus(0);
+        return roomMapper.insert(rm);
+    }
+
+    @Override
+    public int deleteRoom(int id) {
+        return roomMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateRoom(Room room) {
+        return roomMapper.updateByPrimaryKey(room);
+    }
+
+    @Override
+    public Room roomFindById(int roomId) {
+        Room room = roomMapper.selectByPrimaryKey(roomId);
+        return room;
+    }
+
+    @Override
+    public List<Room> findAllRoom() {
+        return roomMapper.selectAll();
     }
 }
