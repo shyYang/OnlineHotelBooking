@@ -30,7 +30,7 @@ public class RoomTypeController {
         //roomTypeService.save(roomType);
 //        System.out.println(roomType.getName());
 //        System.out.println(roomType.getName()=="");
-        boolean valid = (roomType.getNumber()==null|roomType.getFreeNumber()==null|roomType.getPrice()==0.0|roomType.getPhoto()==""|roomType.getIntroduction()==""|roomType.getName()=="");//        DecimalFormat price = new DecimalFormat("#.00");
+        boolean valid = (roomType.getNumber()==null|roomType.getFreeNumber()==null|roomType.getPrice()==0.0|roomType.getPhoto()==""|roomType.getIntroduction()==""|roomType.getName()==""|roomType.getHotelId()==0|roomType.getTypeId()==null);//        DecimalFormat price = new DecimalFormat("#.00");
 
 //        String str = price.format(roomType.getPrice());
         //System.out.println(valid);
@@ -75,9 +75,8 @@ public class RoomTypeController {
     @PostMapping("/update")
     public Result update(@RequestBody RoomType roomType) {
         RoomType rt = roomTypeMapper.selectByPrimaryKey(roomType.getTypeId());
-//        System.out.println(roomType.getHotelId()==0);
-        //todo : hotel_id =0
-        boolean valid = (roomType.getNumber()==null|roomType.getFreeNumber()==null|roomType.getPrice()==0.0|roomType.getPhoto()==""|roomType.getIntroduction()==""|roomType.getName()==""|roomType.getHotelId()==null);
+        //System.out.println(roomType.getHotelId());
+        boolean valid = (roomType.getNumber()==null|roomType.getFreeNumber()==null|roomType.getPrice()==0.0|roomType.getPhoto()==""|roomType.getIntroduction()==""|roomType.getName()==""|roomType.getHotelId()==0|roomType.getTypeId()==null);
         Hotel hotel=hotelService.findById(roomType.getHotelId());
         if (hotel==null){
             return ResultGenerator.genFailResult("hotel_id不存在，增加新房型失败");
@@ -101,7 +100,6 @@ public class RoomTypeController {
 //                return ResultGenerator.genSuccessResult(roomTypeService.updateRoomType(roomType));
             }
         }
-        //return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/detail")

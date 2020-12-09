@@ -42,14 +42,14 @@ public class RoomType {
     /**
      * @return hotel_id
      */
-    public Integer getHotelId() {
+    public int getHotelId() {
         return hotelId;
     }
 
     /**
      * @param hotelId
      */
-    public void setHotelId(Integer hotelId) {
+    public void setHotelId(int hotelId) {
         this.hotelId = hotelId;
     }
 
