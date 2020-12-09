@@ -8,10 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
- * Created by CodeGenerator on 2020/12/07.
+ * Created by whw on 2020/12/07.
  */
 @Service
 @Transactional
@@ -19,4 +20,33 @@ public class RoomServiceImpl extends AbstractService<Room> implements RoomServic
     @Resource
     private RoomMapper roomMapper;
 
+    @Override
+    public int addRoom(Room room) {
+        Room rm = new Room();
+        rm.setRoomNumber(room.getRoomNumber());
+        rm.setTypeId(room.getTypeId());
+        rm.setStatus(0);
+        return roomMapper.insert(rm);
+    }
+
+    @Override
+    public int deleteRoom(int id) {
+        return roomMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateRoom(Room room) {
+        return roomMapper.updateByPrimaryKey(room);
+    }
+
+    @Override
+    public Room roomFindById(int roomId) {
+        Room room = roomMapper.selectByPrimaryKey(roomId);
+        return room;
+    }
+
+    @Override
+    public List<Room> findAllRoom() {
+        return roomMapper.selectAll();
+    }
 }
