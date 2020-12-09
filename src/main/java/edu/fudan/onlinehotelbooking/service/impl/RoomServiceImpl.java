@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -19,4 +20,8 @@ public class RoomServiceImpl extends AbstractService<Room> implements RoomServic
     @Resource
     private RoomMapper roomMapper;
 
+    @Override
+    public List<Room> findByTypeId(int typeId) {
+        return null;
+    }
 }

@@ -7,6 +7,7 @@
     -->
     <id column="room_id" jdbcType="INTEGER" property="roomId" />
     <result column="type_id" jdbcType="INTEGER" property="typeId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
     <result column="room_number" jdbcType="INTEGER" property="roomNumber" />
   </resultMap>
 </mapper>

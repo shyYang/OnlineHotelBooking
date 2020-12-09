@@ -2,6 +2,7 @@ package edu.fudan.onlinehotelbooking.entity;
 
 import javax.persistence.*;
 
+//User实体类
 public class User {
     @Id
     @Column(name = "user_id")

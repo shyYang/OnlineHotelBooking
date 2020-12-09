@@ -91,6 +91,17 @@ public class UserController {
         return ResultGenerator.genSuccessResult();
     }
 
+    @PostMapping("change_password")
+    public Result changePassword(@RequestBody String password) {
+        //TODO: userId
+        int userId = 1006;
+        User user = new User();
+        user.setUserId(userId);
+        user.setPassword(password);
+        userService.update(user);
+        return ResultGenerator.genSuccessResult();
+    }
+
     private void handleSession(HttpServletRequest request, int id) {
         HttpSession session = request.getSession();
         session.setAttribute(USER_ID_SESSION, id);

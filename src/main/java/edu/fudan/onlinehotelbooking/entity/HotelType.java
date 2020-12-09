@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 /**
  * created by 姜向阳
  * on 2020/12/4
+ *
+ * 方便注册时接收请求，非实体类
  */
 public class HotelType {
     private String password;
