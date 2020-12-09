@@ -30,7 +30,7 @@ public class RoomTypeController {
         //roomTypeService.save(roomType);
 //        System.out.println(roomType.getName());
 //        System.out.println(roomType.getName()=="");
-        boolean valid = (roomType.getNumber()==null|roomType.getFreeNumber()==null|roomType.getPrice()==0.0|roomType.getPhoto()==""|roomType.getIntroduction()==""|roomType.getName()==""|roomType.getHotelId()==0|roomType.getTypeId()==null);//        DecimalFormat price = new DecimalFormat("#.00");
+        boolean valid = (roomType.getNumber()==null|roomType.getFreeNumber()==null|roomType.getPrice()==0.0|roomType.getPhoto()==""|roomType.getIntroduction()==""|roomType.getName()==""|roomType.getHotelId()==0);//        DecimalFormat price = new DecimalFormat("#.00");
 
 //        String str = price.format(roomType.getPrice());
         //System.out.println(valid);
@@ -78,7 +78,7 @@ public class RoomTypeController {
         //System.out.println(roomType.getHotelId());
         boolean valid = (roomType.getNumber()==null|roomType.getFreeNumber()==null|roomType.getPrice()==0.0|roomType.getPhoto()==""|roomType.getIntroduction()==""|roomType.getName()==""|roomType.getHotelId()==0|roomType.getTypeId()==null);
         Hotel hotel=hotelService.findById(roomType.getHotelId());
-        if (hotel==null){
+        if (hotel==null|rt.getHotelId()!=roomType.getHotelId()){
             return ResultGenerator.genFailResult("hotel_id不存在，增加新房型失败");
         }else if (rt==null){
             return ResultGenerator.genFailResult("更改失败，无此类型房型");
