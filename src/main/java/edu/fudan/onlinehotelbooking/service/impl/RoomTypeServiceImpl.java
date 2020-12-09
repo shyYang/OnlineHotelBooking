@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.List;
 
+import tk.mybatis.mapper.entity.Condition;
 
 /**
  * Created by whw on 2020/12/06.
@@ -60,6 +61,9 @@ public class RoomTypeServiceImpl extends AbstractService<RoomType> implements Ro
 //        RoomType roomType = new RoomType();
 //        roomType.setTypeId(typeId);
 //        roomTypeMapper.delete(roomType);
+        Condition condition = new Condition(Room.class);
+        condition.createCriteria().andEqualTo("typeId",typeId);
+        roomMapper.deleteByCondition(condition);
 
         return roomTypeMapper.deleteByPrimaryKey(typeId);
     }

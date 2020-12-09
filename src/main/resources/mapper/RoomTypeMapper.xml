@@ -7,7 +7,7 @@
     -->
     <id column="type_id" jdbcType="INTEGER" property="typeId" />
     <result column="hotel_id" jdbcType="INTEGER" property="hotelId" />
-    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
     <result column="photo" jdbcType="VARCHAR" property="photo" />
     <result column="number" jdbcType="INTEGER" property="number" />
     <result column="introduction" jdbcType="LONGVARCHAR" property="introduction" />
