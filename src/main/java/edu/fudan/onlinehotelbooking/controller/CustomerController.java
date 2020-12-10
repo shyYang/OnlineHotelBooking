@@ -2,13 +2,16 @@ package edu.fudan.onlinehotelbooking.controller;
 import edu.fudan.onlinehotelbooking.core.Result;
 import edu.fudan.onlinehotelbooking.core.ResultGenerator;
 import edu.fudan.onlinehotelbooking.entity.*;
+import edu.fudan.onlinehotelbooking.mapper.CommentMapper;
 import edu.fudan.onlinehotelbooking.service.CustomerService;
+import edu.fudan.onlinehotelbooking.service.OrderService;
 import edu.fudan.onlinehotelbooking.service.RoomService;
 import edu.fudan.onlinehotelbooking.service.RoomTypeService;
 import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +26,10 @@ public class CustomerController {
     private RoomTypeService roomTypeService;
     @Resource
     private RoomService roomService;
+    @Resource
+    private OrderService orderService;
+    @Resource
+    private CommentMapper commentMapper;
 
     @PostMapping("/sign_up")
     public Result signUp(@RequestBody UserOfCustomer customer) {
@@ -72,11 +79,27 @@ public class CustomerController {
         }
     }
 
-    @PostMapping("recharge")
-    public Result recharge(@RequestBody double money) {
-        int userId = 1006;
+    @GetMapping("recharge")
+    public Result recharge(@RequestParam double money) {
+        int userId = 1007;
         double account = customerService.recharge(money, userId);
         return ResultGenerator.genSuccessResult(account);
+    }
+
+    @GetMapping("list_all_order")
+    public Result listAllOrders() {
+        int userId = 1006;
+        List<OrderAndComment> list = customerService.findOrdersByUserId(userId);
+        return ResultGenerator.genSuccessResult(list);
+    }
+
+    @PostMapping("comment")
+    public Result comment(@RequestBody Comment comment) {
+        int userId = 1006;
+        comment.setUser_id(1006);
+        comment.setTime(new Date());
+        commentMapper.insert(comment);
+        return ResultGenerator.genSuccessResult();
     }
 
 

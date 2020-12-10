@@ -1,13 +1,8 @@
 package edu.fudan.onlinehotelbooking.service.impl;
 
 import edu.fudan.onlinehotelbooking.core.AbstractService;
-import edu.fudan.onlinehotelbooking.entity.Hotel;
-import edu.fudan.onlinehotelbooking.entity.RoomType;
-import edu.fudan.onlinehotelbooking.entity.User;
-import edu.fudan.onlinehotelbooking.entity.HotelType;
-import edu.fudan.onlinehotelbooking.mapper.HotelMapper;
-import edu.fudan.onlinehotelbooking.mapper.RoomTypeMapper;
-import edu.fudan.onlinehotelbooking.mapper.UserMapper;
+import edu.fudan.onlinehotelbooking.entity.*;
+import edu.fudan.onlinehotelbooking.mapper.*;
 import edu.fudan.onlinehotelbooking.service.HotelService;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +19,12 @@ public class HotelServiceImpl extends AbstractService<Hotel> implements HotelSer
     private RoomTypeMapper roomtypeMapper;
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private CommentMapper commentMapper;
+    @Resource
+    private CustomerMapper customerMapper;
+    @Resource
+    private RoomMapper roomMapper;
 
     @Override
     public int sellerSignUp(HotelType hotel) {
@@ -39,7 +40,7 @@ public class HotelServiceImpl extends AbstractService<Hotel> implements HotelSer
         insertHotel.setPhone(hotel.getPhone());
         insertHotel.setAddress(hotel.getAddress());
         insertHotel.setGuestNumber(0);
-        insertHotel.setRating(new BigDecimal("0.0"));
+        insertHotel.setRating(0);
         insertHotel.setIntroduction(hotel.getIntroduction());
         insertHotel.setPhoto(hotel.getPhoto());
         hotelMapper.insert(insertHotel);
@@ -54,6 +55,24 @@ public class HotelServiceImpl extends AbstractService<Hotel> implements HotelSer
     @Override
     public List<Hotel> findByHotelName(String hotelName) {
         return hotelMapper.selectByHotelName(hotelName);
+    }
+
+    @Override
+    public List<CommentResponse> findCommentsByHotelId(int hotelId) {
+        List<CommentResponse> commentList = commentMapper.findCommentsByHotelId(hotelId);
+        for (int i = 0; i < commentList.size(); i++) {
+            System.out.println(commentList.get(i));
+            int userId = commentList.get(i).getUserId();
+            int roomId = commentList.get(i).getRoomId();
+            Room room = roomMapper.selectByPrimaryKey(roomId);
+            int roomTypeId = room.getTypeId();
+            RoomType roomType = roomtypeMapper.selectByPrimaryKey(roomTypeId);
+            String roomTypeName = roomType.getName();
+            Customer customer = customerMapper.selectByPrimaryKey(userId);
+            commentList.get(i).setRoomTypeName(roomTypeName);
+            commentList.get(i).setUsername(customer.getUsername());
+        }
+        return commentList;
     }
 
     public int delHotel(int hotelID)

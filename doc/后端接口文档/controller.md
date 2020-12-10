@@ -30,30 +30,43 @@
 
 **UserController**
 
-| 函数名   | 函数功能       | 请求方式 | 对应地址     | 所需参数                                          | 返回值（data）                                 |
-| -------- | -------------- | -------- | ------------ | ------------------------------------------------- | ---------------------------------------------- |
-| login()  | 所有人员的登陆 | POST     | /user/login  | userId/username、password(管理员和商家必须userId) | 成功：返回token和userId,role; 失败返回错误信息 |
-| logout() | 所以人员的登出 | GET      | /user/logout | null                                              |                                                |
+| 函数名         | 函数功能         | 请求方式 | 对应地址              | 所需参数                                          | 返回值（data）                                 |
+| -------------- | ---------------- | -------- | --------------------- | ------------------------------------------------- | ---------------------------------------------- |
+| login()        | 所有人员的登陆   | POST     | /user/login           | userId/username、password(管理员和商家必须userId) | 成功：返回token和userId,role; 失败返回错误信息 |
+| logout()       | 所以人员的登出   | GET      | /user/logout          | null                                              |                                                |
+| changePassword | 商家用户修改密码 | POST     | /user/change_password | password                                          | 返回200，success                               |
 
 **HotelController**
 
-| 函数名          | 函数功能             | 请求方式 | 对应地址              | 所需参数       | 返回值（data）                           |
-| --------------- | -------------------- | -------- | --------------------- | -------------- | ---------------------------------------- |
-| signUp()        | 商家注册             | POST     | /hotel/sign_up        | *hotel(见下方) | 成功：返回商家管理员userId; 失败返回信息 |
-| listAllHotels() | 列出所有商家         | GET      | /hotel/list_all_hotel | null           | 返回hotel的list                          |
-| listTopHotels() | 列出top5的商家       | GET      | /hotel/list_top_hotel | null           | 返回<=5的hotel list                      |
-| findHotelById   | 返回特定id的商家     | GET      | /hotel/find_hotel     | hotelId        | 成功返回酒店信息，失败返回信息           |
-| findRoomType    | 返回指定id的房间类型 | GET      | /hotel/find_room_type | hotelId        | 成功返回roomType list，失败返回信息      |
-|                 |                      |          |                       |                |                                          |
+| 函数名                | 函数功能             | 请求方式 | 对应地址                      | 所需参数       | 返回值（data）                           |
+| --------------------- | -------------------- | -------- | ----------------------------- | -------------- | ---------------------------------------- |
+| signUp()              | 商家注册             | POST     | /hotel/sign_up                | *hotel(见下方) | 成功：返回商家管理员userId; 失败返回信息 |
+| listAllHotels()       | 列出所有商家         | GET      | /hotel/list_all_hotel         | null           | 返回hotel的list                          |
+| listTopHotels()       | 列出top5的商家       | GET      | /hotel/list_top_hotel         | null           | 返回<=5的hotel list                      |
+| findHotelById         | 返回特定id的商家     | GET      | /hotel/find_hotel             | hotelId        | 成功返回酒店信息，失败返回信息           |
+| findRoomType          | 返回指定id的房间类型 | GET      | /hotel/find_room_type         | hotelId        | 成功返回roomType list，失败返回信息      |
+| searchHotels          | 搜索商家             | GET      | /hotel/searche_hotel          | hotelName      | 成功返回hotel list，失败500              |
+| findCommentsByHotelId | 列出商家评论         | GET      | /hotel/list_comments_of_hotel | hotelId        | 成功返回** CommentResponse list          |
 
 ***hotelName,password,address,phone,photo,introduction**
 
+****CommentResponse: userId, username, rating, content, time, roomId, roomTypeNumber(比如双人间)**
+
+******
+
 **CustomerController**
 
-| 函数名   | 函数功能 | 请求方式 | 对应地址          | 所需参数                       | 返回值（data）                     |
-| -------- | -------- | -------- | ----------------- | ------------------------------ | ---------------------------------- |
-| signUp() | 用户注册 | POST     | /customer/sign_up | username,gender,phone,password | 成功：返回用户userId; 失败返回信息 |
-|          |          |          |                   |                                |                                    |
+| 函数名                | 函数功能     | 请求方式 | 对应地址                          | 所需参数                       | 返回值（data）                              |
+| --------------------- | ------------ | -------- | --------------------------------- | ------------------------------ | ------------------------------------------- |
+| signUp()              | 用户注册     | POST     | /customer/sign_up                 | username,gender,phone,password | 成功：返回用户userId; 失败返回信息          |
+| showUserInformation   | 用户基本信息 | GET      | /customer/user_information        | null                           | 成功返回用户信息                            |
+| changeUserInformation | 修改用户信息 | POST     | /customer/change_user_information | username,gender,phone,         | 成功返回新的用户信息                        |
+| recharge              | 充值         | GET      | /customer/recharge                | money                          | 成功返回当前账户余额                        |
+| orderRoom             | 预订房间     | GET      | /customer/order_room              | typeId                         | 成功返回房间信息，失败返回原因（钱不够...） |
+| listAllOrders         | 订单记录     | GET      | /customer/list_all_order          | null                           | 成功返回list*                               |
+| comment               | 进行评价     | POST     | /customer/comment                 | content, rating, order_id      | 成功返回200                                 |
+
+***orderId, username, hotelName, phone(hotel),orderTime,roomNumber,commentTime,content,payment,rating**
 
 **RoomTypeController**
 

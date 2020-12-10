@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.fudan.onlinehotelbooking.mapper.OrderMapper">
-    <resultMap id="BaseResultMap" type="edu.fudan.onlinehotelbooking.entity.Order">
-        <!--
-          WARNING - @mbg.generated
-        -->
-        <id column="order_id" jdbcType="INTEGER" property="order_id" />
-        <result column="room_id" jdbcType="INTEGER" property="room_id" />
-        <result column="status" jdbcType="INTEGER" property="status" />
-        <result column="time" jdbcType="DATE" property="time" />
-        <result column="payment" jdbcType="DOUBLE" property="payment" />
-        <result column="user_id" jdbcType="INTEGER" property="user_id" />
-    </resultMap>
+  <resultMap id="BaseResultMap" type="edu.fudan.onlinehotelbooking.entity.Order">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="order_id" jdbcType="INTEGER" property="order_id" />
+    <result column="room_id" jdbcType="INTEGER" property="room_id" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="time" property="time" />
+    <result column="payment" jdbcType="DOUBLE" property="payment" />
+    <result column="user_id" jdbcType="INTEGER" property="user_id" />
+  </resultMap>
+    <select id="selectByUserId" resultType="edu.fudan.onlinehotelbooking.entity.Order">
+      select * from orders where user_id = #{userId}
+    </select>
 </mapper>

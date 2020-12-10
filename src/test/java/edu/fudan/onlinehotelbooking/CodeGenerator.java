@@ -43,7 +43,7 @@ public class CodeGenerator {
 //        genCode("user");
 //        genCode("score_distribute");
 //        genCode("teacher");
-        genCode("room");
+        genCode("order");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 
@@ -66,8 +66,8 @@ public class CodeGenerator {
      */
     public static void genCodeByCustomModelName(String tableName, String modelName) {
         genModelAndMapper(tableName, modelName);
-        genService(tableName, modelName);
-        genController(tableName, modelName);
+//        genService(tableName, modelName);
+//        genController(tableName, modelName);
     }
 
 

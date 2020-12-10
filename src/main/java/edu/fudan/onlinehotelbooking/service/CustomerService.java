@@ -1,9 +1,8 @@
 package edu.fudan.onlinehotelbooking.service;
-import edu.fudan.onlinehotelbooking.entity.Customer;
+import edu.fudan.onlinehotelbooking.entity.*;
 import edu.fudan.onlinehotelbooking.core.Service;
-import edu.fudan.onlinehotelbooking.entity.Room;
-import edu.fudan.onlinehotelbooking.entity.RoomType;
-import edu.fudan.onlinehotelbooking.entity.UserOfCustomer;
+
+import java.util.List;
 
 
 /**
@@ -25,4 +24,7 @@ public interface CustomerService extends Service<Customer> {
 
     //充值
     double recharge(double money, int userId);
+
+    //查询用户的订单记录
+    List<OrderAndComment> findOrdersByUserId(int userId);
 }

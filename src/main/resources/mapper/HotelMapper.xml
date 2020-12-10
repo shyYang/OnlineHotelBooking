@@ -11,7 +11,7 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="photo" jdbcType="VARCHAR" property="photo" />
-    <result column="rating" jdbcType="DECIMAL" property="rating" />
+    <result column="rating" jdbcType="DOUBLE" property="rating" />
     <result column="guest_number" jdbcType="INTEGER" property="guestNumber" />
     <result column="introduction" jdbcType="LONGVARCHAR" property="introduction" />
   </resultMap>

@@ -23,7 +23,8 @@ public class Hotel {
 
     private String photo;
 
-    private BigDecimal rating;
+    @Column(name = "rating")
+    private double rating;
 
     /**
      * 已入住人数
@@ -124,14 +125,14 @@ public class Hotel {
     /**
      * @return rating
      */
-    public BigDecimal getRating() {
+    public double getRating() {
         return rating;
     }
 
     /**
      * @param rating
      */
-    public void setRating(BigDecimal rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 

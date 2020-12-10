@@ -10,8 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 
@@ -31,6 +32,10 @@ public class CustomerServiceImpl extends AbstractService<Customer> implements Cu
     private RoomTypeMapper roomTypeMapper;
     @Resource
     private OrderMapper orderMapper;
+    @Resource
+    private CommentMapper commentMapper;
+    @Resource
+    private HotelMapper hotelMapper;
 
 
     @Override
@@ -51,10 +56,8 @@ public class CustomerServiceImpl extends AbstractService<Customer> implements Cu
 
     @Override
     public Room orderRoom(int typeId, RoomType roomType, int userId) {
-        Condition condition = new Condition(Room.class);
-        condition.createCriteria().andEqualTo("typeId", typeId).andEqualTo("status", 0);
         //选择一个，然后把此房间标记为 status = 1
-        List<Room> list = roomMapper.selectByCondition(condition);
+        List<Room> list = roomMapper.selectByTypeIdAndStatus(typeId, 0);
         Room room = list.get(0);
         room.setStatus(1);
         roomMapper.updateByPrimaryKey(room);
@@ -76,10 +79,14 @@ public class CustomerServiceImpl extends AbstractService<Customer> implements Cu
             Order order = new Order();
             order.setUser_id(userId);
             order.setPayment(price);
-            order.setStatus(1);
+            order.setStatus(0);
+            order.setHotel_id(roomType.getHotelId());
             order.setRoom_id(room.getRoomId());
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             order.setTime(new Date());
-            orderMapper.insert(order);
+            System.out.println(order);
+            System.out.println(new Date());
+            orderMapper.insertSelective(order);
             return room;
         }
     }
@@ -87,9 +94,43 @@ public class CustomerServiceImpl extends AbstractService<Customer> implements Cu
     @Override
     public double recharge(double money, int userId) {
         Customer customer = customerMapper.selectByPrimaryKey(userId);
+        System.out.println(customer);
         double account = money + customer.getAccount();
         customer.setAccount(account);
+        customerMapper.updateByPrimaryKey(customer);
         return account;
+    }
+
+    @Override
+    public List<OrderAndComment> findOrdersByUserId(int userId) {
+        List<Order> orderList = orderMapper.selectByUserId(userId);
+        List<OrderAndComment> resultList = new ArrayList<>();
+        for (Order order : orderList) {
+            System.out.println(order);
+//            Condition condition1 = new Condition(Comment.class);
+//            condition.createCriteria().andCondition("order_id", order.getOrder_id());
+//            System.out.println(order.getOrder_id());
+            Comment comment = commentMapper.selectByOrderId(order.getOrder_id());
+            System.out.println(comment);
+            OrderAndComment o = new OrderAndComment();
+            Hotel hotel = hotelMapper.selectByPrimaryKey(order.getHotel_id());
+            o.setOrderId(order.getOrder_id());
+            o.setHotelName(hotel.getHotelName());
+            o.setPhone(hotel.getPhone());
+            Customer customer = customerMapper.selectByPrimaryKey(userId);
+            o.setUsername(customer.getUsername());
+            o.setOrderTime(order.getTime());
+            o.setPayment(order.getPayment());
+            Room room = roomMapper.selectByPrimaryKey(order.getRoom_id());
+            o.setRoomNumber(room.getRoomNumber());
+            if (comment != null ) {
+                o.setContent(comment.getContent());
+                o.setRating(comment.getRating());
+                o.setCommentTime(comment.getTime());
+            }
+            resultList.add(o);
+        }
+        return resultList;
     }
 
 

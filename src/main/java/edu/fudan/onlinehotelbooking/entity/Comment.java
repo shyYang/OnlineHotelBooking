@@ -2,8 +2,10 @@ package edu.fudan.onlinehotelbooking.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
+@Table(name = "comments")
 public class Comment {
     @Id
     @Column(name = "comment_id")
@@ -13,7 +15,7 @@ public class Comment {
     private String content;
 
     @Column(name = "rating")
-    private float rating;
+    private double rating;
 
     @Column(name = "user_id")
     private int user_id;
@@ -21,6 +23,7 @@ public class Comment {
     @Column(name = "order_id")
     private int order_id;
 
+    //yyyy-MM-dd hh:MM:ss
     @Column(name = "time")
     private Date time;
 
@@ -40,11 +43,11 @@ public class Comment {
         this.content = content;
     }
 
-    public float getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
@@ -70,5 +73,10 @@ public class Comment {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment:[content="+content+"]";
     }
 }

@@ -2,8 +2,10 @@ package edu.fudan.onlinehotelbooking.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
+@Table(name = "orders")
 public class Order {
     @Id
     @Column(name = "order_id")
@@ -15,23 +17,19 @@ public class Order {
     @Column(name = "user_id")
     private int user_id;
 
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
     //0表示未支付，1表示已支付但未入住，2表示入住中，3表示已退房但未评论，4表示已评论
     @Column(name = "status")
     private int status;
 
+    //yyyy-MM-dd hh:MM:ss
     @Column(name = "time")
     private Date time;
 
     @Column(name = "payment")
     private double payment;
+
+    @Column(name = "hotel_id")
+    private int hotel_id;
 
     public int getOrder_id() {
         return order_id;
@@ -71,5 +69,27 @@ public class Order {
 
     public void setPayment(double payment) {
         this.payment = payment;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+
+    public int getHotel_id() {
+        return hotel_id;
+    }
+
+    public void setHotel_id(int hotel_id) {
+        this.hotel_id = hotel_id;
+    }
+
+    @Override
+    public String toString() {
+        return "Order:[orderId="+order_id+", roomId="+room_id+"]";
     }
 }

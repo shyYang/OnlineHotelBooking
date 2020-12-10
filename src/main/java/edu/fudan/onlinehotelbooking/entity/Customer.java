@@ -13,6 +13,7 @@ public class Customer {
 
     private String phone;
 
+    @Column(name = "account")
     private double account;
 
     /**
@@ -83,6 +84,16 @@ public class Customer {
      */
     public void setAccount(double account) {
         this.account = account;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer:["+
+                "userId="+userId+
+                ", username="+username+
+                ", gender="+gender+
+                ",phone="+phone+
+                ",account="+account+"]";
     }
 }
 

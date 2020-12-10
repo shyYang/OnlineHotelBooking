@@ -10,4 +10,8 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="room_number" jdbcType="INTEGER" property="roomNumber" />
   </resultMap>
+    <select id="selectByTypeIdAndStatus" resultType="edu.fudan.onlinehotelbooking.entity.Room">
+      select room_id as roomId, type_id as typeId, status, room_number as roomNumber
+        from room where type_id = #{typeId} and status = #{status}
+    </select>
 </mapper>

@@ -1,9 +1,7 @@
 package edu.fudan.onlinehotelbooking.controller;
 import edu.fudan.onlinehotelbooking.core.Result;
 import edu.fudan.onlinehotelbooking.core.ResultGenerator;
-import edu.fudan.onlinehotelbooking.entity.Hotel;
-import edu.fudan.onlinehotelbooking.entity.HotelType;
-import edu.fudan.onlinehotelbooking.entity.RoomType;
+import edu.fudan.onlinehotelbooking.entity.*;
 import edu.fudan.onlinehotelbooking.service.HotelService;
 import edu.fudan.onlinehotelbooking.service.RoomTypeService;
 import org.springframework.web.bind.annotation.*;
@@ -66,6 +64,12 @@ public class HotelController {
     @GetMapping("search_hotel")
     public Result searchHotels(@RequestParam String hotelName) {
         List<Hotel> list = hotelService.findByHotelName(hotelName);
+        return ResultGenerator.genSuccessResult(list);
+    }
+
+    @GetMapping("list_comments_of_hotel")
+    public Result findCommentsByHotelId(@RequestParam int hotelId) {
+        List<CommentResponse> list = hotelService.findCommentsByHotelId(hotelId);
         return ResultGenerator.genSuccessResult(list);
     }
 }
