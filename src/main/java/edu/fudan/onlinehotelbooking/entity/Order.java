@@ -7,9 +7,7 @@ import java.util.Date;
 
 @Table(name = "orders")
 public class Order {
-    @Id
-    @Column(name = "order_id")
-    private int order_id;
+
 
     @Column(name = "room_id")
     private int room_id;
@@ -30,6 +28,10 @@ public class Order {
 
     @Column(name = "hotel_id")
     private int hotel_id;
+
+    @Id
+    @Column(name = "order_id")
+    private int order_id;
 
     public int getOrder_id() {
         return order_id;
@@ -78,7 +80,6 @@ public class Order {
     public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
-
 
     public int getHotel_id() {
         return hotel_id;
