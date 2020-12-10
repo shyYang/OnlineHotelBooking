@@ -83,7 +83,22 @@ public class HotelController {
     @GetMapping("/find_all_order")
     public Result findAllOrder(@RequestParam int hotelId){
         //todo order
-        List<Order> lists = orderService.getOrdersOfHotel(hotelId);
-        return ResultGenerator.genSuccessResult(lists);
+        Hotel hotel = hotelService.findById(hotelId);
+        //System.out.println(hotelId);
+        if (hotelId==0){
+            return ResultGenerator.genFailResult("hotel_id为null");
+        }else if (hotel==null){
+            //System.out.println("null");
+            return ResultGenerator.genFailResult("不存在此hotel");
+        }else {
+//            System.out.println(hotelId);
+//            return null;
+            List<Order> lists = orderService.getOrdersOfHotel(hotelId);
+            if (lists.isEmpty()){
+                return ResultGenerator.genSuccessResult("此hotel不存在订单",lists);
+            }else {
+                return ResultGenerator.genSuccessResult(lists);
+            }
+        }
     }
 }

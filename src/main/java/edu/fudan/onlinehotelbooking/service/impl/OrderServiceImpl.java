@@ -30,9 +30,11 @@ public class OrderServiceImpl extends AbstractService<Order> implements OrderSer
 
     @Override
     public List<Order> getOrdersOfHotel(int hotelId) {
-        Condition condition = new Condition(Order.class);
-        condition.createCriteria().andEqualTo("hotelId",hotelId);
-        List<Order> orders = orderMapper.selectByCondition(condition);
+        //orderMapper.s
+//        Condition condition = new Condition(Order.class);
+//        condition.createCriteria().andEqualTo("hotel_Id",hotelId);
+//        List<Order> orders = orderMapper.selectByCondition(condition);
+        List<Order> orders = orderMapper.selectByHotelId(hotelId);
         return orders;
     }
 }

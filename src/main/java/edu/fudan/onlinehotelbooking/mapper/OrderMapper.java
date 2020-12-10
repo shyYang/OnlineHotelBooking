@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface OrderMapper extends Mapper<Order> {
     List<Order> selectByUserId(int userId);
+    List<Order> selectByHotelId(int hotelId);
 }

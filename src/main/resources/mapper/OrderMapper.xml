@@ -11,8 +11,12 @@
     <result column="time" property="time" />
     <result column="payment" jdbcType="DOUBLE" property="payment" />
     <result column="user_id" jdbcType="INTEGER" property="user_id" />
+    <result column="hotel_id" jdbcType="INTEGER" property="hotel_id" />
   </resultMap>
     <select id="selectByUserId" resultType="edu.fudan.onlinehotelbooking.entity.Order">
       select * from orders where user_id = #{userId}
+    </select>
+    <select id="selectByHotelId" resultType="edu.fudan.onlinehotelbooking.entity.Order">
+      select * from orders where hotel_id = #{hotelId}
     </select>
 </mapper>
