@@ -19,4 +19,8 @@
     <select id="selectByHotelId" resultType="edu.fudan.onlinehotelbooking.entity.Order">
       select * from orders where hotel_id = #{hotelId}
     </select>
+    <select id="selectByHotelIdAndUserId" resultType="edu.fudan.onlinehotelbooking.entity.OrderAndInformation">
+      select  payment, time, customer.gender as gender, customer.user_id as userId, room_id as roomId, customer.username as username
+        from customer, orders where customer.user_id = orders.user_id = #{userId} and hotel_id = #{hotelId}
+    </select>
 </mapper>

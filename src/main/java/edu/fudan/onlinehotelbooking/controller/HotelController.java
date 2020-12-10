@@ -80,6 +80,7 @@ public class HotelController {
         List<CommentResponse> list = hotelService.findCommentsByHotelId(hotelId);
         return ResultGenerator.genSuccessResult(list);
     }
+
     @GetMapping("/find_all_order")
     public Result findAllOrder(@RequestParam int hotelId){
         //todo order
@@ -100,5 +101,10 @@ public class HotelController {
                 return ResultGenerator.genSuccessResult(lists);
             }
         }
+    }
+
+    @GetMapping("")
+    public Result findOrderAndUserInformation(@RequestParam int hotelId,@RequestParam int userId){
+        return null;
     }
 }
