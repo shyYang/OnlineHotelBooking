@@ -11,5 +11,6 @@
         <result column="time" jdbcType="DATE" property="time" />
         <result column="payment" jdbcType="DOUBLE" property="payment" />
         <result column="user_id" jdbcType="INTEGER" property="user_id" />
+        <result column="hotel_id" jdbcType="INTEGER" property="hotel_id" />
     </resultMap>
 </mapper>

@@ -6,6 +6,7 @@ import edu.fudan.onlinehotelbooking.mapper.OrderMapper;
 import edu.fudan.onlinehotelbooking.service.HotelService;
 import edu.fudan.onlinehotelbooking.service.OrderService;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -29,6 +30,9 @@ public class OrderServiceImpl extends AbstractService<Order> implements OrderSer
 
     @Override
     public List<Order> getOrdersOfHotel(int hotelId) {
-        return null;
+        Condition condition = new Condition(Order.class);
+        condition.createCriteria().andEqualTo("hotelId",hotelId);
+        List<Order> orders = orderMapper.selectByCondition(condition);
+        return orders;
     }
 }
