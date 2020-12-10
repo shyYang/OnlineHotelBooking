@@ -27,4 +27,8 @@ public class OrderServiceImpl extends AbstractService<Order> implements OrderSer
         return orderMapper.selectOne(order);
     }
 
+    @Override
+    public List<Order> getOrdersOfHotel(int hotelId) {
+        return null;
+    }
 }

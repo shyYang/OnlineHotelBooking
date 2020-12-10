@@ -68,4 +68,11 @@ public class HotelController {
         List<Hotel> list = hotelService.findByHotelName(hotelName);
         return ResultGenerator.genSuccessResult(list);
     }
+
+    @GetMapping("/find_all_order")
+    public Result findAllOrder(@RequestParam int hotelId){
+        //todo order
+        List<RoomType> list = roomTypeService.findByHotelId(hotelId);
+        return ResultGenerator.genSuccessResult(list);
+    }
 }

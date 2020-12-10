@@ -15,6 +15,9 @@ public class Order {
     @Column(name = "user_id")
     private int user_id;
 
+    @Column(name = "hotel_id")
+    private int hotelId;
+
     public int getUser_id() {
         return user_id;
     }
@@ -71,5 +74,13 @@ public class Order {
 
     public void setPayment(double payment) {
         this.payment = payment;
+    }
+
+    public int getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(int hotelId) {
+        this.hotelId = hotelId;
     }
 }
