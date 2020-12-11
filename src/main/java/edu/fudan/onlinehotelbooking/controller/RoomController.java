@@ -91,6 +91,7 @@ public class RoomController {
         //return ResultGenerator.genSuccessResult(room);
     }
 
+    //todo
     @PostMapping("/list")
     public Result list() {
         List<Room> list = roomService.findAllRoom();

@@ -47,7 +47,10 @@
 | findRoomType          | 返回指定id的房间类型 | GET      | /hotel/find_room_type         | hotelId        | 成功返回roomType list，失败返回信息      |
 | searchHotels          | 搜索商家             | GET      | /hotel/searche_hotel          | hotelName      | 成功返回hotel list，失败500              |
 | findCommentsByHotelId | 列出商家评论         | GET      | /hotel/list_comments_of_hotel | hotelId        | 成功返回** CommentResponse list          |
-
+|findAllOrder()         | 列出商家所有订单     | GET      | /hotel/find_all_order         |  hotelId       |  成功返回list*(order)  失败返回信息   |
+|findOrderAndUserInformation| 列出未入住可公开用户信息|  GET   |/hotel/find_order_information | hotelId,userId  |  成功list*(orderAndInformation)失败返回信息|
+|cancelOrder()          | 取消订单             |GET      | /hotel/cancel_order           | orderId        |  成功返回成功信息  失败返回失败信息|
+|finishOrder()          | 结束订单            |GET       | /hotel/finish_order           |  oderId        |成功返回成功返回list*(order) 失败返回信息|
 ***hotelName,password,address,phone,photo,introduction**
 
 ****CommentResponse: userId, username, rating, content, time, roomId, roomTypeNumber(比如双人间)**
@@ -70,9 +73,23 @@
 
 **RoomTypeController**
 
+| 函数名          | 函数功能        | 请求方式 | 对应地址        | 所需参数                    | 返回值（data）   |
+| --------------- | --------------- | -------- | --------------- | --------------------------- | ---------------- |
+| add(RoomType roomType)| 添加新房型     | POST  |/room/type/add|"hotelId""price""photo""number""introduction""name",freeNumber| 成功："增加新房型成功" 失败："增加新房型失败"            |
+| delete(int typeId) | 删除房型    | POST     | /room/type/delete | typeId         |  成功："删除房型成功" 失败：“删除房型失败” "删除失败，无此类型房型"            |
+| update()  | 更新房型信息 | POST | /room/type/update | typeId,hotelId,price,photo,number,introduction,name,freeNumber| 成功：更新新房型成功 失败：错误信息 |
+|detail()|查看相关房型信息|POST|/room/type/detail|typeId|成功：list（roomtype）失败：null|
+|roomDetail()     | 查看某一类型所有room信息|GET |/room/type/roomDetail | typeId   |成功：list*(room) 失败：null|      
+| list()       |  查看本酒店所有房型信息  |  GET  | /room/type/list     | hotelId              |成功list*（roomtype）失败：null message：相关失败信息       |     
+
+
+
+**RoomController**
 
 | 函数名          | 函数功能        | 请求方式 | 对应地址        | 所需参数                    | 返回值（data）   |
 | --------------- | --------------- | -------- | --------------- | --------------------------- | ---------------- |
-| add(RoomType roomType)| 添加新房型     | POST  |/room/type/add|"hotelId""price""photo""number""introduction""name"| 成功："增加新房型成功" 失败："增加新房型失败"            |
-| deleteRoomType(int typeId) | 删除房型    | POST     | /room/type/delete | 被删除的房型的typeId         |  成功："删除房型成功" 失败：“删除房型失败” "删除失败，无此类型房型"            |
-| list()          | 查询所有example | POST     | /example/list   | null                        | id, name, school |
+| add()| 添加新房间     | POST  |/room/add|typeId,roomNumber| 成功："增加新房间成功" 失败："增加新房间失败"            |
+| delete() | 删除房间    | POST     | /room/delete | roomId         |  成功："删除房间成功" 失败：“删除房间失败” "删除失败，无此类型房型"            |
+| update()  | 更新房间信息 | POST | /room/update | typeId,roomId,status,roomNumber| 成功：更新房间成功 失败：错误信息 |
+|detail()|查看相关房间信息|POST|/room/detail|roomId|成功：list（room）失败：null| 
+| list()       |  查看本酒店所有房型信息  |  POST  | /room/list   | hotelId              |成功list*（room）失败：null message：相关失败信息       |         
