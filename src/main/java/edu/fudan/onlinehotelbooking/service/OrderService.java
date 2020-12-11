@@ -12,5 +12,7 @@ public interface OrderService extends Service<Order> {
     Order getOrder(int orderID);
     List<Order> getOrdersOfHotel(int hotelId);
     List<OrderAndInformation> findInfoByHotelIdAndUserId(int hotelId, int userId);
+    int cancelOrder(int orderId);
+    int finishOrder(int orderId);
 
 }

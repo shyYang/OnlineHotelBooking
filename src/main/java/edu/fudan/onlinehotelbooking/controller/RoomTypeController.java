@@ -102,6 +102,7 @@ public class RoomTypeController {
         }
     }
 
+    //find information by typeId
     @PostMapping("/detail")
     public Result detail(@RequestParam int typeId) {
         //RoomType roomType = roomTypeService.findById(id);
@@ -112,9 +113,25 @@ public class RoomTypeController {
         //return ResultGenerator.genSuccessResult(roomType);
     }
 
-    @PostMapping("/list")
-    public Result list() {
-        List<RoomType> list = roomTypeService.findAllType();
-        return ResultGenerator.genSuccessResult(list);
+    //find all rooms by typeId
+    @GetMapping("/roomDetail")
+    public Result roomDetail(@RequestParam int typeId) {
+        //RoomType roomType = roomTypeService.findById(id);
+        RoomType roomType = roomTypeService.findById(typeId);
+        if (roomType==null){
+            return ResultGenerator.genFailResult("null");
+        }else return ResultGenerator.genSuccessResult(roomTypeService.findByRoomTypeId(typeId));
+        //return ResultGenerator.genSuccessResult(roomType);
+    }
+
+    @GetMapping ("/list")
+    public Result list(@RequestParam int hotelId) {
+        Hotel hotel = hotelService.findById(hotelId);
+        if (hotel==null){
+            return ResultGenerator.genFailResult("hotel_id不存在，查询房型失败");
+        }else {
+            List<RoomType> list = roomTypeService.findAllType(hotelId);
+            return ResultGenerator.genSuccessResult(list);
+        }
     }
 }

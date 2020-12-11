@@ -36,7 +36,6 @@ public class HotelController {
         return ResultGenerator.genSuccessResult(id);
     }
 
-
     @GetMapping("/list_all_hotel")
     public Result listAllHotels(){
         List<Hotel> list = hotelService.findAll();
@@ -81,6 +80,7 @@ public class HotelController {
         return ResultGenerator.genSuccessResult(list);
     }
 
+    //finished by whw
     @GetMapping("/find_all_order")
     public Result findAllOrder(@RequestParam int hotelId){
         Hotel hotel = hotelService.findById(hotelId);
@@ -118,5 +118,34 @@ public class HotelController {
 //        System.out.println(hotelId);
 //        System.out.println(userId);
 
+    }
+
+    @GetMapping("/cancel_order")
+    public Result cancelOrder(@RequestParam int orderId){
+        Order order = orderService.findById(orderId);
+        if (order==null){
+            return ResultGenerator.genFailResult("没有该order");
+        }else {
+            if (orderService.cancelOrder(orderId)==1){
+                return ResultGenerator.genSuccessResult("取消订单成功");
+            }else {
+                return ResultGenerator.genFailResult("取消order失败");
+            }
+        }
+    }
+
+    @GetMapping("/finish_order")
+    public Result finishOrder(@RequestParam int orderId){
+        Order order = orderService.findById(orderId);
+        if (order==null){
+            return ResultGenerator.genFailResult("没有该order");
+        }else {
+            if (orderService.finishOrder(orderId)==1){
+                Order order1 = orderService.findById(orderId);
+                return ResultGenerator.genSuccessResult(order1);
+            }else {
+                return ResultGenerator.genFailResult("结束order失败");
+            }
+        }
     }
 }

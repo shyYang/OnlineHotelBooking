@@ -74,6 +74,13 @@ public class RoomTypeServiceImpl extends AbstractService<RoomType> implements Ro
     }
 
     @Override
+    public List<Room> findByRoomTypeId(int typeId) {
+        Condition condition = new Condition(Room.class);
+        condition.createCriteria().andEqualTo("typeId",typeId);
+        return roomMapper.selectByCondition(condition);
+    }
+
+    @Override
     public int updateRoomType(RoomType roomType) {
         //roomMapper.select
         //Order order = r
@@ -90,7 +97,7 @@ public class RoomTypeServiceImpl extends AbstractService<RoomType> implements Ro
     }
 
     @Override
-    public List<RoomType> findAllType() {
-        return roomTypeMapper.selectAll();
+    public List<RoomType> findAllType(int hotelId) {
+        return roomTypeMapper.selectByHotelId(hotelId);
     }
 }

@@ -1,6 +1,7 @@
 package edu.fudan.onlinehotelbooking.service;
 import edu.fudan.onlinehotelbooking.entity.Hotel;
 import edu.fudan.onlinehotelbooking.entity.HotelType;
+import edu.fudan.onlinehotelbooking.entity.Room;
 import edu.fudan.onlinehotelbooking.entity.RoomType;
 import edu.fudan.onlinehotelbooking.core.Service;
 
@@ -22,5 +23,7 @@ public interface RoomTypeService extends Service<RoomType> {
 
     RoomType roomTypeFindById(int typeId);
 
-    List<RoomType> findAllType();
+    List<Room> findByRoomTypeId(int typeId);
+
+    List<RoomType> findAllType(int hotelId);
 }
