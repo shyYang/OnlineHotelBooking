@@ -2,6 +2,7 @@ package edu.fudan.onlinehotelbooking.service.impl;
 
 import edu.fudan.onlinehotelbooking.core.AbstractService;
 import edu.fudan.onlinehotelbooking.entity.Order;
+import edu.fudan.onlinehotelbooking.entity.OrderAndInformation;
 import edu.fudan.onlinehotelbooking.mapper.OrderMapper;
 import edu.fudan.onlinehotelbooking.service.HotelService;
 import edu.fudan.onlinehotelbooking.service.OrderService;
@@ -36,5 +37,10 @@ public class OrderServiceImpl extends AbstractService<Order> implements OrderSer
 //        List<Order> orders = orderMapper.selectByCondition(condition);
         List<Order> orders = orderMapper.selectByHotelId(hotelId);
         return orders;
+    }
+
+    @Override
+    public List<OrderAndInformation> findInfoByHotelIdAndUserId(int hotelId, int userId) {
+        return orderMapper.selectByHotelIdAndUserId(hotelId,userId);
     }
 }

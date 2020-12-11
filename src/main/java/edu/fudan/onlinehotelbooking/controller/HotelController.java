@@ -83,7 +83,6 @@ public class HotelController {
 
     @GetMapping("/find_all_order")
     public Result findAllOrder(@RequestParam int hotelId){
-        //todo order
         Hotel hotel = hotelService.findById(hotelId);
         //System.out.println(hotelId);
         if (hotelId==0){
@@ -103,8 +102,21 @@ public class HotelController {
         }
     }
 
-    @GetMapping("")
-    public Result findOrderAndUserInformation(@RequestParam int hotelId,@RequestParam int userId){
-        return null;
+    @GetMapping("/find_order_information")
+    public Result findOrderAndUserInformation(@RequestParam int hotelId,int userId){
+        boolean valid = (hotelId==0|userId==0);
+        //System.out.println(hotelId);
+        if (valid==true){
+            return ResultGenerator.genFailResult("有值为null");
+        }else {
+            List<OrderAndInformation> list = orderService.findInfoByHotelIdAndUserId(hotelId,userId);
+            if (list.isEmpty()){
+                return ResultGenerator.genFailResult("无订单信息");
+            }else return ResultGenerator.genSuccessResult(list);
+        }
+
+//        System.out.println(hotelId);
+//        System.out.println(userId);
+
     }
 }
