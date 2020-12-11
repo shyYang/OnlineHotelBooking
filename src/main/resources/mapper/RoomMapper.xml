@@ -14,4 +14,8 @@
       select room_id as roomId, type_id as typeId, status, room_number as roomNumber
         from room where type_id = #{typeId} and status = #{status}
     </select>
+    <select id="selectByHotelId" resultType="edu.fudan.onlinehotelbooking.entity.Room">
+      select room_id as roomId, room.type_id as typeId, status, room_number as roomNumber
+        from room left join room_type on room.type_id = room_type.type_id where hotel_id = #{hotelId}
+    </select>
 </mapper>

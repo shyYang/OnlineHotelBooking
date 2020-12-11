@@ -49,7 +49,7 @@ public class RoomServiceImpl extends AbstractService<Room> implements RoomServic
     }
 
     @Override
-    public List<Room> findAllRoom() {
-        return roomMapper.selectAll();
+    public List<Room> findAllRoom(int hotelId) {
+        return roomMapper.selectByHotelId(hotelId);
     }
 }

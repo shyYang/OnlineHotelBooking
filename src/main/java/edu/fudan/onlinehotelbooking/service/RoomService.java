@@ -22,5 +22,5 @@ public interface RoomService extends Service<Room> {
 
     List<Room> findByTypeId(int typeId);
 
-    List<Room> findAllRoom();
+    List<Room> findAllRoom(int hotelId);
 }

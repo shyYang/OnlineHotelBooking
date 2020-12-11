@@ -9,4 +9,6 @@ public interface RoomMapper extends Mapper<Room> {
 
     //选择某一房型的空房
     List<Room> selectByTypeIdAndStatus(int typeId, int status);
+
+    List<Room> selectByHotelId(int hotelId);
 }
