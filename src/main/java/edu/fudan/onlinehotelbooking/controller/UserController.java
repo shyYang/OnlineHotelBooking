@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 
 import static edu.fudan.onlinehotelbooking.core.ProjectConstant.*;
@@ -92,12 +93,18 @@ public class UserController {
     }
 
     @PostMapping("change_password")
-    public Result changePassword(@RequestBody String password) {
+    public Result changePassword(@RequestBody HashMap<String, String> map) {
         //TODO: userId
+        String oldPassword = map.get("oldPassword");
+        String newPassword = map.get("newPassword");
+        System.out.println(oldPassword);
+        System.out.println(newPassword);
         int userId = 1006;
-        User user = new User();
-        user.setUserId(userId);
-        user.setPassword(password);
+        User user = userService.findById(userId);
+        System.out.println(user);
+        if (!user.getPassword().equals(oldPassword))
+            return ResultGenerator.genFailResult("旧密码不正确");
+        user.setPassword(newPassword);
         userService.update(user);
         return ResultGenerator.genSuccessResult();
     }

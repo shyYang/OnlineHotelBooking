@@ -53,7 +53,7 @@
 |finishOrder()          | 结束订单            |GET       | /hotel/finish_order           |  oderId        |成功返回成功返回list*(order) 失败返回信息|
 ***hotelName,password,address,phone,photo,introduction**
 
-****CommentResponse: userId, username, rating, content, time, roomId, roomTypeNumber(比如双人间)**
+****CommentResponse: userId, username, rating, content, time, roomId, roomTypeName(比如双人间)**
 
 ******
 
