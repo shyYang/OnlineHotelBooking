@@ -11,4 +11,6 @@ public interface OrderMapper extends Mapper<Order> {
     List<Order> selectByUserId(int userId);
     List<Order> selectByHotelId(int hotelId);
     List<OrderAndInformation> selectByHotelIdAndUserId(int hotelId,int userId);
+    List<OrderAndInformation> selectAllByHotelId(int hotelId);
+    List<OrderAndInformation> selectAllByHotelIdAndStatus(int hotelId);
 }

@@ -11,8 +11,9 @@ import java.util.List;
 public interface OrderService extends Service<Order> {
     List<Order> getOrderOfUser(int userID);
     Order getOrder(int orderID);
-    List<Order> getOrdersOfHotel(int hotelId);
+    List<OrderAndUserAndInfor> getOrdersOfHotel(int hotelId);
     List<OrderAndUserAndInfor> findInfoByHotelIdAndUserId(int hotelId, int userId);
+    List<OrderAndUserAndInfor> getOrdersOfStatus(int hotelId);
     int cancelOrder(int orderId);
     int finishOrder(int orderId);
 
