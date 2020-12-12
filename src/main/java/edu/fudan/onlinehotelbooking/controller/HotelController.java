@@ -109,7 +109,7 @@ public class HotelController {
         if (valid==true){
             return ResultGenerator.genFailResult("有值为null");
         }else {
-            List<OrderAndInformation> list = orderService.findInfoByHotelIdAndUserId(hotelId,userId);
+            List<OrderAndUserAndInfor> list = orderService.findInfoByHotelIdAndUserId(hotelId,userId);
             if (list.isEmpty()){
                 return ResultGenerator.genFailResult("无订单信息");
             }else return ResultGenerator.genSuccessResult(list);

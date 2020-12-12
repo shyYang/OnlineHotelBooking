@@ -20,7 +20,7 @@
       select * from orders where hotel_id = #{hotelId}
     </select>
     <select id="selectByHotelIdAndUserId" resultType="edu.fudan.onlinehotelbooking.entity.OrderAndInformation">
-      select  payment, time, status, customer.gender as gender, room_id as roomId, customer.username as username, customer.phone as phone
+      select  payment, time, status, customer.gender as gender, order_id as orderId, room_id as roomId, customer.username as username, customer.phone as phone
         from customer left join orders on customer.user_id = orders.user_id and orders.hotel_id = #{hotelId} where orders.user_id = #{userId} and orders.status=0 or orders.status=1
     </select>
 </mapper>
