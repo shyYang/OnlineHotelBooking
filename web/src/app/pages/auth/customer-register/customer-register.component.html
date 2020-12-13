@@ -1,0 +1,84 @@
+<div class="register">
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="username" nzRequired>
+        <span>用户名</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入你的用户名!长度为1-10">
+        <input nz-input id="username" formControlName="username" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>密码</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入你的密码(长度:8-18位):大小写字母和数字至少各一位">
+        <input nz-input type="password" id="password" formControlName="password" (ngModelChange)="updateConfirmValidator()" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="checkPassword" nzRequired>确认密码</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl">
+        <input nz-input type="password" formControlName="checkPassword" id="checkPassword" />
+        <ng-template #errorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            请输入你的密码
+          </ng-container>
+          <ng-container *ngIf="control.hasError('confirm')">
+            你输入的两次密码不一致
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>性别</nz-form-label>
+      <nz-form-control  [nzSm]="14" [nzXs]="24" nzErrorTip="请选择你的性别">
+        <nz-select id="gender" formControlName="gender" class="phone-select">
+          <nz-option nzLabel="男" nzValue="男"></nz-option>
+          <nz-option nzLabel="女" nzValue="女"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" nzRequired>联系方式</nz-form-label>
+      <nz-form-control
+        [nzSm]="14"
+        [nzXs]="24"
+        [nzValidateStatus]="validateForm.controls['phoneNumber']"
+        nzErrorTip="请输入你的电话号码!"
+      >
+        <input formControlName="phoneNumber" id="'phoneNumber'" nz-input />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label
+        [nzSm]="6"
+        [nzXs]="24"
+        nzFor="captcha"
+        nzRequired
+      >验证码</nz-form-label>
+      <nz-form-control nzErrorTip="请输入验证码!">
+        <div nz-row [nzGutter]="32">
+            <div nz-col [nzSpan]="12">
+              <input type="text" nz-input formControlName="captcha" />
+            </div>
+            <div nz-col [nzSpan]="4.5">
+              <div id="captcha" (click)="getVerify()"><img [src]="imgSrc" style="width: 80px;height: 30px;" alt="验证码" /></div>
+            </div>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row class="register-area">
+      <nz-form-control [nzSpan]="14" [nzOffset]="6">
+        <label nz-checkbox formControlName="agree">
+          <span>
+            我已经阅读了
+            <a>用户协议</a>
+          </span>
+        </label>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row class="register-area">
+      <nz-form-control [nzSpan]="14" [nzOffset]="6">
+        <button nz-button nzType="primary" [disabled]="!validateForm.value.agree">注册</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form></div>

@@ -1,0 +1,22 @@
+<nz-layout>
+  <nz-header>
+    <div class="logo"></div>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal">
+      <li nz-menu-item routerLink="/customer/search">搜索</li>
+      <li nz-menu-item [nzDisabled]="!isLogin" routerLink="/customer/setting">设置</li>
+      <li nz-menu-item [nzDisabled]="!isLogin" routerLink="/customer/history">历史订单</li>
+      <li class="login-content" *ngIf="!isLogin" routerLink="/auth/customer-register"><a>注册</a></li>
+      <li class="login-content" *ngIf="!isLogin" routerLink="/auth/customer-login"><a>登录</a></li>
+      <a class="signup" routerLink="/customer/setting" *ngIf="isLogin">
+      <nz-avatar
+        [ngStyle]="{ 'background-color': color }"
+        [nzText]="text"
+        nzSize="large"
+        style="vertical-align: middle;position: absolute;right: 10px;top:12px"
+      >
+      </nz-avatar></a>
+    </ul>
+  </nz-header>
+  <nz-content class="inner-content"><router-outlet></router-outlet></nz-content>
+  <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+</nz-layout>

@@ -1,0 +1,65 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+  <nz-breadcrumb-item>Admin</nz-breadcrumb-item>
+  <nz-breadcrumb-item>Customer</nz-breadcrumb-item>
+  <nz-breadcrumb-item>Detail</nz-breadcrumb-item>
+</nz-breadcrumb>
+<br>
+<nz-descriptions [nzTitle]=header [nzExtra]="extraTpl">
+</nz-descriptions>
+<ng-template #extraTpl>
+  <button nz-button nzType="primary" (click)="deleteUser()">删除用户</button>
+</ng-template>
+<nz-tabset>
+  <nz-tab nzTitle="订单记录">
+    <div class="order-box">
+      <nz-collapse [nzBordered]="false">
+        <nz-collapse-panel *ngFor="let item of orders" nzHeader="订单详情">
+          <nz-descriptions nzTitle="订单ID:{{item.order_id}}" [nzExtra]="extraOrderTpl">
+            <nz-descriptions-item nzTitle="用户ID">{{item.user_id}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="房间ID" [nzSpan]="2">{{item.room_id}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="订单日期">{{item.time}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="价格">{{item.payment}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="订单状态" *ngIf="item.status==0">
+              未支付
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="订单状态" *ngIf="item.status==1">
+              已支付但未居住
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="订单状态" *ngIf="item.status==2">
+              已入住
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="订单状态" *ngIf="item.status==3">
+              已退房但未评论
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="订单状态" *ngIf="item.status==4">
+              已评论
+            </nz-descriptions-item>
+          </nz-descriptions>
+          <ng-template #extraOrderTpl>
+            <button nz-button nzType="primary">删除订单</button>
+          </ng-template>
+        </nz-collapse-panel>
+      </nz-collapse>
+    </div>
+  </nz-tab>
+  <nz-tab nzTitle="评论记录">
+    <nz-list>
+      <nz-list-item *ngFor="let item of comments">
+        <ng-container>
+          <nz-list-item-meta
+            nzDescription="用户ID:{{item.user_id}} 发布于 {{item.time}}"
+          >
+            <nz-list-item-meta-title>
+              <nz-rate [ngModel]=item.rating nzDisabled></nz-rate>
+            </nz-list-item-meta-title>
+          </nz-list-item-meta>
+          {{item.content}}
+          <ul nz-list-item-actions>
+            <nz-list-item-action><a>删除评论</a></nz-list-item-action>
+          </ul>
+        </ng-container>
+      </nz-list-item>
+    </nz-list>
+  </nz-tab>
+</nz-tabset>

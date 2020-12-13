@@ -1,0 +1,40 @@
+.logo {
+    width: 120px;
+    height: 31px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px 24px 16px 0;
+    float: left;
+  }
+  .login-content{
+    float: right;
+    margin: auto 16px;
+  }
+  nz-layout{
+    min-width: 1000px;
+  }
+  nz-breadcrumb {
+    margin: 16px 0;
+  }
+  
+  nz-content {
+    padding: 0 50px;
+    min-height: 625px;
+  }
+  
+  nz-footer {
+    bottom:0;
+    height:50px;
+    text-align:center;
+  }
+  
+  .inner-content {
+    background: white;
+    padding: 24px;
+  }
+  
+  a{
+    color: #bfbfbf;
+  }
+
+  [nz-menu-item]{
+    outline: none;}

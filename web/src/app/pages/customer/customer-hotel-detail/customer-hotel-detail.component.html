@@ -1,0 +1,61 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+  <nz-breadcrumb-item>Hotel</nz-breadcrumb-item>
+  <nz-breadcrumb-item>Detail</nz-breadcrumb-item>
+</nz-breadcrumb>
+<br>
+<div class="box"  *ngIf="hotel!==undefined">
+  <div class="item left-item">
+    <img [src]=hotel.photo alt="酒店照片" width="100%"/>
+  </div>
+  <div class="item right-item">
+    <nz-descriptions [nzTitle]=hotel.hotelName>
+      <nz-descriptions-item nzTitle="酒店地址" [nzSpan]="2">{{hotel.address}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="联系方式">{{hotel.phone}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="当前已入住人数">{{hotel.guestNumber}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="评分" [nzSpan]="2"><nz-rate [ngModel]=hotel.rating nzDisabled></nz-rate></nz-descriptions-item>
+      <nz-descriptions-item nzTitle="介绍" [nzSpan]="3">
+        {{hotel.introduction}}
+      </nz-descriptions-item>
+    </nz-descriptions>
+  </div>
+</div>
+<br>
+<nz-tabset>
+  <nz-tab nzTitle="房间预订">
+    <nz-list nzItemLayout="vertical">
+      <nz-list-item *ngFor="let item of rooms let i = index">
+        <nz-list-item-meta>
+          <nz-list-item-meta-title>
+            {{item.name}}
+          </nz-list-item-meta-title>
+          <nz-list-item-meta-description>
+            单间价格：￥{{item.price}}<br>
+            {{item.introduction}}
+          </nz-list-item-meta-description>
+        </nz-list-item-meta>
+        房间预定情况：
+        <nz-progress [nzPercent]=item.freeNumber nzType="circle" [nzFormat]="formatOne"></nz-progress>
+        <button nz-button nzType="primary" nzSize="large" style="float: right" (click)="goToOrder(i)">预订<i nz-icon nzType="right"></i></button>
+        <nz-list-item-extra>
+          <img width="272" alt="房间照片" [src]=item.photo />
+        </nz-list-item-extra>
+      </nz-list-item>
+    </nz-list>
+  </nz-tab>
+  <nz-tab nzTitle="评论">
+    <nz-list nzItemLayout="horizontal">
+      <nz-list-item *ngFor="let item of comments">
+        <nz-list-item-meta
+          nzDescription="用户ID:{{item.user_id}}, 于 {{item.time}} 完成的酒店预订订单"
+        >
+          <nz-list-item-meta-title>
+            <nz-rate [ngModel]=item.rating nzDisabled></nz-rate><br>
+            {{item.content}}
+          </nz-list-item-meta-title>
+        </nz-list-item-meta>
+      </nz-list-item>
+      <nz-list-empty *ngIf="comments.length === 0"></nz-list-empty>
+    </nz-list>
+  </nz-tab>
+</nz-tabset>

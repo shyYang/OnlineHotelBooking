@@ -7,6 +7,7 @@ import edu.fudan.onlinehotelbooking.entity.UserOfCustomer;
 import edu.fudan.onlinehotelbooking.service.CustomerService;
 import edu.fudan.onlinehotelbooking.service.UserService;
 import org.springframework.web.bind.annotation.*;
+import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -51,35 +52,22 @@ public class UserController {
                 }
             }
         } else{
-            int id = userOfCustomer.getUserId()==null ? 0 : userOfCustomer.getUserId();
             String username = userOfCustomer.getUsername();
-            if (id != 0) {
-                User user = userService.findById(id);
-                if (user == null) {
+            System.out.println(username);
+            Condition condition = new Condition(Customer.class);
+            condition.createCriteria().andEqualTo("username", username);
+            List<Customer> customers = customerService.findByCondition(condition);
+            if (customers == null || customers.size() == 0) {
+                return ResultGenerator.genFailResult("用户不存在或密码错误");
+            } else {
+                Customer customer = customers.get(0);
+                User user = userService.findById(customer.getUserId());
+                if (password.equals(user.getPassword()) && role == user.getRole()) {   //登陆成功
+                    handleSession(request, user.getUserId());
+                    return ResultGenerator.genSuccessResult();
+                } else {  //密码错误
                     message = "用户不存在或密码错误";
                     return ResultGenerator.genFailResult(message);
-                } else {
-                    if (password.equals(user.getPassword()) && role == user.getRole()) {
-                        handleSession(request, user.getUserId());
-                        return ResultGenerator.genSuccessResult();
-                    } else {  //密码错误
-                        message = "用户不存在或密码错误";
-                        return ResultGenerator.genFailResult(message);
-                    }
-                }
-            } else {
-                Customer customer = customerService.findBy("username", username);
-                if (customer == null ) {
-                    return ResultGenerator.genFailResult("用户不存在或密码错误");
-                } else {
-                    User user = userService.findById(customer.getUserId());
-                    if (password.equals(user.getPassword()) && role == user.getRole()) {   //登陆成功
-                        handleSession(request, user.getUserId());
-                        return ResultGenerator.genSuccessResult();
-                    } else {  //密码错误
-                        message = "用户不存在或密码错误";
-                        return ResultGenerator.genFailResult(message);
-                    }
                 }
             }
         }

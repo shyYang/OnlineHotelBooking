@@ -69,4 +69,9 @@ public class HotelType {
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
     }
+
+    @Override
+    public String toString() {
+        return "HotelType: [password="+password+", hotelName="+hotelName+", address="+ address+", introduction="+introduction+"]";
+    }
 }

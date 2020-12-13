@@ -1,0 +1,27 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+  <nz-breadcrumb-item>Merchant</nz-breadcrumb-item>
+  <nz-breadcrumb-item>order</nz-breadcrumb-item>
+</nz-breadcrumb>
+<h3 [ngStyle]="{ margin: '16px 0' }">现有订单</h3>
+<nz-collapse *ngIf="list!==[]" [nzBordered]="false">
+  <nz-collapse-panel *ngFor="let item of list let i =index" [nzHeader]="'订单编码:'+item.orderId">
+    <nz-descriptions [nzTitle]=item.orderId>
+      <nz-descriptions-item nzTitle="用户名">{{item.username}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="用户手机">{{item.userPhone}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="订单日期">{{item.orderTime}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="价格">{{item.payment}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="房间号">
+        {{item.roomNumber}}
+      </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="订单状态" *ngIf="item.status==0">定金已支付</nz-descriptions-item>
+        <!--<nz-descriptions-item nzTitle="订单状态" *ngIf="item.status==1">订单提交已支付</nz-descriptions-item>-->
+        <!--<nz-descriptions-item nzTitle="订单状态" *ngIf="item.status==2">入住中</nz-descriptions-item>-->
+    </nz-descriptions>
+    <button nz-button *ngIf="item.status==0" (click)="changeOrderStatus(item.orderId,0)" >取消订单</button>
+    <button nz-button *ngIf="item.status==0" (click)="changeOrderStatus(item.orderId,1)">结束订单</button>
+    <!--<button nz-button *ngIf="item.status==0" (click)="changeOrderStatus(item.orderId,1)">已支付，尚未入住</button>-->
+    <!--<button nz-button *ngIf="item.status==1" (click)="changeOrderStatus(item.orderId,2)">入住</button>-->
+  </nz-collapse-panel>
+</nz-collapse>
+<p *ngIf="list===[]">暂无需要处理的订单</p>

@@ -1,0 +1,42 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+  <nz-breadcrumb-item>Customer</nz-breadcrumb-item>
+  <nz-breadcrumb-item>Search</nz-breadcrumb-item>
+</nz-breadcrumb>
+<br>
+<div class="search">
+  <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+    <input type="text" nz-input placeholder="input search text" [(ngModel)]="searchContent" />
+  </nz-input-group>
+  <ng-template #suffixIconButton>
+    <button nz-button nzType="primary" nzSearch (click)="search()"><i nz-icon nzType="search"></i></button>
+  </ng-template>
+</div>
+<div class="search-result" *ngIf="total==0">
+  <nz-empty
+    [nzNotFoundContent]="contentTpl"
+  >
+    <ng-template #contentTpl>
+      <span> 暂时没有结果，请输入搜索内容或尝试其他搜索内容 </span>
+    </ng-template>
+  </nz-empty>
+</div>
+<div class="search-result" *ngIf="total!=0">
+  <div *ngFor="let hotel of hotelList let i=index" class="hotel-box">
+    <nz-card nzHoverable style="width:240px" [nzCover]="coverTemplate">
+      <nz-card-meta [nzTitle]="dishTitle" [nzDescription]="dishDescription"></nz-card-meta>
+    </nz-card>
+    <ng-template #dishTitle>
+      {{hotel.hotelName}}
+    </ng-template>
+    <ng-template #dishDescription>
+      {{hotel.introduction}}
+    </ng-template>
+    <ng-template #coverTemplate>
+      <img alt="example" [src]="hotel.photo" height="180px"/>
+    </ng-template>
+  </div>
+</div>
+<div class="box" *ngIf="total!=0">
+  <nz-pagination [(nzPageIndex)]="pageIndex" [nzTotal]="total" [(nzPageSize)]="pageSize" (nzPageIndexChange)="changePage()"></nz-pagination>
+</div>

@@ -1,0 +1,41 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+  <nz-breadcrumb-item>Merchant</nz-breadcrumb-item>
+  <nz-breadcrumb-item>orderHistory</nz-breadcrumb-item>
+</nz-breadcrumb>
+<h3 [ngStyle]="{ margin: '16px 0' }">历史订单</h3>
+<nz-collapse [nzBordered]="false">
+  <nz-collapse-panel *ngFor="let item of orderList let i =index" [nzHeader]="'订单编码:'+item.orderId">
+    <nz-descriptions [nzTitle]=item.orderId>
+      <nz-descriptions-item nzTitle="用户名">{{item.username}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="用户手机">{{item.userPhone}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="订单日期">{{item.orderTime}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="价格">{{item.payment}}</nz-descriptions-item>
+      <nz-descriptions-item [nzSpan]="2" nzTitle="房间号">
+        {{item.roomNumber}}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="评论" [nzSpan]="2" *ngIf="item.content">
+        <nz-comment [nzAuthor]=item.username [nzDatetime]="timeTql">
+          <nz-comment-content>
+            <p>
+              {{item.content}}
+            </p>
+          </nz-comment-content>
+        </nz-comment>
+        <ng-template #timeTql>
+          <nz-rate [ngModel]=item.rating nzDisabled></nz-rate>
+          <span>  {{item.commentTime}}</span>
+        </ng-template>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="评论" [nzSpan]="" *ngIf="!item.content">
+        <nz-comment [nzAuthor]=item.username>
+          <nz-comment-content>
+            <p>
+              暂无评价
+            </p>
+          </nz-comment-content>
+        </nz-comment>
+      </nz-descriptions-item>
+    </nz-descriptions>
+  </nz-collapse-panel>
+</nz-collapse>

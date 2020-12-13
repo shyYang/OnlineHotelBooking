@@ -1,0 +1,49 @@
+<div class="content">
+  <div class="backgroudDiv"></div>
+  <div id='middle'>
+    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+      <div nz-row class="login-form-margin">
+        <div nz-col [nzSpan]="12">
+            <h2 class="title">酒店登录</h2>
+        </div>
+      </div>
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="formErrors['username'].message">
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input formControlName="username" placeholder="账号" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="formErrors['password'].message">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input formControlName="password" placeholder="密码" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="formErrors['captcha'].message">
+          <div nz-row>
+              <div nz-col [nzSpan]="15">
+                <input type="text" nz-input formControlName="captcha" placeholder="验证码" />
+              </div>
+              <div nz-col [nzSpan]="9" class="login-form-right">
+                <div id="captcha" (click)="getVerify()" class="login-form-right"><img  [src]="imgSrc" style="width: 80px;height: 30px;" alt="验证码" /></div>
+              </div>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row class="login-form-margin">
+        <div nz-col [nzSpan]="12">
+          <label nz-checkbox formControlName="remember">
+            <span>记住密码</span>
+          </label>
+        </div>
+        <!-- <div nz-col [nzSpan]="12">
+          <a class="login-form-right">忘记密码</a>
+        </div> -->
+      </div>
+      <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">登录</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+.search{
+  width: 480px;
+  margin: 10px auto;
+}
+.search-result{
+  width: 1400px;
+  height: 600px;
+  margin: 10px auto;
+}
+nz-empty{
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.customer-box{
+  display: inline-block;
+  margin: 10px;
+}
+.box{
+  text-align: center;
+}

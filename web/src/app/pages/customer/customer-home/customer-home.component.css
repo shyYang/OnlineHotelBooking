@@ -1,0 +1,35 @@
+[nz-carousel-content] {
+  text-align: center;
+  height: 160px;
+  width: 100px;
+  line-height: 160px;
+  background: #364d79;
+  color: #fff;
+  overflow: hidden;
+  margin: 20px auto;
+}
+
+.container{
+  width: 1000px;
+  margin: 20px auto;
+}
+
+[nz-button] {
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+.search{
+  width: 300px;
+  float: right;
+}
+
+h1{
+  text-align: center;
+  margin-top: 50px;
+}
+
+.rest-box{
+  display: inline-block;
+  margin: 25px;
+}

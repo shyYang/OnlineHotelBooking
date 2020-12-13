@@ -1,0 +1,42 @@
+
+      .login-form {
+        margin: auto;
+        min-width: 300px;
+      }
+      .login-form::after{
+        clear: both;
+      }
+      .login-form-margin {
+        margin-bottom: 16px;
+      }
+
+      .login-form-right {
+        float: right;
+      }
+
+      .login-form-button {
+        width: 100%;
+      }
+      #middle{
+        padding: 20px;
+        border: solid 1px;
+        height: 400px;
+        width: 350px;
+        margin-left: 100px;
+        margin-top: -5vh;
+      }
+      .backgroudDiv{
+         margin-left: 15vw;
+        width: 500px;
+        height: 333px;
+        background-size: 100%;
+        background:url("../../../../assets/img/交流.jpg"),no-repeat;
+      }
+      .content{
+        display: flex;
+        height: auto;
+        padding-top: 12vh;
+      }
+      .content::after{
+        clear: both;
+      }

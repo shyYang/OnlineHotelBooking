@@ -1,0 +1,29 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+  <nz-breadcrumb-item>Customer</nz-breadcrumb-item>
+  <nz-breadcrumb-item>Order</nz-breadcrumb-item>
+</nz-breadcrumb>
+<br>
+<ul nz-list nzBordered nzSize="large">
+  <nz-list-header>订单详情</nz-list-header>
+  <li nz-list-item nzNoFlex>
+    <nz-descriptions nzLayout="vertical">
+      <nz-descriptions-item nzTitle="酒店名" [nzSpan]="3">{{hotelName}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="酒店地址" [nzSpan]="3">{{address}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="酒店联系方式" [nzSpan]="3">{{phone}}</nz-descriptions-item>
+    </nz-descriptions>
+  </li>
+  <li nz-list-item nzNoFlex>
+    <nz-descriptions nzLayout="vertical">
+      <nz-descriptions-item nzTitle="房间名" [nzSpan]="3">{{roomName}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="房间介绍" [nzSpan]="3">{{roomIntroduction}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="房间单价" [nzSpan]="3">￥{{roomPrice}}</nz-descriptions-item>
+    </nz-descriptions>
+  </li>
+  <nz-list-footer>
+    <div style="margin: 0 auto;width: 160px;">
+      <button nz-button nzType="default" style="margin: 10px" [routerLink]="['/customer/detail',hotelId]">返回</button>
+      <button nz-button nzType="primary" style="margin: 10px" (click)="showConfirm()">支付</button>
+    </div>
+  </nz-list-footer>
+</ul>

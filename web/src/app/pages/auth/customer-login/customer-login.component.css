@@ -1,0 +1,37 @@
+.login-form {
+  margin: auto;
+  max-width: 300px;
+}
+.login-form::after{
+  clear: both;
+}
+.login-form-margin {
+  margin-bottom: 16px;
+}
+
+.login-form-right {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}
+#middle{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 1;
+  padding: 10px;
+  background-color: #fff;
+  min-width: 350px;
+}
+.backgroudDiv{
+  z-index: 0;
+  margin: 0 auto;
+  width: 95vw;
+  height: 750px;
+  min-height: 350px;
+  background-size: 100%;
+  background:url("../../../../assets/img/timg.jpg");
+}

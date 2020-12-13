@@ -68,8 +68,8 @@ public class VerifyUtil {
         //将生成的随机字符串保存到session中
         session.removeAttribute(RANDOMCODEKEY);
         session.setAttribute(RANDOMCODEKEY, randomString);
-//        设置失效时间1分钟
-        session.setMaxInactiveInterval(120);
+////        设置失效时间1分钟
+//        session.setMaxInactiveInterval(120);
         g.dispose();
         try {
             // 将内存中的图片通过流动形式输出到客户端

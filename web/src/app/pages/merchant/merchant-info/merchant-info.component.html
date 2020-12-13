@@ -1,0 +1,235 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+  <nz-breadcrumb-item>Merchant</nz-breadcrumb-item>
+  <nz-breadcrumb-item>Info</nz-breadcrumb-item>
+</nz-breadcrumb>
+<br>
+<div class="box" *ngIf="hotelInfo!==undefined">
+  <div class="item left-item">
+    <img [src]="hotelInfo.photo" alt="酒店图片" width="100%">
+  </div>
+  <div class="item right-item">
+  <nz-descriptions nzTitle="酒店信息" nzBordered nzSize="small" >
+    <nz-descriptions-item nzTitle="酒店ID" [nzSpan]="1" >{{hotelInfo.userId}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="酒店名" [nzSpan]="1">{{hotelInfo.hotelName}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="地址" [nzSpan]="1">{{hotelInfo.address}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="联系方式" [nzSpan]="3">{{hotelInfo.phone}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="描述" [nzSpan]="3">{{hotelInfo.introduction}}</nz-descriptions-item>
+  </nz-descriptions>
+  </div>
+</div>
+<nz-tabset>
+  <nz-tab nzTitle="房间类型">
+    <nz-list nzItemLayout="vertical">
+      <nz-list-item *ngFor="let item of roomTypes let i = index">
+        <nz-list-item-meta>
+          <nz-list-item-meta-title>
+            {{item.name}}
+          </nz-list-item-meta-title>
+          <nz-list-item-meta-description>
+            单间价格：￥{{item.price}}<br>
+            {{item.introduction}}
+          </nz-list-item-meta-description>
+        </nz-list-item-meta>
+        <nz-list-item-meta-description>
+          房间总数：{{item.number}}<br>
+          剩下的房间：{{item.freeNumber}}
+        </nz-list-item-meta-description>
+        <nz-list-item-meta-description>
+          <button nz-button nzType="primary" nzSize="large" style="float: right" (click)="updateRoomType(item)">修改房型</button>
+          <button nz-button nzType="primary" nzSize="large" style="float: right" (click)="deleteRoomType(item.typeId)">删除房型</button>
+          <button nz-button nzType="primary" nzSize="large" style="float: right" (click)="addRoom(item.typeId)">添加房间</button>
+          <!--<button nz-button nzType="primary" nzSize="large" style="float: right" (click)="check(item.typeId)">查看该类型房间</button>-->
+        </nz-list-item-meta-description>
+        <nz-list-item-extra>
+          <img width="272" alt="房间照片" [src]=item.photo />
+        </nz-list-item-extra>
+      </nz-list-item>
+    </nz-list>
+  </nz-tab>
+  <nz-tab nzTitle="房间">
+    <nz-list nzItemLayout="vertical">
+      <nz-list-item *ngFor="let item of rooms let i = index">
+        <nz-list-item-meta>
+          <nz-list-item-meta-title>
+            {{item.roomNumber}}
+          </nz-list-item-meta-title>
+          <nz-list-item-meta-description>
+            房间类型:{{roomName[i]}}<br>
+            房间状态：<p *ngIf="item.status==0">空房</p><p *ngIf="item.status==1">有人</p>
+          </nz-list-item-meta-description>
+        </nz-list-item-meta>
+        <button nz-button nzType="primary" nzSize="large" (click)="updateRoom(item)">修改房间</button>
+        <button nz-button nzType="primary" nzSize="large" (click)="deleteRoom(item.roomId)">删除房间</button>
+      </nz-list-item>
+    </nz-list>
+  </nz-tab>
+  <nz-tab nzTitle="添加房间类型">
+    <form nz-form [formGroup]="addRoomTypeForm" (ngSubmit)="addRoomType()" >
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="price">价格￥</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入正确的价格(非负数字)">
+          <input formControlName="price" id="price" type="number" min="1"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">房间类型名字</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入房间类型名字">
+          <input formControlName="name" id="name"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="number">房间数量</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入房间数量">
+          <input formControlName="number" type="number" min="1"/>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="picture" nzRequired>房间图片</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请上传房间图片">
+          <nz-upload
+            class="avatar-uploader"
+            nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            nzName="avatar"
+            nzListType="picture-card"
+            [nzShowUploadList]="false"
+            [nzBeforeUpload]="beforeUpload"
+            (nzChange)="handleChange($event)"
+          >
+            <ng-container *ngIf="!avatarUrl">
+              <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+              <div class="ant-upload-text">Upload</div>
+            </ng-container>
+            <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+          </nz-upload>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="introduction">描述</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入描述">
+          <textarea nz-input formControlName="introduction" placeholder="please enter url description" [nzAutosize]="{ minRows: 4, maxRows: 4 }"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item nz-row class="register-area">
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+          <button nz-button nzType="primary">添加</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-tab>
+</nz-tabset>
+<nz-drawer
+  nzPlacement="bottom"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="false"
+  [nzWidth]="720"
+  [nzHeight]="600"
+  [nzVisible]="updateRoomTypeVisible"
+  nzTitle="修改房型"
+  [nzFooter]="footerTpl"
+  (nzOnClose)="close()"
+>
+  <form nz-form [formGroup]="updateRoomTypeForm" >
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price">价格￥</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入正确的价格(非负数字)">
+        <input formControlName="price" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name">房间类型</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" >
+        <input formControlName="name" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="picture" >房型图片</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请上传房间图片">
+        <nz-upload
+          class="avatar-uploader"
+          nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+          nzName="avatar"
+          nzListType="picture-card"
+          [nzShowUploadList]="false"
+          [nzBeforeUpload]="beforeUpload"
+          (nzChange)="handleChange($event)"
+        >
+          <ng-container *ngIf="!avatarUrl">
+            <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+            <div class="ant-upload-text">Upload</div>
+          </ng-container>
+          <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+        </nz-upload>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="introduction">描述</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" >
+        <textarea nz-input formControlName="introduction" placeholder="please enter url description" [nzAutosize]="{ minRows: 4, maxRows: 4 }"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <ng-template #footerTpl>
+    <div style="float: right">
+      <button nz-button style="margin-right: 8px;" (click)="close()">Cancel</button>
+      <button nz-button nzType="primary" (click)="submitUpdateRoomType()">Submit</button>
+    </div>
+  </ng-template>
+</nz-drawer>
+<nz-drawer
+  nzPlacement="bottom"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="false"
+  [nzWidth]="720"
+  [nzVisible]="addRoomVisible"
+  nzTitle="添加房间"
+  [nzFooter]="footerTp2"
+  (nzOnClose)="close()"
+>
+  <form nz-form [formGroup]="addRoomForm" >
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>房间编号</nz-form-label>
+      <nz-form-control  [nzSm]="14" [nzXs]="24" nzErrorTip="请填写房间编号">
+        <input nz-input formControlName="roomNumber" placeholder="房间编号"/>
+      </nz-form-control></nz-form-item>
+  </form>
+  <ng-template #footerTp2>
+    <div style="float: right">
+      <button nz-button style="margin-right: 8px;" (click)="close()">Cancel</button>
+      <button nz-button nzType="primary" (click)="submitAddRoom()">Submit</button>
+    </div>
+  </ng-template>
+</nz-drawer>
+<nz-drawer
+  nzPlacement="bottom"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzMaskClosable]="false"
+  [nzWidth]="720"
+  [nzVisible]="updateRoomVisible"
+  nzTitle="修改房间"
+  [nzFooter]="footerTp3"
+  (nzOnClose)="close()"
+>
+  <form nz-form [formGroup]="updateRoomForm">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">房间类别</nz-form-label>
+      <nz-form-control  [nzSm]="14" [nzXs]="24" nzErrorTip="请选择房间类型">
+        <nz-select id="typeId" formControlName="typeId">
+          <nz-option *ngFor="let item of roomTypes" nzLabel="{{item.name}}" nzValue="{{item.typeId}}"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">房间编号</nz-form-label>
+      <nz-form-control  [nzSm]="14" [nzXs]="24" nzErrorTip="请填写房间编号">
+          <input nz-input formControlName="roomNumber" placeholder="房间编号"/>
+      </nz-form-control></nz-form-item>
+  </form>
+  <ng-template #footerTp3>
+    <div style="float: right">
+      <button nz-button style="margin-right: 8px;" (click)="close()">Cancel</button>
+      <button nz-button nzType="primary" (click)="submitUpdateRoom()">Submit</button>
+    </div>
+  </ng-template>
+</nz-drawer>
+

@@ -1,0 +1,23 @@
+.box{
+  display: -webkit-flex; /* Safari */
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+.left-item{
+  width: 300px;
+}
+.right-item{
+  flex: 1;
+  margin-left: 10px;
+}
+nz-list{
+  height: 420px;
+  overflow: auto;
+}
+:host ::ng-deep .avatar-uploader > .ant-upload {
+  width: 128px;
+  height: 128px;
+}

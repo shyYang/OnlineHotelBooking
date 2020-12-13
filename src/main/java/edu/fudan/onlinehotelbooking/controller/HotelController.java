@@ -12,8 +12,12 @@ import edu.fudan.onlinehotelbooking.service.RoomTypeService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+
+import static edu.fudan.onlinehotelbooking.core.ProjectConstant.USER_ID_SESSION;
 
 /**
 * Created by CodeGenerator on 2020/12/04.
@@ -31,8 +35,10 @@ public class HotelController {
     private OrderService orderService;
 
     @PostMapping("/sign_up")
-    public Result signUp(HotelType hotel) {
+    public Result signUp(HttpServletRequest request, @RequestBody HotelType hotel) {
+        System.out.println(hotel);
         int id = hotelService.sellerSignUp(hotel);
+        handleSession(request, id);
         return ResultGenerator.genSuccessResult(id);
     }
 
@@ -147,5 +153,12 @@ public class HotelController {
                 return ResultGenerator.genFailResult("结束order失败");
             }
         }
+    }
+
+    private void handleSession(HttpServletRequest request, int id) {
+        HttpSession session = request.getSession();
+        session.setAttribute(USER_ID_SESSION, id);
+        //        设置失效时间30分钟
+        session.setMaxInactiveInterval(1800);
     }
 }

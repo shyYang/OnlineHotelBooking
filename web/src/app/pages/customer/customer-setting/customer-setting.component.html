@@ -1,0 +1,111 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+  <nz-breadcrumb-item>Customer</nz-breadcrumb-item>
+  <nz-breadcrumb-item>Setting</nz-breadcrumb-item>
+</nz-breadcrumb>
+<br>
+<nz-descriptions nzTitle="账户信息" nzBordered *ngIf="userInfo!==undefined">
+  <nz-descriptions-item nzTitle="用户ID">{{userInfo.userId}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="用户名">{{userInfo.username}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="性别">{{userInfo.gender}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="联系方式">
+    {{userInfo.phone}}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="余额" [nzSpan]="2">
+    ￥{{userInfo.account}}&nbsp;&nbsp;&nbsp;
+    <button nz-button nzType="primary" (click)="recharge()">充值</button>
+    <nz-modal
+      [(nzVisible)]="isVisible"
+      nzTitle="充值"
+      nzOkText="Ok"
+      nzCancelText="Cancel"
+      [nzContent]="nzModalContent"
+      (nzOnOk)="handleOk()"
+      (nzOnCancel)="handleCancel()"
+    >
+      <ng-template #nzModalContent>
+        <input type="number" nz-input [(ngModel)]="money" placeholder="请输入充值金额" />
+      </ng-template>
+    </nz-modal>
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="登陆状态" [nzSpan]="3">
+    <nz-badge nzStatus="success" nzText="Running"></nz-badge>&nbsp;&nbsp;&nbsp;
+    <button nz-button nzType="default" (click)="logout()">退出登录</button>
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="其他">
+    我们承诺：
+    <br />
+    诚信经营
+    <br />
+    不泄露任何个人信息
+    <br />
+    不参与任何非法交易
+    <br />
+    严格管理酒店信息
+    <br />
+    如果有其他疑惑，请咨询 010-12345678<br />
+  </nz-descriptions-item>
+</nz-descriptions>
+<br>
+<nz-tabset>
+  <nz-tab nzTitle="修改密码">
+    <nz-list nzItemLayout="vertical">
+      <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" nzRequired nzFor="oldPassword">旧密码</nz-form-label>
+          <nz-form-control [nzSpan]="8" [nzErrorTip]="validErrors['oldPassword'].message">
+            <input type="password" nz-input formControlName="oldPassword" placeholder="Please input your old password" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" nzRequired nzFor="newPassword">新密码</nz-form-label>
+          <nz-form-control [nzSpan]="8" [nzErrorTip]="validErrors['newPassword'].message">
+            <input type="password" nz-input formControlName="newPassword" placeholder="Please input your new password" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="4" nzRequired nzFor="confirmedPassword">确认密码</nz-form-label>
+          <nz-form-control [nzSpan]="8" [nzErrorTip]="validErrors['confirmedPassword'].message">
+            <input type="password" nz-input formControlName="confirmedPassword" placeholder="Please input your new password" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control [nzSpan]="8" [nzOffset]="4">
+            <button nz-button nzType="primary">提交</button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </nz-list>
+  </nz-tab>
+  <nz-tab nzTitle="修改信息">
+    <form nz-form [formGroup]="updateForm" (ngSubmit)="submitUpdateForm()">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="4" nzRequired nzFor="username">用户名</nz-form-label>
+        <nz-form-control [nzSpan]="8" [nzErrorTip]="updateErrors['username'].message">
+          <input type="text" nz-input formControlName="username" placeholder="Please input your username" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="4" nzRequired nzFor="gender">性别</nz-form-label>
+        <nz-form-control  [nzSpan]="8">
+          <nz-select id="gender" formControlName="gender">
+            <nz-option nzLabel="男" nzValue="男"></nz-option>
+            <nz-option nzLabel="女" nzValue="女"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="4" nzRequired nzFor="phone">联系方式</nz-form-label>
+        <nz-form-control [nzSpan]="8" [nzErrorTip]="updateErrors['phone'].message">
+          <input type="text" nz-input formControlName="phone" placeholder="Please input your phone" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control [nzSpan]="8" [nzOffset]="4">
+          <button nz-button nzType="primary">提交</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-tab>
+</nz-tabset>
+

@@ -1,0 +1,13 @@
+{
+  "code": 200,
+  "message": "success",
+  "data": {
+    "userId": 2,
+    "username": "直接",
+    "gender": "男",
+    "phone": "1111111111",
+    "account": 3212,
+    "password": "123456",
+    "role": 2
+  }
+}

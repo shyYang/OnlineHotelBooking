@@ -1,0 +1,24 @@
+<div class="search">
+  <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+    <input type="text" nz-input placeholder="input search text" [(ngModel)]="searchContent"/>
+  </nz-input-group>
+  <ng-template #suffixIconButton>
+    <button nz-button nzType="primary" nzSearch (click)="search()"><i nz-icon nzType="search"></i></button>
+  </ng-template>
+</div>
+<div class="container">
+  <nz-carousel nzAutoPlay>
+    <div nz-carousel-content *ngFor="let index of array">
+      <img [src]=index  alt="风景图" width="100%" height="100%"/>
+    </div>
+  </nz-carousel>
+  <h1 nz-typography>酒店推荐</h1>
+  <div *ngFor="let hotel of top3Hotels let i=index" class="rest-box">
+    <nz-card nzHoverable style="width:280px" [nzCover]="coverTemplate" [routerLink]="['/customer/detail',hotel.hotelId]">
+      <nz-card-meta [nzTitle]=hotel.hotelName [nzDescription]=hotel.introduction></nz-card-meta>
+    </nz-card>
+    <ng-template #coverTemplate>
+      <img alt="example" [src]=hotel.photo height="260px"/>
+    </ng-template>
+  </div>
+</div>
