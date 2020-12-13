@@ -1,10 +1,8 @@
 package edu.fudan.onlinehotelbooking.service.impl;
 
 import edu.fudan.onlinehotelbooking.core.AbstractService;
-import edu.fudan.onlinehotelbooking.entity.Order;
-import edu.fudan.onlinehotelbooking.entity.OrderAndInformation;
-import edu.fudan.onlinehotelbooking.entity.Room;
-import edu.fudan.onlinehotelbooking.entity.RoomType;
+import edu.fudan.onlinehotelbooking.entity.*;
+import edu.fudan.onlinehotelbooking.mapper.CommentMapper;
 import edu.fudan.onlinehotelbooking.mapper.OrderMapper;
 import edu.fudan.onlinehotelbooking.mapper.RoomMapper;
 import edu.fudan.onlinehotelbooking.mapper.RoomTypeMapper;
@@ -14,11 +12,14 @@ import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class OrderServiceImpl extends AbstractService<Order> implements OrderService {
     @Resource
     private OrderMapper orderMapper;
+    @Resource
+    private CommentMapper commentMapper;
     @Resource
     private RoomMapper roomMapper;
     @Resource
@@ -40,18 +41,96 @@ public class OrderServiceImpl extends AbstractService<Order> implements OrderSer
 
     //finished by whw
     @Override
-    public List<Order> getOrdersOfHotel(int hotelId) {
-        //orderMapper.s
-//        Condition condition = new Condition(Order.class);
-//        condition.createCriteria().andEqualTo("hotel_Id",hotelId);
-//        List<Order> orders = orderMapper.selectByCondition(condition);
-        List<Order> orders = orderMapper.selectByHotelId(hotelId);
-        return orders;
+    public List<OrderAndUserAndInfor> getOrdersOfHotel(int hotelId) {
+        List<OrderAndInformation> list = orderMapper.selectAllByHotelId(hotelId);
+        List<OrderAndUserAndInfor> newList = new ArrayList<>();
+        for (OrderAndInformation info: list){
+            Room room = roomMapper.selectByPrimaryKey(info.getRoomId());
+            OrderAndUserAndInfor orderAndUserAndInfor = new OrderAndUserAndInfor();
+            orderAndUserAndInfor.setOrderId(info.getOrderId());
+            orderAndUserAndInfor.setRoomNumber(room.getRoomNumber());
+            orderAndUserAndInfor.setStatus(info.getStatus());
+            orderAndUserAndInfor.setOrderTime(info.getTime());
+            orderAndUserAndInfor.setUsername(info.getUsername());
+            orderAndUserAndInfor.setGender(info.getGender());
+            orderAndUserAndInfor.setUserPhone(info.getPhone());
+            orderAndUserAndInfor.setPayment(info.getPayment());
+            Comment comment = commentMapper.selectByOrderId(info.getOrderId());
+            if (comment==null){
+                orderAndUserAndInfor.setCommentTime(null);
+                orderAndUserAndInfor.setContent(null);
+                orderAndUserAndInfor.setRating(0.0);
+            }else {
+                orderAndUserAndInfor.setCommentTime(comment.getTime());
+                orderAndUserAndInfor.setContent(comment.getContent());
+                orderAndUserAndInfor.setRating(comment.getRating());
+            }
+            newList.add(orderAndUserAndInfor);
+        }
+        return newList;
+
+//        List<Order> orders = orderMapper.selectByHotelId(hotelId);
+//        return orders;
     }
 
     @Override
-    public List<OrderAndInformation> findInfoByHotelIdAndUserId(int hotelId, int userId) {
-        return orderMapper.selectByHotelIdAndUserId(hotelId,userId);
+    public List<OrderAndUserAndInfor> findInfoByHotelIdAndUserId(int hotelId, int userId) {
+        List<OrderAndInformation> list = orderMapper.selectByHotelIdAndUserId(hotelId,userId);
+        List<OrderAndUserAndInfor> newList = new ArrayList<>();
+        for (OrderAndInformation info: list){
+            Room room = roomMapper.selectByPrimaryKey(info.getRoomId());
+            OrderAndUserAndInfor orderAndUserAndInfor = new OrderAndUserAndInfor();
+            orderAndUserAndInfor.setOrderId(info.getOrderId());
+            orderAndUserAndInfor.setRoomNumber(room.getRoomNumber());
+            orderAndUserAndInfor.setStatus(info.getStatus());
+            orderAndUserAndInfor.setOrderTime(info.getTime());
+            orderAndUserAndInfor.setUsername(info.getUsername());
+            orderAndUserAndInfor.setGender(info.getGender());
+            orderAndUserAndInfor.setUserPhone(info.getPhone());
+            orderAndUserAndInfor.setPayment(info.getPayment());
+            Comment comment = commentMapper.selectByOrderId(info.getOrderId());
+            if (comment==null){
+                orderAndUserAndInfor.setCommentTime(null);
+                orderAndUserAndInfor.setContent(null);
+                orderAndUserAndInfor.setRating(0.0);
+            }else {
+                orderAndUserAndInfor.setCommentTime(comment.getTime());
+                orderAndUserAndInfor.setContent(comment.getContent());
+                orderAndUserAndInfor.setRating(comment.getRating());
+            }
+            newList.add(orderAndUserAndInfor);
+        }
+        return newList;
+    }
+
+    @Override
+    public List<OrderAndUserAndInfor> getOrdersOfStatus(int hotelId) {
+        List<OrderAndInformation> list = orderMapper.selectAllByHotelIdAndStatus(hotelId);
+        List<OrderAndUserAndInfor> newList = new ArrayList<>();
+        for (OrderAndInformation info: list){
+            Room room = roomMapper.selectByPrimaryKey(info.getRoomId());
+            OrderAndUserAndInfor orderAndUserAndInfor = new OrderAndUserAndInfor();
+            orderAndUserAndInfor.setOrderId(info.getOrderId());
+            orderAndUserAndInfor.setRoomNumber(room.getRoomNumber());
+            orderAndUserAndInfor.setStatus(info.getStatus());
+            orderAndUserAndInfor.setOrderTime(info.getTime());
+            orderAndUserAndInfor.setUsername(info.getUsername());
+            orderAndUserAndInfor.setGender(info.getGender());
+            orderAndUserAndInfor.setUserPhone(info.getPhone());
+            orderAndUserAndInfor.setPayment(info.getPayment());
+            Comment comment = commentMapper.selectByOrderId(info.getOrderId());
+            if (comment==null){
+                orderAndUserAndInfor.setCommentTime(null);
+                orderAndUserAndInfor.setContent(null);
+                orderAndUserAndInfor.setRating(0.0);
+            }else {
+                orderAndUserAndInfor.setCommentTime(comment.getTime());
+                orderAndUserAndInfor.setContent(comment.getContent());
+                orderAndUserAndInfor.setRating(comment.getRating());
+            }
+            newList.add(orderAndUserAndInfor);
+        }
+        return newList;
     }
 
     @Override

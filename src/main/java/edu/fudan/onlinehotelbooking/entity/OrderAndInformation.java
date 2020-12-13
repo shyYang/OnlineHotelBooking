@@ -14,7 +14,8 @@ public class OrderAndInformation {
     private Date time;
     private double payment;
     //private int hotelId;
-    //private int orderId;
+    private int orderId;
+//    private int roomNumber;
     private String username;
     private String gender;
     private String phone;
@@ -73,6 +74,14 @@ public class OrderAndInformation {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     //    @Override

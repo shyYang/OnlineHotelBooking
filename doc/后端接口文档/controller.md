@@ -47,8 +47,9 @@
 | findRoomType          | 返回指定id的房间类型 | GET      | /hotel/find_room_type         | hotelId        | 成功返回roomType list，失败返回信息      |
 | searchHotels          | 搜索商家             | GET      | /hotel/searche_hotel          | hotelName      | 成功返回hotel list，失败500              |
 | findCommentsByHotelId | 列出商家评论         | GET      | /hotel/list_comments_of_hotel | hotelId        | 成功返回** CommentResponse list          |
-|findAllOrder()         | 列出商家所有订单     | GET      | /hotel/find_all_order         |  hotelId       |  成功返回list*(order)  失败返回信息   |
-|findOrderAndUserInformation| 列出未入住可公开用户信息|  GET   |/hotel/find_order_information | hotelId,userId  |  成功list*(orderAndInformation)失败返回信息|
+|findAllOrder()         | 列出商家所有订单     | GET      | /hotel/find_all_order         |  hotelId       |  成功返回list*(OrderAndUserAndInfor)  失败返回信息   |
+|findOrderAndUserInformation| 列出指定用户可公开用户信息|  GET   |/hotel/find_order_information | hotelId,userId  |  成功list*(OrderAndUserAndInfor)失败返回信息|
+|findOrderUserInformation|列出商家所有未入住用户可公开用户信息|  GET   |/hotel/find_order_information_status | hotelId|  成功list*(OrderAndUserAndInfor)失败返回信息|
 |cancelOrder()          | 取消订单             |GET      | /hotel/cancel_order           | orderId        |  成功返回成功信息  失败返回失败信息|
 |finishOrder()          | 结束订单            |GET       | /hotel/finish_order           |  oderId        |成功返回成功返回list*(order) 失败返回信息|
 ***hotelName,password,address,phone,photo,introduction**

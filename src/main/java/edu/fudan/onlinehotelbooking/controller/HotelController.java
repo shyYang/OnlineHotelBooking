@@ -99,7 +99,7 @@ public class HotelController {
         }else {
 //            System.out.println(hotelId);
 //            return null;
-            List<Order> lists = orderService.getOrdersOfHotel(hotelId);
+            List<OrderAndUserAndInfor> lists = orderService.getOrdersOfHotel(hotelId);
             if (lists.isEmpty()){
                 return ResultGenerator.genSuccessResult("此hotel不存在订单",lists);
             }else {
@@ -115,15 +115,26 @@ public class HotelController {
         if (valid==true){
             return ResultGenerator.genFailResult("有值为null");
         }else {
-            List<OrderAndInformation> list = orderService.findInfoByHotelIdAndUserId(hotelId,userId);
+            List<OrderAndUserAndInfor> list = orderService.findInfoByHotelIdAndUserId(hotelId,userId);
             if (list.isEmpty()){
                 return ResultGenerator.genFailResult("无订单信息");
             }else return ResultGenerator.genSuccessResult(list);
         }
+    }
 
-//        System.out.println(hotelId);
-//        System.out.println(userId);
-
+    @GetMapping("/find_order_information_status")
+    public Result findOrderUserInformation(@RequestParam int hotelId){
+        //status = o/1
+        boolean valid = (hotelId==0);
+        //System.out.println(hotelId);
+        if (valid==true){
+            return ResultGenerator.genFailResult("有值为null");
+        }else {
+            List<OrderAndUserAndInfor> list = orderService.getOrdersOfStatus(hotelId);
+            if (list.isEmpty()){
+                return ResultGenerator.genFailResult("无订单信息");
+            }else return ResultGenerator.genSuccessResult(list);
+        }
     }
 
     @GetMapping("/cancel_order")
