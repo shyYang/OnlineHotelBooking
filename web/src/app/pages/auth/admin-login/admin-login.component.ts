@@ -4,6 +4,7 @@ import {MemoryService} from '../../../service/memory.service';
 import {AuthService} from '../../../service/auth.service';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {Router} from '@angular/router';
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'app-admin-login',
@@ -43,7 +44,8 @@ export class AdminLoginComponent implements OnInit {
     private memory: MemoryService,
     private authService: AuthService,
     private modal: NzModalService,
-    private router: Router
+    private router: Router,
+    private msg:NzMessageService
   ) {}
 
   ngOnInit(): void {
@@ -135,11 +137,8 @@ export class AdminLoginComponent implements OnInit {
                 nzContent: result.message
               });
             }else {
+              this.msg.success("登陆成功")
               this.router.navigate(['admin']);
-              this.modal.success({
-                nzTitle: '登录成功',
-                nzContent: '',
-              });
             }
           });
         }

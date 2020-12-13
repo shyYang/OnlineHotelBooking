@@ -4,6 +4,7 @@ import {MemoryService} from "../../../service/memory.service";
 import {AuthService} from "../../../service/auth.service";
 import {NzModalService} from "ng-zorro-antd/modal";
 import {Router} from "@angular/router";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'app-customer-login',
@@ -85,11 +86,8 @@ export class CustomerLoginComponent implements OnInit {
               nzContent: result.message
             });
           }else {
+            this.msg.success("登陆成功");
             this.router.navigate(['/','customer','home']);
-            this.modal.success({
-              nzTitle: '登录成功',
-              nzContent: '',
-            });
           }
         });
       }
@@ -104,7 +102,8 @@ export class CustomerLoginComponent implements OnInit {
     private memory: MemoryService,
     private authService: AuthService,
     private modal: NzModalService,
-    private router: Router
+    private router: Router,
+    private msg:NzMessageService
     ) {}
 
   ngOnInit(): void {

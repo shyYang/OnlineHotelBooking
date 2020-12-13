@@ -2,6 +2,7 @@
   <nz-header>
     <div class="logo"></div>
     <ul nz-menu nzTheme="dark" nzMode="horizontal">
+      <li nz-menu-item routerLink="/customer/home">首页</li>
       <li nz-menu-item routerLink="/customer/search">搜索</li>
       <li nz-menu-item [nzDisabled]="!isLogin" routerLink="/customer/setting">设置</li>
       <li nz-menu-item [nzDisabled]="!isLogin" routerLink="/customer/history">历史订单</li>

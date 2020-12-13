@@ -9,8 +9,8 @@
     <nz-descriptions [nzTitle]=item.hotelName>
       <nz-descriptions-item nzTitle="用户名">{{item.username}}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="商家联系电话" [nzSpan]="2">{{item.phone}}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="订单日期">{{item.orderTime}}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="价格">{{item.payment}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="订单日期">{{ordersTime[i]}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="价格">￥{{item.payment}}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="房间号">
         {{item.roomNumber}}
       </nz-descriptions-item>
@@ -24,7 +24,7 @@
         </nz-comment>
         <ng-template #timeTql>
           <nz-rate [ngModel]=item.rating nzDisabled></nz-rate>
-          <span>  {{item.commentTime}}</span>
+          <span>  {{commentsTimes[i]}}</span>
         </ng-template>
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="评论" [nzSpan]="3" *ngIf="!item.content">

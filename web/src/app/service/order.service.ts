@@ -23,8 +23,8 @@ export class OrderService {
   ) { }
 
   addOrder(typeId:number):Observable<Result>{
-    // let url = this.addOrderUrl + 'typeId=' + typeId;
-    let url = '/assets/data/success.json';
+    let url = this.addOrderUrl + '?typeId=' + typeId;
+    // let url = '/assets/data/success.json';
 
     return this.http.get<Result>(url)
       .pipe(
@@ -33,25 +33,25 @@ export class OrderService {
   }
 
   getOrderByCustomerId():Observable<Result>{
-    let url = '/assets/data/OrderList.json';
+    // let url = '/assets/data/OrderList.json';
 
-    return this.http.get<Result>(url)
-      .pipe(
-        catchError(this.handleError)
-      );
-    // return this.http.get<Result>(this.getOrderByCustomerIdUrl)
+    // return this.http.get<Result>(url)
     //   .pipe(
     //     catchError(this.handleError)
     //   );
+    return this.http.get<Result>(this.getOrderByCustomerIdUrl)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   comment(data:any):Observable<Result>{
-    let url = '/assets/data/success.json';
-    return this.http.get<Result>(url)
-      .pipe(catchError(this.handleError));
-
-    // return this.http.post<Result>(this.commentUrl,data,httpOptions)
+    // let url = '/assets/data/success.json';
+    // return this.http.get<Result>(url)
     //   .pipe(catchError(this.handleError));
+
+    return this.http.post<Result>(this.commentUrl,data,httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

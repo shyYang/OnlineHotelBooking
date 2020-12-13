@@ -50,7 +50,7 @@ public class HotelController {
 
     @GetMapping("/list_top_hotel")
     public Result listTopHotels(){
-        final int NUMBER = 2;
+        final int NUMBER = 5;
         List<Hotel> list = hotelService.findOrderByRating();
         List<Hotel> result = new ArrayList<>();
         if (list.size() <= NUMBER)
