@@ -138,7 +138,7 @@ export class AdminLoginComponent implements OnInit {
               });
             }else {
               this.msg.success("登陆成功")
-              this.router.navigate(['admin']);
+              this.router.navigate(['admin/customer']);
             }
           });
         }

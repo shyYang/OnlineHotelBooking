@@ -51,6 +51,9 @@ public class CustomerController {
     @GetMapping("/user_information")
     public Result showUserInformation(HttpServletRequest request){
         HttpSession session = request.getSession();
+        if (session.getAttribute(USER_ID_SESSION)==null){
+            return ResultGenerator.genFailResult("暂未登录");
+        }
         int userId = (int)session.getAttribute(USER_ID_SESSION);
         Customer customer = customerService.findById(userId);
         return ResultGenerator.genSuccessResult(customer);

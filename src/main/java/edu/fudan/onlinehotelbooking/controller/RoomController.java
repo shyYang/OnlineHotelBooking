@@ -93,7 +93,6 @@ public class RoomController {
         //return ResultGenerator.genSuccessResult(room);
     }
 
-    //todo
     @GetMapping("/list")
     public Result list(@RequestParam int hotelId) {
         List<Room> list = roomService.findAllRoom(hotelId);

@@ -25,13 +25,15 @@
 <div class="search-result" *ngIf="total!=0">
   <ul nz-list [nzDataSource]="customerList" nzBordered nzSize="large">
     <nz-list-header>搜索结果</nz-list-header>
-    <li nz-list-item *ngFor="let item of customerList" nzNoFlex>
-      <ul nz-list-item-actions>
-        <nz-list-item-action>
-          <a [routerLink]="['/admin/customer/detail',item.userId]">查看</a>
-        </nz-list-item-action>
-      </ul>
-      {{ item.userId }}
+    <li nz-list-item *ngFor="let item of customerList let i = index" nzNoFlex>
+      <nz-descriptions nzTitle="{{item.username}}(ID:{{item.userId}})"  [nzExtra]="extraCustomerTpl">
+        <nz-descriptions-item nzTitle="手机号">{{item.phone}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="性别">{{item.gender}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="余额">{{item.account}}</nz-descriptions-item>
+      </nz-descriptions>
+      <ng-template #extraCustomerTpl>
+        <a [routerLink]="['/admin/customer/detail',item.userId]">查看</a>
+      </ng-template>
     </li>
   </ul>
 </div>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AdminService} from "../../../service/admin.service";
-import {User} from "../../../share/common.model";
+import {Customer, User} from "../../../share/common.model";
+import {NzMessageService} from "ng-zorro-antd/message";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-customer',
@@ -8,32 +10,31 @@ import {User} from "../../../share/common.model";
   styleUrls: ['./admin-customer.component.css']
 })
 export class AdminCustomerComponent implements OnInit {
-  List:User[] = [];
+  customers:Customer[] = [];
+  users:User[] = [];
   pageIndex = 1;
-  pageSize = 10;
+  pageSize = 4;
   total = 0;
   customerList: any;
 
   constructor(
-    private adminService:AdminService
+    private adminService:AdminService,
   ) { }
 
   ngOnInit(): void {
     this.adminService.getUsers().subscribe(res => {
       if (res.code == 200) {
-        for (let item of res.data) {
-          if (item.role == 2) this.List.push(item);
-        }
+        this.customers = res.data.customers;
+        this.users = res.data.users;
       }
-      this.total = this.List.length;
-      this.customerList = this.List.slice(0, Math.min(this.pageSize, this.total));
+      this.total = this.customers.length;
+      this.customerList = this.customers.slice(0, Math.min(this.pageSize, this.total));
     });
 
   }
 
   changePage(): void{
-    this.customerList = this.List.slice((this.pageIndex - 1) * this.pageSize, Math.min(this.total, this.pageIndex * this.pageSize));
+    this.customerList = this.customers.slice((this.pageIndex - 1) * this.pageSize, Math.min(this.total, this.pageIndex * this.pageSize));
   }
-
 
 }

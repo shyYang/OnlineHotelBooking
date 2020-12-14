@@ -41,7 +41,6 @@ public class AdminController {
         result.put("customers",customerList);
         result.put("users",userList);
         return ResultGenerator.genSuccessResult(result);
-
     }
 
     //列出指定用户的指定订单记录

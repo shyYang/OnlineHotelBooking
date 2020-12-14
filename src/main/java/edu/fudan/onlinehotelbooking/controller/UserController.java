@@ -46,11 +46,11 @@ public class UserController {
                 return ResultGenerator.genFailResult(message);
             } else {
                 if (password.equals(user.getPassword())  && role == user.getRole()) { //登陆成功
-                    Condition condition = new Condition(Hotel.class);
-                    condition.createCriteria().andEqualTo("userId", id);
-                    List<Hotel> hotels = hotelService.findByCondition(condition);
-                    Hotel hotel = hotels.get(0);
                     if (role == 1) {
+                        Condition condition = new Condition(Hotel.class);
+                        condition.createCriteria().andEqualTo("userId", id);
+                        List<Hotel> hotels = hotelService.findByCondition(condition);
+                        Hotel hotel = hotels.get(0);
                         HttpSession session = request.getSession();
                         session.setAttribute(HOTEL_ID_SESSION, hotel.getHotelId());
                     }else{

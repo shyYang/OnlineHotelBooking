@@ -28,11 +28,13 @@ export class AdminCustomerDetailComponent implements OnInit {
       this.header = '用户ID:'+this.userId;
       this.adminService.getOrderByUser(this.userId).subscribe(res => {
         if (res.code==200){
+          console.log(res.data);
           this.orders = res.data;
         }
       });
       this.adminService.getCommentsByUser(this.userId).subscribe(result => {
         if (result.code==200){
+          console.log(result.data);
           this.comments = result.data;
         }
       });

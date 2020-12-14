@@ -21,10 +21,12 @@ export class CustomerHomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.hotelService.getTop5Hotels().subscribe(res => {
-      this.top3Hotels = res.data.slice(0,3);
-      for (let item of this.top3Hotels){
-        if (item.introduction.length>20){
-          item.introduction = item.introduction.slice(0,17)+'...';
+      if (res.code==200){
+        this.top3Hotels = res.data.slice(0,3);
+        for (let item of this.top3Hotels){
+          if (item.introduction.length>20){
+            item.introduction = item.introduction.slice(0,17)+'...';
+          }
         }
       }
     });

@@ -34,23 +34,23 @@ export class AdminService {
   private deleteHotelUrl = '/admin/delete';
 
   getUsers():Observable<Result>{
-    let url = '/assets/data/UserList.json';
-    return this.http.get<Result>(url)
-      .pipe(catchError(this.handleError));
-    // return this.http.get<Result>(this.getUsersUrl)
+    // let url = '/assets/data/UserList.json';
+    // return this.http.get<Result>(url)
     //   .pipe(catchError(this.handleError));
+    return this.http.get<Result>(this.getUsersUrl)
+      .pipe(catchError(this.handleError));
   }
 
   getOrderByUser(data:number):Observable<Result>{
-    //let url = this.getOrderByUserUrl + 'userID=' + data;
-    let url = '/assets/data/adOrders.json';
+    let url = this.getOrderByUserUrl + '?userID=' + data;
+    // let url = '/assets/data/adOrders.json';
     return this.http.get<Result>(url)
       .pipe(catchError(this.handleError));
   }
 
   getCommentsByUser(data:number):Observable<Result>{
-    //let url = this.getCommentByUserUrl + 'userID=' + data;
-    let url = '/assets/data/adComments.json'
+    let url = this.getCommentByUserUrl + '?userID=' + data;
+    // let url = '/assets/data/adComments.json'
     return this.http.get<Result>(url)
       .pipe(catchError(this.handleError));
   }

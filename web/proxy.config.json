@@ -163,5 +163,20 @@
     "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true
+  },
+  "/admin/users": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/admin/orders_all": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/admin/comments":{
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
   }
 }
