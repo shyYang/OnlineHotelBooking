@@ -54,12 +54,17 @@
     "secure": false,
     "changeOrigin": true
   },
-  "/hotel/search_hotel": {
+  "/hotel/find_hotel": {
     "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true
   },
-  "/hotel/find_hotel": {
+  "/hotel/find_hotel_by_id": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/hotel/search_hotel": {
     "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true
@@ -69,22 +74,92 @@
     "secure": false,
     "changeOrigin": true
   },
+  "/hotel/find_room_type_by_id": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/room/type/delete": {
+
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/room/type/add": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+
   "/hotel/list_comments_of_hotel": {
     "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true
   },
+  "/room/type/update": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+
   "/customer/order_room": {
     "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true
   },
+  "/room/type/detail": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+
   "/customer/list_all_order": {
     "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true
   },
+  "/room/type/roomDetails": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+
   "/customer/comment": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/room/type/list": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/hotel/find_order_information_status": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/hotel/cancel_order": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/hotel/finish_order": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/file_upload": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/upload/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/room/add": {
     "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true

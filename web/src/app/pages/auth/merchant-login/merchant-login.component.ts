@@ -4,6 +4,7 @@ import {MemoryService} from '../../../service/memory.service';
 import {AuthService} from '../../../service/auth.service';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {Router} from '@angular/router';
+import {NzMessageService} from "ng-zorro-antd/message";
 @Component({
   selector: 'app-merchant-login',
   templateUrl: './merchant-login.component.html',
@@ -61,8 +62,8 @@ export class MerchantLoginComponent implements OnInit {
     }
     if (!this.validateForm.valid)return;
     if (this.validateForm.value.remember){
-      this.memory.setUser({
-        name:this.validateForm.value.account,
+      this.memory.setHotel({
+        name:this.validateForm.value.username,
         password:this.validateForm.value.password
       });
     }else {
@@ -86,11 +87,8 @@ export class MerchantLoginComponent implements OnInit {
               nzContent: result.message
             });
           }else {
+            this.msg.success("登陆成功");
             this.router.navigate(['/','merchant','info']);
-            this.modal.success({
-              nzTitle: '登录成功',
-              nzContent: '',
-            });
           }
         });
       }
@@ -102,7 +100,8 @@ export class MerchantLoginComponent implements OnInit {
               private memory: MemoryService,
               private authService:AuthService,
               private modal:NzModalService,
-              private router:Router) {}
+              private router:Router,
+              private msg:NzMessageService) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -124,7 +123,7 @@ export class MerchantLoginComponent implements OnInit {
     if(this.memory.getRememberHotel()){
       this.hotel = this.memory.getHotel();
       this.validateForm.setValue({
-        account: this.hotel.name,
+        username: this.hotel.name,
         password: this.hotel.password,
         captcha: null,
         remember:true

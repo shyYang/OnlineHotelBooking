@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError, map, tap } from "rxjs/operators";
 import {Observable, of} from "rxjs";
 import {Hotel, RoomType, Comment, Result} from "../share/common.model";
-import {observableToBeFn} from 'rxjs/internal/testing/TestScheduler';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -59,8 +58,9 @@ export class HotelService {
     //   );
   }
 
-  searchHotels(hotelName:string):Observable<Result>{
-    let url = this.searchHotelUrl + '?hotelName=' + hotelName;
+
+  searchHotels(hotelName: string):Observable<Result>{
+    let url = this.searchHotelUrl + 'hotelName=' + hotelName;
     // var url='';
     // if (hotelName=='11') url = '/assets/data/HotelList1.json';
     // else url = '/assets/data/HotelList.json';
@@ -69,6 +69,7 @@ export class HotelService {
         catchError(this.handleError)
       );
   }
+
 
   getHotelById(hotelId:number): Observable<Result>{
     let url = this.getHotelByIdUrl + '?hotelId=' + hotelId;
@@ -80,14 +81,32 @@ export class HotelService {
       );
   }
 
-  getRoomById(hotelId: number): Observable<Result>{
-    // let url = this.getRoomByIdUrl + '?hotelId=' + hotelId;
-    let url = '/assets/data/RoomList.json';
+  getHotel(): Observable<Result>{
+    let url = this.getHotelByIdUrl ;
+    // let url = '/assets/data/Hotel.json';
 
     return this.http.get<Result>(url)
       .pipe(
         catchError(this.handleError)
       );
+  }
+
+  getRoomById(): Observable<Result>{
+    let url = this.getRoomTypeByIdUrl;
+    // let url = '/assets/data/RoomList.json';
+
+    return this.http.get<Result>(url)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+
+  getRoomType():Observable<Result>{
+    let url = this.getRoomTypeByIdUrl;
+    return this.http.get<Result>(url).pipe(
+      catchError(this.handleError)
+    );
   }
 
   getRoomTypeById(hotelId: number):Observable<Result>{
@@ -97,8 +116,9 @@ export class HotelService {
       catchError(this.handleError)
     );
   }
-  getOrdersById(hotelId: number): Observable<Result>{
-    let url = '/assets/data/HotelOrderList.json';
+
+  getOrdersById(): Observable<Result>{
+    let url = '/hotel/find_order_information_status';
 
     return this.http.get<Result>(url)
       .pipe(
@@ -114,8 +134,9 @@ export class HotelService {
         catchError(this.handleError)
       );
   }
+
   finishOrder(orderId: number): Observable<Result>{
-    let url = '/assets/data/success.json';
+    let url = this.finishOrederUrl + "?orderId=" + orderId;
 
     return this.http.get<Result>(url)
       .pipe(
@@ -127,7 +148,7 @@ export class HotelService {
     //   );
   }
   cancelOrder(orderId: number): Observable<Result>{
-    let url = '/assets/data/success.json';
+    let url = this.cancelOrderUrl + "?orderId=" + orderId;
 
     return this.http.get<Result>(url)
       .pipe(

@@ -8,6 +8,7 @@ import {Observable, Observer} from 'rxjs';
 import {AuthService} from "../../../service/auth.service";
 import {NzModalService} from "ng-zorro-antd/modal";
 import {Router} from "@angular/router";
+import {FileUploadService} from "../../../service/fileUpload.service";
 
 const options = [
   {value: '北京', label: '北京', children: [
@@ -42,7 +43,7 @@ export class MerchantRegisterComponent implements OnInit {
   avatarUrl?: string;
   // 图片上传服务器
   action = 'root';
-  photoAddress: string="1.png";
+  photoAddress?: string;
   validateForm!: FormGroup;
   captchaTooltipIcon: NzFormTooltipIcon = {
     type: 'info-circle',
@@ -63,6 +64,10 @@ export class MerchantRegisterComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
     console.log(this.validateForm.value);
+    let t = '';
+    for (const i in this.validateForm.value.address1){
+      t += this.validateForm.value.address1[i];
+    }
     this.authService.submitCaptcha(this.validateForm.value.captcha).subscribe(result => {
       if (result.code != 200){
         this.modal.error({
@@ -73,7 +78,7 @@ export class MerchantRegisterComponent implements OnInit {
         this.authService.hotelSignUp({
           hotelName: this.validateForm.value.hotelName,
           password: this.validateForm.value.password,
-          address: this.validateForm.value.address1 + this.validateForm.value.detailAddress,
+          address: t + this.validateForm.value.detailAddress,
           phone: this.validateForm.value.phoneNumber,
           photo: this.photoAddress,
           introduction: this.validateForm.value.introduction
@@ -123,30 +128,8 @@ export class MerchantRegisterComponent implements OnInit {
     console.log(values);
   }
 
-  beforeUpload = (file: NzUploadFile, fileList: NzUploadFile[]) => {
-    return new Observable((observer: Observer<boolean>) => {
-      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif';
-      if (!isJpgOrPng) {
-        this.msg.error('You can only upload JPG file!');
-        observer.complete();
-        return;
-      }
-      const isLt2M = file.size! / 1024 / 1024 < 2;
-      if (!isLt2M) {
-        this.msg.error('Image must smaller than 2MB!');
-        observer.complete();
-        return;
-      }
-      observer.next(isJpgOrPng && isLt2M);
-      observer.complete();
-    });
-  }
+  beforeUpload = this.fileUploadService.beforeUpload;
 
-  private getBase64(img: File, callback: (img: string) => void): void {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result!.toString()));
-    reader.readAsDataURL(img);
-  }
   handleChange(info: { file: NzUploadFile }): void {
     switch (info.file.status) {
       case 'uploading':
@@ -154,12 +137,21 @@ export class MerchantRegisterComponent implements OnInit {
         break;
       case 'done':
         // Get this url from response in real world.
-        this.getBase64(info.file!.originFileObj!, (img: string) => {
-          // this.photoAddress = info.file.response.data;
-          this.loading = false;
-          // this.avatarUrl = img;
-          // console.log(this.photoAddress);
-        });
+        // this.fileUploadService.getBase64(info.file!.originFileObj!, (img: string) => {
+        //   this.photoAddress = info.file.response.data;
+        //   this.loading = false;
+        //   // this.avatarUrl = img;
+        //   // console.log(this.photoAddress);
+        // });
+        this.loading = false;
+        console.log(info.file.response);
+        if(info.file.response.code == 200){
+          this.photoAddress = info.file.response.data;
+        }
+        else{
+          this.photoAddress = undefined;
+          this.msg.error(info.file.response.message);
+        }
         break;
       case 'error':
         this.msg.error('Network error');
@@ -177,7 +169,8 @@ export class MerchantRegisterComponent implements OnInit {
     private msg: NzMessageService,
     private authService: AuthService,
     private modal: NzModalService,
-    private router: Router
+    private router: Router,
+    private fileUploadService: FileUploadService
     ) {}
 
   ngOnInit(): void {

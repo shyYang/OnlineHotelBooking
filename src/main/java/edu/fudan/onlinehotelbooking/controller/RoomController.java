@@ -26,16 +26,18 @@ public class RoomController {
 
     @PostMapping("/add")
     public Result add(@RequestBody Room room) {
-        Boolean valid = (room.getTypeId()==null|room.getRoomNumber()==null);
+        boolean valid = (room.getTypeId()==null|room.getRoomNumber()==null);
         //System.out.println(room.getTypeId());
         //RoomType roomType = roomTypeService.roomTypeFindById(room.getTypeId());cause error
         RoomType roomType = roomTypeService.findById(room.getTypeId());
-        if (valid==true){
+        System.out.println(room.getRoomNumber());
+        if (valid==true) {
             return ResultGenerator.genFailResult("更改信息失败，有信息为null");
-        }else if (roomType==null){
+        }else if (roomType==null) {
             return ResultGenerator.genFailResult("无此类型房型，请输入正确type_id");
         }else {
             int resultId = roomService.addRoom(room);
+            System.out.println(resultId);
             if (resultId <= 0 ){
                 return ResultGenerator.genFailResult("增加新房间失败");
             }else return ResultGenerator.genSuccessResult("增加新房间成功");

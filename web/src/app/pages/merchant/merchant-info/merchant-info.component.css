@@ -11,7 +11,8 @@
 }
 .right-item{
   flex: 1;
-  margin-left: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 nz-list{
   height: 420px;

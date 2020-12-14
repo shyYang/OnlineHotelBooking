@@ -23,34 +23,35 @@ export class RoomTypeService {
     private http: HttpClient,
   ) { }
   addRoomType(roomType: any): Observable<Result>{
-    let url = '/assets/data/success.json';
-    return this.http.get<Result>(url)
-      .pipe(
-        catchError(this.handleError)
-      );
-    // return this.http.post<Result>(this.addRoomUrl,roomType,httpOptions).pipe(
-    //   catchError(this.handleError)
-    // );
+    // let url = '/assets/data/success.json';
+    // return this.http.get<Result>(url)
+    //   .pipe(
+    //     catchError(this.handleError)
+    //   );
+    return this.http.post<Result>(this.addUrl,roomType,httpOptions).pipe(
+      catchError(this.handleError)
+    );
   }
   deleteRoomType(typeId: number): Observable<Result>{
-    let url = '/assets/data/success.json';
-    return this.http.get<Result>(url)
-      .pipe(
-        catchError(this.handleError)
-      );
-    // return this.http.post<Result>(this.deleteRoomUrl,typeId,httpOptions).pipe(
-    //   catchError(this.handleError)
-    // );
+    // let url = '/room/type/delete?typeId'+typeId;
+    // return this.http.get<Result>(url)
+    //   .pipe(
+    //     catchError(this.handleError)
+    //   );
+    let url = this.deleteUrl +"?typeId="+ typeId;
+    return this.http.get<Result>(url).pipe(
+      catchError(this.handleError)
+    );
   }
   updateRoomTypeInfo(roomType: any): Observable<Result>{
-    let url = '/assets/data/success.json';
-    return this.http.get<Result>(url)
-      .pipe(
-        catchError(this.handleError)
-      );
-    // return this.http.post<Result>(updateRoomInfoUrl,roomType,httpOptions).pipe(
-    //   catchError(this.handleError)
-    // );
+    // let url = '/room_type/update';
+    // return this.http.get<Result>(url)
+    //   .pipe(
+    //     catchError(this.handleError)
+    //   );
+    return this.http.post<Result>(this.updateUrl,roomType,httpOptions).pipe(
+      catchError(this.handleError)
+    );
   }
   roomTypeInfoById(roomId: number): Observable<Result>{
     // let url = this.listRoomUrl + '?roomId=' + roomId;

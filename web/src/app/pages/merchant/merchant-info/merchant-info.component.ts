@@ -9,6 +9,7 @@ import {NzUploadFile} from 'ng-zorro-antd/upload';
 import {Observable, Observer} from 'rxjs';
 import {RoomService} from '../../../service/room.service';
 import {RoomTypeService} from '../../../service/roomType.service';
+import {FileUploadService} from "../../../service/fileUpload.service";
 
 
 @Component({
@@ -44,30 +45,30 @@ export class MerchantInfoComponent implements OnInit {
     private roomTypeService: RoomTypeService,
     private roomService: RoomService,
     private router: ActivatedRoute,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    private fileUploadService: FileUploadService
   ) { }
 
   ngOnInit(): void {
-    this.router.paramMap.subscribe(params => {
-      this.hotelId = Number(params.get('hotelId'));
-      this.hotelService.getHotelById(this.hotelId).subscribe(result => {
-        this.hotelInfo = result.data;
-      });
-      this.hotelService.getRoomTypeById(this.hotelId).subscribe(roomTypes => {
-        this.roomTypes = roomTypes.data;
-      });
-      this.hotelService.getRoomById(this.hotelId).subscribe(rooms => {
-        this.rooms = rooms.data;
-        for (const room of this.rooms){
-          for (const roomsType of this.roomTypes){
-            if (roomsType.typeId === room.typeId){
-              this.roomName.push(roomsType.name);
-              break;
-            }
-          }
-        }
-      });
+
+    this.hotelService.getHotel().subscribe(result => {
+      this.hotelInfo = result.data;
     });
+    this.hotelService.getRoomType().subscribe(roomTypes => {
+        this.roomTypes = roomTypes.data;
+    });
+    //看不懂
+    // this.hotelService.getRoomById().subscribe(rooms => {
+    //   this.rooms = rooms.data;
+    //   for (const room of this.rooms){
+    //     for (const roomsType of this.roomTypes){
+    //       if (roomsType.typeId === room.typeId){
+    //         this.roomName.push(roomsType.name);
+    //         break;
+    //       }
+    //     }
+    //   }
+    //   });
     this.updateRoomTypeForm = this.fb.group({
       price: [null, ],
       name: [null, ],
@@ -89,16 +90,17 @@ export class MerchantInfoComponent implements OnInit {
   }
   deleteRoomType(typeId: number): void{
     this.roomTypeService.deleteRoomType(typeId).subscribe(result =>{
-      if (result.code === 500){
+      if (result.code != 200) {
         this.modal.error({
           nzTitle: '无法删除该种房型',
           nzContent: result.message,
         });
-      }else if (result.code === 200) {
+      }else {
         this.modal.success({
           nzTitle: '成功删除该种房型',
           nzContent: result.message,
         });
+        this.roomTypes = this.roomTypes.filter(item => item.typeId !== typeId);
       }
     });
   }
@@ -139,26 +141,27 @@ export class MerchantInfoComponent implements OnInit {
       photo: this.photoAddress === '' ? this.roomType.photo : this.photoAddress,
       introduction: this.updateRoomTypeForm.value.introduction === null ? this.roomType.introduction : this.updateRoomTypeForm.value.introduction,
     }).subscribe(result =>{
-      if (result.code === 500){
+      if (result.code != 200) {
         this.modal.error({
           nzTitle: '修改房型失败',
           nzContent: result.message,
         });
-      }else if (result.code === 200){
+        this.photoAddress = undefined
+      } else {
         this.modal.success({
           nzTitle: '修改成功',
           nzContent: result.message,
         });
       }
     });
-    this.photoAddress = undefined;
+    ;
   }
   deleteRoom(roomId: number): void{
     this.roomService.deleteRoom(roomId).subscribe(result => {
       if (result.code === 500){
         this.modal.error({
           nzTitle: '无法删除该房间',
-          nzContent: result.message,
+          nzContent: "",
         });
       }else if (result.code === 200){
           this.modal.success({
@@ -243,15 +246,18 @@ export class MerchantInfoComponent implements OnInit {
       number: this.addRoomTypeForm.value.number,
       freeNumber: this.addRoomTypeForm.value.freeNumber,
     }).subscribe(result => {
-      if (result.code === 500){
+      if (result.code != 200){
         this.modal.error({
           nzTitle: '信息有误',
           nzContent: result.message
         });
-      }else if (result.code === 200){
+      } else {
         this.modal.success({
           nzTitle: '添加成功',
           nzContent: '',
+        });
+        this.hotelService.getRoomType().subscribe(roomTypes => {
+          this.roomTypes = roomTypes.data;
         });
       }
       this.addRoomTypeForm.reset();
@@ -277,7 +283,7 @@ export class MerchantInfoComponent implements OnInit {
       typeId: this.typeId,
       roomNumber: this.addRoomForm.value.roomNumber,
     }).subscribe(result => {
-      if (result.code === 500){
+      if (result.code != 200){
         this.modal.error({
           nzTitle: '信息有误',
           nzContent: result.message
@@ -286,6 +292,9 @@ export class MerchantInfoComponent implements OnInit {
         this.modal.success({
           nzTitle: '添加成功',
           nzContent: '',
+        });
+        this.hotelService.getRoomType().subscribe(roomTypes => {
+          this.roomTypes = roomTypes.data;
         });
       }
       this.addRoomForm.reset();
@@ -297,29 +306,8 @@ export class MerchantInfoComponent implements OnInit {
     this.addRoomVisible = false;
   }
 
-  beforeUpload = (file: NzUploadFile, fileList: NzUploadFile[]) => {
-    return new Observable((observer: Observer<boolean>) => {
-      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif';
-      if (!isJpgOrPng) {
-        this.msg.error('You can only upload JPG file!');
-        observer.complete();
-        return;
-      }
-      const isLt2M = file.size! / 1024 / 1024 < 2;
-      if (!isLt2M) {
-        this.msg.error('Image must smaller than 2MB!');
-        observer.complete();
-        return;
-      }
-      observer.next(isJpgOrPng && isLt2M);
-      observer.complete();
-    });
-  }
-  private getBase64(img: File, callback: (img: string) => void): void {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result!.toString()));
-    reader.readAsDataURL(img);
-  }
+  beforeUpload = this.fileUploadService.beforeUpload;
+
   handleChange(info: { file: NzUploadFile }): void {
     switch (info.file.status) {
       case 'uploading':
@@ -327,13 +315,21 @@ export class MerchantInfoComponent implements OnInit {
         break;
       case 'done':
         // Get this url from response in real world.
-        this.getBase64(info.file!.originFileObj!, (img: string) => {
-          // 注意修改
-          this.photoAddress = info.file.response.url;
-          this.loading = false;
-          this.avatarUrl = img;
-          // console.log(this.photoAddress);
-        });
+        // this.fileUploadService.getBase64(info.file!.originFileObj!, (img: string) => {
+        //   this.photoAddress = info.file.response.data;
+        //   this.loading = false;
+        //   // this.avatarUrl = img;
+        //   // console.log(this.photoAddress);
+        // });
+        this.loading = false;
+        console.log(info.file.response);
+        if(info.file.response.code == 200){
+          this.photoAddress = info.file.response.data;
+        }
+        else{
+          this.photoAddress = undefined;
+          this.msg.error(info.file.response.message);
+        }
         break;
       case 'error':
         this.msg.error('Network error');

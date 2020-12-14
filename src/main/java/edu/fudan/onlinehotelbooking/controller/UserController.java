@@ -2,9 +2,11 @@ package edu.fudan.onlinehotelbooking.controller;
 import edu.fudan.onlinehotelbooking.core.Result;
 import edu.fudan.onlinehotelbooking.core.ResultGenerator;
 import edu.fudan.onlinehotelbooking.entity.Customer;
+import edu.fudan.onlinehotelbooking.entity.Hotel;
 import edu.fudan.onlinehotelbooking.entity.User;
 import edu.fudan.onlinehotelbooking.entity.UserOfCustomer;
 import edu.fudan.onlinehotelbooking.service.CustomerService;
+import edu.fudan.onlinehotelbooking.service.HotelService;
 import edu.fudan.onlinehotelbooking.service.UserService;
 import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Condition;
@@ -27,11 +29,11 @@ public class UserController {
     private UserService userService;
     @Resource
     private CustomerService customerService;
+    @Resource
+    private HotelService hotelService;
 
     @PostMapping("/login")
     public Result login(@RequestBody UserOfCustomer userOfCustomer, HttpServletRequest request) {
-        System.out.println(userOfCustomer.getUsername());
-        System.out.println(userOfCustomer.getRole());
         int role = userOfCustomer.getRole();
         String message = "";
         String password = userOfCustomer.getPassword();
@@ -44,7 +46,16 @@ public class UserController {
                 return ResultGenerator.genFailResult(message);
             } else {
                 if (password.equals(user.getPassword())  && role == user.getRole()) { //登陆成功
-                    handleSession(request, user.getUserId());
+                    Condition condition = new Condition(Hotel.class);
+                    condition.createCriteria().andEqualTo("userId", id);
+                    List<Hotel> hotels = hotelService.findByCondition(condition);
+                    Hotel hotel = hotels.get(0);
+                    if (role == 1) {
+                        HttpSession session = request.getSession();
+                        session.setAttribute(HOTEL_ID_SESSION, hotel.getHotelId());
+                    }else{
+                        handleSession(request, user.getUserId());
+                    }
                     return ResultGenerator.genSuccessResult();
                 } else {  //密码错误
                     message = "用户不存在或密码错误";

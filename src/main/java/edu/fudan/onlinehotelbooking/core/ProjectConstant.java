@@ -15,4 +15,6 @@ public final class ProjectConstant {
     public static final String MAPPER_INTERFACE_REFERENCE = BASE_PACKAGE + ".core.Mapper";//Mapper插件基础接口的完全限定名
 
     public static final String USER_ID_SESSION = "userId";
+    public static final String HOTEL_ID_SESSION = "hotelId";
+
 }

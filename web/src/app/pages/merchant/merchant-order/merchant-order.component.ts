@@ -20,7 +20,7 @@ export class MerchantOrderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.hotelService.getOrdersById(this.hotelId).subscribe(res => {
+    this.hotelService.getOrdersById().subscribe(res => {
       for (const i of res.data){
         if (i.status !== 1){
           this.list.push(i);

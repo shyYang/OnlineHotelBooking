@@ -5,6 +5,7 @@ import edu.fudan.onlinehotelbooking.entity.*;
 import edu.fudan.onlinehotelbooking.mapper.*;
 import edu.fudan.onlinehotelbooking.service.HotelService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -12,6 +13,7 @@ import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
 @Service
+@Transactional
 public class HotelServiceImpl extends AbstractService<Hotel> implements HotelService {
     @Resource
     private HotelMapper hotelMapper;

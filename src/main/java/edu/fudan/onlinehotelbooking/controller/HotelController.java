@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
-import static edu.fudan.onlinehotelbooking.core.ProjectConstant.USER_ID_SESSION;
+import static edu.fudan.onlinehotelbooking.core.ProjectConstant.*;
 
 /**
 * Created by CodeGenerator on 2020/12/04.
@@ -63,16 +63,31 @@ public class HotelController {
         return ResultGenerator.genSuccessResult(result);
     }
     @GetMapping("/find_hotel")
-    public Result findHotelById(@RequestParam int hotelId){
+    public Result findHotelById(HttpServletRequest request){
+        int hotelId = getHotelId(request);
         Hotel hotel = hotelService.findById(hotelId);
         return ResultGenerator.genSuccessResult(hotel);
     }
 
     @GetMapping("/find_room_type")
+    public Result findRoomType(HttpServletRequest request){
+        int hotelId = getHotelId(request);
+        List<RoomType> list = roomTypeService.findByHotelId(hotelId);
+        return ResultGenerator.genSuccessResult(list);
+    }
+
+    @GetMapping("/find_hotel_by_id")
+    public Result findHotelById(@RequestParam int hotelId){
+        Hotel hotel = hotelService.findById(hotelId);
+        return ResultGenerator.genSuccessResult(hotel);
+    }
+
+    @GetMapping("/find_room_type_by_id")
     public Result findRoomType(@RequestParam int hotelId){
         List<RoomType> list = roomTypeService.findByHotelId(hotelId);
         return ResultGenerator.genSuccessResult(list);
     }
+
 
     @GetMapping("search_hotel")
     public Result searchHotels(@RequestParam String hotelName) {
@@ -81,14 +96,16 @@ public class HotelController {
     }
 
     @GetMapping("list_comments_of_hotel")
-    public Result findCommentsByHotelId(@RequestParam int hotelId) {
+    public Result findCommentsByHotelId(HttpServletRequest request) {
+        int hotelId = getHotelId(request);
         List<CommentResponse> list = hotelService.findCommentsByHotelId(hotelId);
         return ResultGenerator.genSuccessResult(list);
     }
 
     //finished by whw
     @GetMapping("/find_all_order")
-    public Result findAllOrder(@RequestParam int hotelId){
+    public Result findAllOrder(HttpServletRequest request){
+        int hotelId = getHotelId(request);
         Hotel hotel = hotelService.findById(hotelId);
         //System.out.println(hotelId);
         if (hotelId==0){
@@ -109,7 +126,8 @@ public class HotelController {
     }
 
     @GetMapping("/find_order_information")
-    public Result findOrderAndUserInformation(@RequestParam int hotelId,int userId){
+    public Result findOrderAndUserInformation(HttpServletRequest request, @RequestParam int userId){
+        int hotelId = getHotelId(request);
         boolean valid = (hotelId==0|userId==0);
         //System.out.println(hotelId);
         if (valid==true){
@@ -123,8 +141,9 @@ public class HotelController {
     }
 
     @GetMapping("/find_order_information_status")
-    public Result findOrderUserInformation(@RequestParam int hotelId){
+    public Result findOrderUserInformation(HttpServletRequest request){
         //status = o/1
+        int hotelId = getHotelId(request);
         boolean valid = (hotelId==0);
         //System.out.println(hotelId);
         if (valid==true){
@@ -168,8 +187,13 @@ public class HotelController {
 
     private void handleSession(HttpServletRequest request, int id) {
         HttpSession session = request.getSession();
-        session.setAttribute(USER_ID_SESSION, id);
+        session.setAttribute(HOTEL_ID_SESSION, id);
         //        设置失效时间30分钟
         session.setMaxInactiveInterval(1800);
+    }
+
+    private int getHotelId(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        return (int)session.getAttribute(HOTEL_ID_SESSION);
     }
 }

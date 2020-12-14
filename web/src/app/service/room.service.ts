@@ -23,14 +23,14 @@ export class RoomService{
     private http: HttpClient,
   ) { }
   addRoom(room: any): Observable<Result>{
-    let url = '/assets/data/success.json';
-    return this.http.get<Result>(url)
-      .pipe(
-        catchError(this.handleError)
-      );
-    // return this.http.post<Result>(this.addRoomUrl,room,httpOptions).pipe(
-    //   catchError(this.handleError)
-    // );
+    // let url = '/assets/data/success.json';
+    // return this.http.get<Result>(url)
+    //   .pipe(
+    //     catchError(this.handleError)
+    //   );
+    return this.http.post<Result>(this.addRoomUrl,room,httpOptions).pipe(
+      catchError(this.handleError)
+    );
   }
   deleteRoom(rooId: number): Observable<Result>{
     let url = '/assets/data/success.json';

@@ -9,12 +9,14 @@ import edu.fudan.onlinehotelbooking.mapper.RoomTypeMapper;
 import edu.fudan.onlinehotelbooking.service.HotelService;
 import edu.fudan.onlinehotelbooking.service.OrderService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 @Service
+@Transactional
 public class OrderServiceImpl extends AbstractService<Order> implements OrderService {
     @Resource
     private OrderMapper orderMapper;
@@ -135,13 +137,24 @@ public class OrderServiceImpl extends AbstractService<Order> implements OrderSer
 
     @Override
     public int cancelOrder(int orderId) {
-        return orderMapper.deleteByPrimaryKey(orderId);
+        Order order = orderMapper.selectByPrimaryKey(orderId);
+        order.setStatus(2);
+        int roomId = order.getRoom_id();
+        Room room = roomMapper.selectByPrimaryKey(roomId);
+        room.setStatus(0);
+        roomMapper.updateByPrimaryKey(room);
+        int type_id = room.getTypeId();
+        RoomType roomType = roomTypeMapper.selectByPrimaryKey(type_id);
+        int freeNumber = roomType.getFreeNumber();
+        roomType.setFreeNumber(freeNumber+1);
+        roomTypeMapper.updateByPrimaryKey(roomType);
+        return orderMapper.updateByPrimaryKey(order);
     }
 
     @Override
     public int finishOrder(int orderId) {
         Order order = orderMapper.selectByPrimaryKey(orderId);
-        order.setStatus(3);
+        order.setStatus(1);
         int roomId = order.getRoom_id();
         Room room = roomMapper.selectByPrimaryKey(roomId);
         room.setStatus(0);
