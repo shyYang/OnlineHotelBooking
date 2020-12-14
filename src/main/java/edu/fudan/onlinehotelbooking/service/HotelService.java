@@ -19,3 +19,4 @@ public interface HotelService extends Service<Hotel> {
     //寻找一个商家的评论
     List<CommentResponse> findCommentsByHotelId(int hotelId);
 }
+

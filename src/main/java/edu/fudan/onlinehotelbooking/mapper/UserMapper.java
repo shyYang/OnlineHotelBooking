@@ -6,4 +6,3 @@ import edu.fudan.onlinehotelbooking.entity.User;
 public interface UserMapper extends Mapper<User> {
    int insertUser(User user);
 }
-

@@ -1,3 +1,4 @@
+
 package edu.fudan.onlinehotelbooking.service.impl;
 
 import edu.fudan.onlinehotelbooking.core.AbstractService;

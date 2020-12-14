@@ -8,6 +8,10 @@ import edu.fudan.onlinehotelbooking.entity.Order;
 
 import edu.fudan.onlinehotelbooking.service.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -37,6 +41,7 @@ public class AdminController {
         result.put("customers",customerList);
         result.put("users",userList);
         return ResultGenerator.genSuccessResult(result);
+
     }
 
     //列出指定用户的指定订单记录
@@ -88,7 +93,7 @@ public class AdminController {
     @GetMapping("/delete_seller")
     public Result deleteSeller(int sellerID)
     {
-        hotelService.delHotelOfUser(sellerID);
+
         int result=userService.delSeller(sellerID);
         if(result==-1)
         {
@@ -98,6 +103,7 @@ public class AdminController {
         {
             return ResultGenerator.genFailResult("User don't exist");
         }
+        hotelService.delHotelOfUser(sellerID);
         return ResultGenerator.genSuccessResult(sellerID);
     }
 
