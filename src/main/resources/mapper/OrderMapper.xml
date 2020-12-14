@@ -13,6 +13,9 @@
     <result column="user_id" jdbcType="INTEGER" property="user_id" />
     <result column="hotel_id" jdbcType="INTEGER" property="hotel_id" />
   </resultMap>
+    <delete id="deleteByUserId">
+      delete from orders where user_id = #{userID}
+    </delete>
     <select id="selectByUserId" resultType="edu.fudan.onlinehotelbooking.entity.Order">
       select * from orders where user_id = #{userId}
     </select>
@@ -30,5 +33,12 @@
   <select id="selectAllByHotelIdAndStatus" resultType="edu.fudan.onlinehotelbooking.entity.OrderAndInformation">
       select  payment, time, status, customer.gender as gender, order_id as orderId, room_id as roomId, customer.username as username, customer.phone as phone
         from customer left join orders on customer.user_id = orders.user_id and orders.hotel_id = #{hotelId} where orders.status=0 or orders.status=1
+    </select>
+    <select id="selectOrderDetailsList" resultType="edu.fudan.onlinehotelbooking.entity.OrderDetails">
+      select orders.order_id as orderId, orders.room_id as roomId, payment, time, orders.status as status,hotel.hotel_name
+          as hotelName, room_type.type_id as roomTypeId, room_type.name as roomTypeName, room.room_number as roomNumber
+      from orders, hotel, room, room_type
+      where orders.hotel_id = hotel.hotel_id and orders.room_id = room.room_id
+        and room.type_id = room_type.type_id and orders.user_id = #{userID}
     </select>
 </mapper>

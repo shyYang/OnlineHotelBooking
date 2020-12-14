@@ -9,4 +9,6 @@ public interface CommentService extends Service<Comment> {
     List<Comment> getCommentOfUser(int userID);
     List<Comment> getAllComments();
     int delCommentOfUser(int userID);
+
+    List<Comment> getCommentsOfUser(int userID);
 }

@@ -4,11 +4,14 @@ import edu.fudan.onlinehotelbooking.core.AbstractService;
 import edu.fudan.onlinehotelbooking.entity.Comment;
 import edu.fudan.onlinehotelbooking.entity.Customer;
 import edu.fudan.onlinehotelbooking.entity.User;
+import edu.fudan.onlinehotelbooking.mapper.CommentMapper;
 import edu.fudan.onlinehotelbooking.mapper.CustomerMapper;
+import edu.fudan.onlinehotelbooking.mapper.OrderMapper;
 import edu.fudan.onlinehotelbooking.mapper.UserMapper;
 import edu.fudan.onlinehotelbooking.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
 import java.util.LinkedList;
@@ -21,6 +24,10 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
     private UserMapper userMapper;
     @Resource
     private CustomerMapper customerMapper;
+    @Resource
+    private CommentMapper commentMapper;
+    @Resource
+    private OrderMapper orderMapper;
 
     public List<User> listSellers()
     {
@@ -29,24 +36,25 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
         return userMapper.select(user);
     }
 
+    /**
+     * @param userID 用户id
+     * @return -1，不存在; -2, 不是顾客
+     */
     public int delCustomer(int userID)
     {
-        User user=new User();
-        user.setUserId(userID);
-        //检查该ID是否为普通用户&是否存在
-        if(userMapper.selectOne(user)==null)
-        {
-            return -2;
-        }
-        if(userMapper.selectOne(user).getRole()!=2)
-        {
+        User user = userMapper.selectByPrimaryKey(userID);
+        if (user == null) {
             return -1;
         }
-        userMapper.delete(user);
-        Customer customer=new Customer();
-        customer.setUserId(userID);
-        customerMapper.delete(customer);
-        return userID;
+        if (user.getRole() != 2)
+            return -2;
+
+        customerMapper.deleteByPrimaryKey(userID);
+        commentMapper.deleteByUserId(userID);
+        orderMapper.deleteByUserId(userID);
+        userMapper.deleteByPrimaryKey(userID);
+
+        return 0;
     }
 
     public int delSeller(int userID)

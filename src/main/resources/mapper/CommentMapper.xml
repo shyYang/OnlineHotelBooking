@@ -9,11 +9,20 @@
         <result column="order_id" jdbcType="INTEGER" property="order_id" />
         <result column="time" property="time" />
     </resultMap>
+    <delete id="deleteByUserId">
+        delete from comments where user_id = #{userID}
+    </delete>
+    <delete id="deleteByOrderId">
+        delete from comments where order_id = #{orderID}
+    </delete>
     <select id="selectByOrderId" resultType="edu.fudan.onlinehotelbooking.entity.Comment">
         select * from comments where order_id = #{orderId}
     </select>
     <select id="findCommentsByHotelId" resultType="edu.fudan.onlinehotelbooking.entity.CommentResponse">
         select content, rating, comments.time as time, comments.user_id as userId, room_id as roomId
         from comments, orders where comments.order_id = orders.order_id and hotel_id = #{hotelId}
+    </select>
+    <select id="selectCommentDetails" resultType="edu.fudan.onlinehotelbooking.entity.Comment">
+        select * from comments where user_id = #{userID}
     </select>
 </mapper>

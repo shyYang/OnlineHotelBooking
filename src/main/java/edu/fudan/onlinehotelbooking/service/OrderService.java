@@ -1,10 +1,7 @@
 package edu.fudan.onlinehotelbooking.service;
 
 import edu.fudan.onlinehotelbooking.core.Service;
-import edu.fudan.onlinehotelbooking.entity.Comment;
-import edu.fudan.onlinehotelbooking.entity.Order;
-import edu.fudan.onlinehotelbooking.entity.OrderAndInformation;
-import edu.fudan.onlinehotelbooking.entity.OrderAndUserAndInfor;
+import edu.fudan.onlinehotelbooking.entity.*;
 
 import java.util.List;
 
@@ -17,4 +14,7 @@ public interface OrderService extends Service<Order> {
     int cancelOrder(int orderId);
     int finishOrder(int orderId);
 
+    List<OrderDetails> getOrderDetailsOfUser(int userID);
+
+    void deleteOrderById(int orderID);
 }

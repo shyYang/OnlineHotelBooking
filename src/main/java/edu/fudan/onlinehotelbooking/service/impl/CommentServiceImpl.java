@@ -2,11 +2,8 @@ package edu.fudan.onlinehotelbooking.service.impl;
 
 import edu.fudan.onlinehotelbooking.core.AbstractService;
 import edu.fudan.onlinehotelbooking.entity.Comment;
-import edu.fudan.onlinehotelbooking.entity.User;
 import edu.fudan.onlinehotelbooking.mapper.CommentMapper;
-import edu.fudan.onlinehotelbooking.mapper.UserMapper;
 import edu.fudan.onlinehotelbooking.service.CommentService;
-import edu.fudan.onlinehotelbooking.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,5 +33,10 @@ public class CommentServiceImpl extends AbstractService<Comment> implements Comm
         Comment comment=new Comment();
         comment.setUser_id(userID);
         return commentMapper.delete(comment);
+    }
+
+    @Override
+    public List<Comment> getCommentsOfUser(int userID) {
+        return commentMapper.selectCommentDetails(userID);
     }
 }

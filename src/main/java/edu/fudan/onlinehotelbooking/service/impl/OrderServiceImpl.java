@@ -166,4 +166,18 @@ public class OrderServiceImpl extends AbstractService<Order> implements OrderSer
         roomTypeMapper.updateByPrimaryKey(roomType);
         return orderMapper.updateByPrimaryKey(order);
     }
+
+    //根据用户id，获取该用户订单详细信息
+    @Override
+    public List<OrderDetails> getOrderDetailsOfUser(int userID) {
+        List<OrderDetails> list = orderMapper.selectOrderDetailsList(userID);
+        return list;
+    }
+
+    //删除订单，需要先删除评论再删除订单
+    @Override
+    public void deleteOrderById(int orderID) {
+        commentMapper.deleteByOrderId(orderID);
+        orderMapper.deleteByPrimaryKey(orderID);
+    }
 }

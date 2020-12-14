@@ -10,4 +10,10 @@ public interface CommentMapper extends Mapper<Comment> {
     Comment selectByOrderId(int orderId);
 
     List<CommentResponse> findCommentsByHotelId(int hotelId);
+
+    void deleteByUserId(int userID);
+
+    List<Comment> selectCommentDetails(int userID);
+
+    void deleteByOrderId(int orderID);
 }
