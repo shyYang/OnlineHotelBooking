@@ -18,7 +18,7 @@
 
 | 函数名          | 函数功能        | 请求方式 | 对应地址        | 所需参数                    | 返回值（data）   |
 | --------------- | --------------- | -------- | --------------- | --------------------------- | ---------------- |
-| listUsers()   | 列出所有用户     | GET     | /admin/users    | null | 所有user组成的list             |
+| listUsers()   | 列出所有普通用户     | GET     | /admin/users    | null | 一个Map，由两部分，customers字段对应list<Customer>，users字段对应list<User>，两者顺序一致（即对应同一userID）             |
 | listOrderOfID(int orderID) | 列出指定订单记录     | GET     | /admin/orders | 订单的orderID         | 该orderID对应的order            |
 | listOrdersOfUser(int userID)          | 列出指定id用户的所有订单记录 | GET     | /admin/orders_all   | userID                        | list<该用户的Order> |
 | listComments()    | 列出所有用户的所有评价     | GET     | /admin/comments_all    | userID | list<该用户的Comment>             |
