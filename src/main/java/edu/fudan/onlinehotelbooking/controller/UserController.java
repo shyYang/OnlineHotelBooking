@@ -81,13 +81,14 @@ public class UserController {
     }
 
     @PostMapping("change_password")
-    public Result changePassword(@RequestBody HashMap<String, String> map) {
+    public Result changePassword(HttpServletRequest httpServletRequest,@RequestBody HashMap<String, String> map) {
         //TODO: userId
         String oldPassword = map.get("oldPassword");
         String newPassword = map.get("newPassword");
         System.out.println(oldPassword);
         System.out.println(newPassword);
-        int userId = 1006;
+        HttpSession session = httpServletRequest.getSession();
+        int userId = (int)session.getAttribute(USER_ID_SESSION);
         User user = userService.findById(userId);
         System.out.println(user);
         if (!user.getPassword().equals(oldPassword))

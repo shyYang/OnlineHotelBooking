@@ -12,8 +12,9 @@ export class CustomerHotelDetailComponent implements OnInit {
   hotelId: number | undefined;
   hotel: Hotel | undefined;
   rooms: RoomType[] = [];
-  comments: Comment[] = [];
+  comments: any[] = [];
   formatOne = (percent: number) => `${percent} %空余`;
+  times:string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -29,14 +30,16 @@ export class CustomerHotelDetailComponent implements OnInit {
       });
       this.hotelService.getRoomTypeById(this.hotelId).subscribe(rooms => {
         this.rooms = rooms.data;
+        console.log(this.rooms);
         for (let item of this.rooms){
           item.freeNumber = Number((item.freeNumber / item.number * 100).toFixed(2));
         }
       });
       this.hotelService.getCommentsById(this.hotelId).subscribe(comments => {
         this.comments = comments.data;
+        console.log(this.comments);
         for (let item of this.comments){
-          item.time = new Date(item.time);
+          this.times.push(String(new Intl.DateTimeFormat('zh-CN', { timeZone: "Asia/Shanghai" }).format(new Date(item.time))));
         }
       });
     });

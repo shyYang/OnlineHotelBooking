@@ -80,7 +80,7 @@ export class CustomerSettingComponent implements OnInit {
       gender:this.updateForm.value.gender,
       phone:this.updateForm.value.phone
     }).subscribe(result => {
-      if (result.code==500){
+      if (result.code!=200){
         this.modal.error({
           nzTitle: '修改失败',
           nzContent: result.message
@@ -111,9 +111,10 @@ export class CustomerSettingComponent implements OnInit {
       }
       console.log(this.validateForm.value);
       this.customerService.changePassword({
-        password:this.validateForm.value.newPassword
+        oldPassword:this.validateForm.value.oldPassword,
+        newPassword:this.validateForm.value.newPassword
       }).subscribe(result => {
-        if (result.code==500){
+        if (result.code!=200){
           this.modal.error({
             nzTitle: '修改失败',
             nzContent: result.message
@@ -143,7 +144,6 @@ export class CustomerSettingComponent implements OnInit {
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(16),
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[^]{8,16}$')
       ]],
       newPassword: [null, [
         Validators.required,
@@ -227,8 +227,11 @@ export class CustomerSettingComponent implements OnInit {
   }
 
   logout():void{
-    this.authService.logout();
-    this.router.navigate(['/customer/home']);
+    this.authService.logout().subscribe(res => {
+      if (res.code!=200){
+        this.msg.error("退出失败，请稍后再试");
+      }else this.router.navigate(['/auth/customer-login']);
+    });
   }
 
   recharge():void{

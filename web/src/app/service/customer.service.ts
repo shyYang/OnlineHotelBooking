@@ -24,44 +24,44 @@ export class CustomerService {
   ) { }
 
   getCustomerInfo():Observable<Result>{
-    let url = '/assets/data/userOfCustomer.json';
-    return this.http.get<Result>(url)
-      .pipe(
-        catchError(this.handleError)
-      );
-    // return this.http.get<Result>(this.getCustomerInfoUrl)
+    // let url = '/assets/data/userOfCustomer.json';
+    // return this.http.get<Result>(url)
     //   .pipe(
     //     catchError(this.handleError)
     //   );
+    return this.http.get<Result>(this.getCustomerInfoUrl)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   changeCustomerInfo(data:any):Observable<Result>{
-    let url = '/assets/data/updateCustomerInfo.json';
-    return this.http.get<Result>(url)
-      .pipe(
-        catchError(this.handleError)
-      );
-    // return this.http.post<Result>(this.changeCustomerInfoUrl,data,httpOptions)
+    // let url = '/assets/data/updateCustomerInfo.json';
+    // return this.http.get<Result>(url)
     //   .pipe(
     //     catchError(this.handleError)
     //   );
+    return this.http.post<Result>(this.changeCustomerInfoUrl,data,httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   changePassword(data:any):Observable<Result>{
-    let url = '/assets/data/success.json';
-    return this.http.get<Result>(url)
-      .pipe(
-        catchError(this.handleError)
-      );
-    // return this.http.post<Result>(this.changePasswordUrl,data,httpOptions)
+    // let url = '/assets/data/success.json';
+    // return this.http.get<Result>(url)
     //   .pipe(
     //     catchError(this.handleError)
     //   );
+    return this.http.post<Result>(this.changePasswordUrl,data,httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   recharge(data:number):Observable<Result>{
-    //let url = this.rechargeUrl + 'money=' + data;
-    let url = '/assets/data/recharge.json';
+    let url = this.rechargeUrl + '?money=' + data;
+    // let url = '/assets/data/recharge.json';
     return this.http.get<Result>(url)
       .pipe(
         catchError(this.handleError)

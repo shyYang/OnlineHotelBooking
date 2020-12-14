@@ -25,14 +25,12 @@ export class AuthService {
   ) { }
 
   customerLogin(data:any):Observable<Result>{
-    console.log(data);
     return this.http.post<Result>(this.customerLoginUrl,data,httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
   customerSignUp(data:any):Observable<Result>{
-    console.log(data);
     // let url = '/assets/data/success.json';
     //     // return this.http.get<Result>(url).pipe(
     //     //   catchError(this.handleError)
@@ -43,7 +41,6 @@ export class AuthService {
     );
   }
   hotelSignUp(data:any):Observable<Result>{
-    console.log(data);
     // let url = '/assets/data/success.json';
     //     // return this.http.get<Result>(url).pipe(
     //     //   catchError(this.handleError)
@@ -67,8 +64,8 @@ export class AuthService {
     );
   }
 
-  logout():void{
-    this.http.get(this.logoutUrl).pipe(
+  logout():Observable<Result>{
+    return this.http.get<Result>(this.logoutUrl).pipe(
       catchError(this.handleError)
     );
   }

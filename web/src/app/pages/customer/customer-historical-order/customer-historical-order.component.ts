@@ -11,6 +11,8 @@ export class CustomerHistoricalOrderComponent implements OnInit {
   inputValue = '';
   rating = 0;
   list: any;
+  commentsTimes:string[] = [];
+  ordersTime:string[] = [];
 
   handleSubmit(index:number): void {
     const content = this.inputValue;
@@ -41,7 +43,8 @@ export class CustomerHistoricalOrderComponent implements OnInit {
     this.orderService.getOrderByCustomerId().subscribe(res => {
       this.list = res.data;
       for (let item of this.list){
-        item.commentTime = new Date(item.commentTime);
+        this.ordersTime.push(String(new Intl.DateTimeFormat('zh-CN', { timeZone: "Asia/Shanghai" }).format(new Date(item.orderTime))));
+        this.commentsTimes.push(String(new Intl.DateTimeFormat('zh-CN', { timeZone: "Asia/Shanghai" }).format(new Date(item.commentTime))));
       }
     });
   }

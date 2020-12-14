@@ -45,9 +45,9 @@
   </nz-tab>
   <nz-tab nzTitle="评论">
     <nz-list nzItemLayout="horizontal">
-      <nz-list-item *ngFor="let item of comments">
+      <nz-list-item *ngFor="let item of comments let i = index">
         <nz-list-item-meta
-          nzDescription="用户ID:{{item.user_id}}, 于 {{item.time}} 完成的酒店预订订单"
+          nzDescription="用户:{{item.username}}, 于 {{this.times[i]}} 完成的酒店预订订单"
         >
           <nz-list-item-meta-title>
             <nz-rate [ngModel]=item.rating nzDisabled></nz-rate><br>

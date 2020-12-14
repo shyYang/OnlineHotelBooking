@@ -23,6 +23,8 @@ export class HotelService {
   private getHotelByIdUrl = '/hotel/find_hotel';
   // 获取指定id的房间类型
   private getRoomByIdUrl = '/hotel/find_room_type';
+  private getRoomTypeByIdUrl = '/hotel/find_room_type';
+  private getCommentsByIdUrl = '/hotel/list_comments_of_hotel';
   // 搜索酒店
   private searchHotelUrl = '/hotel/search_hotel';
   private cancelOrderUrl = '/hotel/cancel_order';
@@ -45,23 +47,23 @@ export class HotelService {
   }
 
   getTop5Hotels(): Observable<Result>{
-    // return this.http.get<Hotel[]>(this.getTop5HotelsUrl)
-    //   .pipe(
-    //     catchError(this.handleError<Hotel[]>('getTop5Hotels', []))
-    //   );
-
-    let url = '/assets/data/HotelList.json';
-    return this.http.get<Result>(url)
+    return this.http.get<Result>(this.getTop5HotelsUrl)
       .pipe(
         catchError(this.handleError)
       );
+
+    // let url = '/assets/data/HotelList.json';
+    // return this.http.get<Result>(url)
+    //   .pipe(
+    //     catchError(this.handleError)
+    //   );
   }
 
   searchHotels(hotelName:string):Observable<Result>{
-    // let url = this.searchHotelUrl + 'hotelName=' + hotelName;
-    var url='';
-    if (hotelName=='11') url = '/assets/data/HotelList1.json';
-    else url = '/assets/data/HotelList.json';
+    let url = this.searchHotelUrl + '?hotelName=' + hotelName;
+    // var url='';
+    // if (hotelName=='11') url = '/assets/data/HotelList1.json';
+    // else url = '/assets/data/HotelList.json';
     return this.http.get<Result>(url)
       .pipe(
         catchError(this.handleError)
@@ -69,8 +71,8 @@ export class HotelService {
   }
 
   getHotelById(hotelId:number): Observable<Result>{
-    // let url = this.getHotelByIdUrl + '?hotelId=' + hotelId;
-    let url = '/assets/data/Hotel.json';
+    let url = this.getHotelByIdUrl + '?hotelId=' + hotelId;
+    // let url = '/assets/data/Hotel.json';
 
     return this.http.get<Result>(url)
       .pipe(
@@ -89,7 +91,8 @@ export class HotelService {
   }
 
   getRoomTypeById(hotelId: number):Observable<Result>{
-    let url = '/assets/data/RoomTypeList.json';
+    // let url = '/assets/data/RoomTypeList.json';
+    let url = this.getRoomTypeByIdUrl + '?hotelId=' + hotelId;
     return this.http.get<Result>(url).pipe(
       catchError(this.handleError)
     );
@@ -103,8 +106,8 @@ export class HotelService {
       );
   }
   getCommentsById(hotelId:number): Observable<Result>{
-    // let url = this.getRoomByIdUrl + '?hotelId=' + hotelId;
-    let url = '/assets/data/CommentList.json';
+    let url = this.getCommentsByIdUrl + '?hotelId=' + hotelId;
+    // let url = '/assets/data/CommentList.json';
 
     return this.http.get<Result>(url)
       .pipe(

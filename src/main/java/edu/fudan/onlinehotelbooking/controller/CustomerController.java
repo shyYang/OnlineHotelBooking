@@ -60,8 +60,7 @@ public class CustomerController {
     public Result changeUserInformation(HttpServletRequest request, @RequestBody UserOfCustomer userOfCustomer) {
         HttpSession session = request.getSession();
         int userId = (int)session.getAttribute(USER_ID_SESSION);
-        Customer customer = new Customer();
-        customer.setUserId(userId);
+        Customer customer = customerService.findById(userId);
         customer.setUsername(userOfCustomer.getUsername());
         customer.setGender(userOfCustomer.getGender());
         customer.setPhone(userOfCustomer.getPhone());
