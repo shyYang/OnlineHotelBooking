@@ -2,6 +2,7 @@ package edu.fudan.onlinehotelbooking.Service;
 
 import edu.fudan.onlinehotelbooking.entity.Room;
 import edu.fudan.onlinehotelbooking.entity.RoomType;
+import edu.fudan.onlinehotelbooking.mapper.RoomMapper;
 import edu.fudan.onlinehotelbooking.mapper.RoomTypeMapper;
 import edu.fudan.onlinehotelbooking.service.impl.RoomServiceImpl;
 import edu.fudan.onlinehotelbooking.service.impl.RoomTypeServiceImpl;
@@ -21,7 +22,7 @@ public class RoomServiceImplTest {
     @Resource
     private RoomServiceImpl roomService;
     @Resource
-    private RoomTypeMapper roomTypeMapper;
+    private RoomMapper roomMapper;
 
     @Test
     public void testAdd(){
@@ -36,33 +37,26 @@ public class RoomServiceImplTest {
     }
     @Test
     public void testDelete(){
-        int typeId = 16;
-        //assertEquals(1,roomTypeService.deleteRoomType(typeId));
+        int roomId = 18;
+        assertEquals(1,roomService.deleteRoom(roomId));
     }
+
     @Test
     public void testUpdate(){
-        int typeId = 16;
-        int hotelId = 7;
-        double price = 500;
-        String photo = "wu";
-        int number = 1;
-        int freeNumber = 1;
-        String introduction="ceshi";
-        String name = "ceshi";
-        RoomType roomType = roomTypeMapper.selectByPrimaryKey(typeId);
-        roomType.setFreeNumber(freeNumber);
-        roomType.setNumber(number);
-        roomType.setName(name);
-        roomType.setPrice(price);
-        roomType.setPhoto(photo);
-        roomType.setHotelId(hotelId);
-        roomType.setIntroduction(introduction);
-        //assertEquals(1,roomTypeService.updateRoomType(roomType));
+        int typeId = 17;
+        int roomId = 18;
+        int roomNumber = 611;
+        int status = 0;
+        Room rm = roomMapper.selectByPrimaryKey(roomId);
+        rm.setRoomNumber(roomNumber);
+        rm.setTypeId(typeId);
+        rm.setStatus(status);
+        assertEquals(1,roomService.updateRoom(rm));
     }
     @Test
     public void testFindById(){
-        int typeId = 16;
+        Room room = roomService.roomFindById(17);
         //RoomType roomType = roomTypeService.roomTypeFindById(typeId);
-        //assertNotNull(roomType);
+        assertNotNull(room);
     }
 }
