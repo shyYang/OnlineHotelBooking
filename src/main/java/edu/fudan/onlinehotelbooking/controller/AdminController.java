@@ -2,11 +2,16 @@ package edu.fudan.onlinehotelbooking.controller;
 
 import edu.fudan.onlinehotelbooking.core.Result;
 import edu.fudan.onlinehotelbooking.core.ResultGenerator;
+import edu.fudan.onlinehotelbooking.entity.Customer;
 import edu.fudan.onlinehotelbooking.entity.User;
 import edu.fudan.onlinehotelbooking.entity.Order;
 
 import edu.fudan.onlinehotelbooking.service.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -24,12 +29,19 @@ public class AdminController {
     private OrderService orderService;
     @Resource
     private HotelService hotelService;
+    @Resource
+    private CustomerService customerService;
 
-    //列出所有用户
+    //列出所有普通用户
     @GetMapping("/users")
     public Result listUsers() {
-        List<User> list = userService.findAll();
-        return ResultGenerator.genSuccessResult(list);
+        Map<String,Object> result=new HashMap<>();
+        List<Customer> customerList = customerService.findAll();
+        List<User> userList=userService.getUsersOfCustomers(customerList);
+        result.put("customers",customerList);
+        result.put("users",userList);
+        return ResultGenerator.genSuccessResult(result);
+
     }
 
     //列出指定用户的指定订单记录
@@ -81,6 +93,7 @@ public class AdminController {
     @GetMapping("/delete_seller")
     public Result deleteSeller(int sellerID)
     {
+
         int result=userService.delSeller(sellerID);
         if(result==-1)
         {

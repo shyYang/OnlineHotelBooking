@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -64,4 +65,17 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
         return userID;
     }
 
+    public List<User> getUsersOfCustomers(List<Customer> customerList)
+    {
+        List<User> users=new LinkedList<>();
+        for (Customer customer:customerList)
+        {
+            User user=new User();
+            user.setUserId(customer.getUserId());
+            users.add(userMapper.selectOne(user));
+        }
+        return users;
+    }
+
 }
+
