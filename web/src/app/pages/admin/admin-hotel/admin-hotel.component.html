@@ -4,34 +4,29 @@
   <nz-breadcrumb-item>Hotel</nz-breadcrumb-item>
 </nz-breadcrumb>
 <br>
-<div class="search">
-  <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-    <input type="text" nz-input placeholder="请输入用户信息" />
-  </nz-input-group>
-  <ng-template #suffixIconButton>
-    <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
-  </ng-template>
-</div>
 <br>
 <div class="search-result" *ngIf="total==0">
   <nz-empty
     [nzNotFoundContent]="contentTpl"
   >
     <ng-template #contentTpl>
-      <span> 暂时找不到结果，请尝试其他搜索内容 </span>
+      <span> 暂时没有记录，请稍后重试或者查看数据库 </span>
     </ng-template>
   </nz-empty>
 </div>
 <div class="search-result" *ngIf="total!=0">
-  <ul nz-list [nzDataSource]="hotelList" nzBordered nzSize="large">
-    <nz-list-header>搜索结果</nz-list-header>
-    <li nz-list-item *ngFor="let item of hotelList" nzNoFlex>
-      <ul nz-list-item-actions>
-        <nz-list-item-action>
-          <a (click)="deleteUser(item.userId)">删除</a>
-        </nz-list-item-action>
-      </ul>
-      商家ID:{{ item.userId }}
+  <ul nz-list [nzDataSource]="List" nzBordered nzSize="large">
+    <nz-list-header>全部商家</nz-list-header>
+    <li nz-list-item *ngFor="let item of hotelList let i = index" nzNoFlex>
+      <nz-descriptions nzTitle="{{item.hotelName}}(ID:{{item.hotelId}})"  [nzExtra]="extraCustomerTpl">
+        <nz-descriptions-item nzTitle="手机号">{{item.phone}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="地址">{{item.address}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="评分"><nz-rate [ngModel]=item.rating nzDisabled></nz-rate></nz-descriptions-item>
+        <nz-descriptions-item nzTitle="介绍" [nzSpan]="3">{{item.introduction}}</nz-descriptions-item>
+      </nz-descriptions>
+      <ng-template #extraCustomerTpl>
+        <a (click)="deleteSeller(item.hotelId,i)">删除</a>
+      </ng-template>
     </li>
   </ul>
 </div>

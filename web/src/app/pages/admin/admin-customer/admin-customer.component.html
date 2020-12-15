@@ -4,27 +4,18 @@
   <nz-breadcrumb-item>Customer</nz-breadcrumb-item>
 </nz-breadcrumb>
 <br>
-<div class="search">
-  <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-    <input type="text" nz-input placeholder="请输入用户信息" />
-  </nz-input-group>
-  <ng-template #suffixIconButton>
-    <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
-  </ng-template>
-</div>
-<br>
 <div class="search-result" *ngIf="total==0">
   <nz-empty
     [nzNotFoundContent]="contentTpl"
   >
     <ng-template #contentTpl>
-      <span> 暂时找不到结果，请尝试其他搜索内容 </span>
+      <span> 暂时没有记录，请稍后重试或者查看数据库 </span>
     </ng-template>
   </nz-empty>
 </div>
 <div class="search-result" *ngIf="total!=0">
   <ul nz-list [nzDataSource]="customerList" nzBordered nzSize="large">
-    <nz-list-header>搜索结果</nz-list-header>
+    <nz-list-header>全部顾客</nz-list-header>
     <li nz-list-item *ngFor="let item of customerList let i = index" nzNoFlex>
       <nz-descriptions nzTitle="{{item.username}}(ID:{{item.userId}})"  [nzExtra]="extraCustomerTpl">
         <nz-descriptions-item nzTitle="手机号">{{item.phone}}</nz-descriptions-item>

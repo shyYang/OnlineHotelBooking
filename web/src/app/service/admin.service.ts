@@ -18,28 +18,27 @@ export class AdminService {
   private getUsersUrl = '/admin/users';
   //列出所有商家用户的请求url
   private getSellersUrl = '/admin/sellers';
-  //列出指定订单记录的请求url
-  private getOrderByIdUrl = '/admin/orders';
   //列出指定用户的所有订单的请求url
   private getOrderByUserUrl = '/admin/orders_all';
   //列出指定用户的所有评论信息的请求url
   private getCommentByUserUrl = '/admin/comments_all';
-  //列出所有用户的所有评论信息的请求url
-  private getAllCommentUrl = '/admin/comments_all';
   //删除指定的消费者用户的请求url
   private deleteCustomerUrl = '/admin/delete_consumer';
   private deleteOrderUrl = '/admin/delete_order';
   private deleteCommentUrl = '/admin/delete_comment';
   //删除指定的商家用户的请求url
   private deleteSellerUrl = '/admin/delete_seller';
-  //删除指定的酒店的请求url
-  private deleteHotelUrl = '/admin/delete';
 
   getUsers():Observable<Result>{
     // let url = '/assets/data/UserList.json';
     // return this.http.get<Result>(url)
     //   .pipe(catchError(this.handleError));
     return this.http.get<Result>(this.getUsersUrl)
+      .pipe(catchError(this.handleError));
+  }
+
+  getSellers():Observable<Result>{
+    return this.http.get<Result>(this.getSellersUrl)
       .pipe(catchError(this.handleError));
   }
 
@@ -73,6 +72,13 @@ export class AdminService {
 
   deleteComment(commentID:number):Observable<Result>{
     let url = this.deleteCommentUrl + '?commentID=' + commentID;
+    // let url = 'assets/data/success.json';
+    return this.http.get<Result>(url)
+      .pipe(catchError(this.handleError));
+  }
+
+  deleteSeller(hotelID:number):Observable<Result>{
+    let url = this.deleteSellerUrl + '?hotelID=' + hotelID;
     // let url = 'assets/data/success.json';
     return this.http.get<Result>(url)
       .pipe(catchError(this.handleError));

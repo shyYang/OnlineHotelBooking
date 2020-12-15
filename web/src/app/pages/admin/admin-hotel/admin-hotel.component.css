@@ -4,7 +4,8 @@
 }
 .search-result{
   width: 1400px;
-  height: 600px;
+  min-width: 800px;
+  height: 700px;
   margin: 10px auto;
 }
 nz-empty{

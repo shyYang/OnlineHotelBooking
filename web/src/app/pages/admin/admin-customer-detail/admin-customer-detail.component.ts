@@ -30,7 +30,6 @@ export class AdminCustomerDetailComponent implements OnInit {
       this.header = '用户ID:'+this.userId;
       this.adminService.getOrderByUser(this.userId).subscribe(res => {
         if (res.code==200){
-          console.log(res.data);
           this.orders = res.data;
           for (let item of this.orders){
             this.ordersTime.push(String(new Intl.DateTimeFormat('zh-CN', { timeZone: "Asia/Shanghai" }).format(new Date(item.time))));
@@ -39,7 +38,6 @@ export class AdminCustomerDetailComponent implements OnInit {
       });
       this.adminService.getCommentsByUser(this.userId).subscribe(result => {
         if (result.code==200){
-          console.log(result.data);
           this.comments = result.data;
           for (let item of this.comments){
             this.commentsTime.push(String(new Intl.DateTimeFormat('zh-CN', { timeZone: "Asia/Shanghai" }).format(new Date(item.time))));

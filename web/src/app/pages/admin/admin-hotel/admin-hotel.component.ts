@@ -10,9 +10,9 @@ import {Router} from "@angular/router";
   styleUrls: ['./admin-hotel.component.css']
 })
 export class AdminHotelComponent implements OnInit {
-  List:User[] = [];
+  List:any[] = [];
   pageIndex = 1;
-  pageSize = 10;
+  pageSize = 3;
   total = 0;
   hotelList: any;
 
@@ -23,11 +23,9 @@ export class AdminHotelComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.adminService.getUsers().subscribe(res => {
+    this.adminService.getSellers().subscribe(res => {
       if (res.code == 200) {
-        for (let item of res.data) {
-          if (item.role == 1) this.List.push(item);
-        }
+        this.List = res.data;
       }
       this.total = this.List.length;
       this.hotelList = this.List.slice(0, Math.min(this.pageSize, this.total));
@@ -39,11 +37,16 @@ export class AdminHotelComponent implements OnInit {
     this.hotelList = this.List.slice((this.pageIndex - 1) * this.pageSize, Math.min(this.total, this.pageIndex * this.pageSize));
   }
 
-  deleteUser(userId:number):void{
-    this.adminService.deleteUser(userId).subscribe(res => {
+  deleteSeller(hotelId:number,index:number):void{
+    this.adminService.deleteSeller(hotelId).subscribe(res => {
       if (res.code==200){
         this.msg.success("删除成功");
-        this.router.navigate(['/admin/hotel'])
+        if (index>-1){
+          this.List.splice(index,1);
+          this.total--;
+          this.pageIndex=1;
+          this.changePage();
+        }
       }else {
         this.msg.error("删除失败，请稍后再试");
       }
