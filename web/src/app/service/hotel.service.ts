@@ -19,10 +19,12 @@ export class HotelService {
   // 列出top5的商家
   private getTop5HotelsUrl = '/hotel/list_top_hotel';
   // 获取特定id的商家
-  private getHotelByIdUrl = '/hotel/find_hotel';
+  private getHotelByIdUrl = '/hotel/find_hotel_by_id';
+  private getHotelUrl = '/hotel/find_hotel';
   // 获取指定id的房间类型
   private getRoomByIdUrl = '/hotel/find_room_type';
-  private getRoomTypeByIdUrl = '/hotel/find_room_type';
+  private getRoomTypeByIdUrl = '/hotel/find_room_type_by_id';
+  private getRoomTypeUrl = '/hotel/find_room_type';
   private getCommentsByIdUrl = '/hotel/list_comments_of_hotel';
   // 搜索酒店
   private searchHotelUrl = '/hotel/search_hotel';
@@ -60,7 +62,7 @@ export class HotelService {
 
 
   searchHotels(hotelName: string):Observable<Result>{
-    let url = this.searchHotelUrl + 'hotelName=' + hotelName;
+    let url = this.searchHotelUrl + '?hotelName=' + hotelName;
     // var url='';
     // if (hotelName=='11') url = '/assets/data/HotelList1.json';
     // else url = '/assets/data/HotelList.json';
@@ -82,7 +84,7 @@ export class HotelService {
   }
 
   getHotel(): Observable<Result>{
-    let url = this.getHotelByIdUrl ;
+    let url = this.getHotelUrl ;
     // let url = '/assets/data/Hotel.json';
 
     return this.http.get<Result>(url)
@@ -103,7 +105,7 @@ export class HotelService {
 
 
   getRoomType():Observable<Result>{
-    let url = this.getRoomTypeByIdUrl;
+    let url = this.getRoomTypeUrl;
     return this.http.get<Result>(url).pipe(
       catchError(this.handleError)
     );

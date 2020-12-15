@@ -69,6 +69,7 @@ public class HotelController {
         return ResultGenerator.genSuccessResult(hotel);
     }
 
+
     @GetMapping("/find_room_type")
     public Result findRoomType(HttpServletRequest request){
         int hotelId = getHotelId(request);
@@ -96,8 +97,7 @@ public class HotelController {
     }
 
     @GetMapping("list_comments_of_hotel")
-    public Result findCommentsByHotelId(HttpServletRequest request) {
-        int hotelId = getHotelId(request);
+    public Result findCommentsByHotelId(@RequestParam int hotelId) {
         List<CommentResponse> list = hotelService.findCommentsByHotelId(hotelId);
         return ResultGenerator.genSuccessResult(list);
     }
