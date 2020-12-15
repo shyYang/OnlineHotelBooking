@@ -41,7 +41,7 @@ public class AdminController {
         return ResultGenerator.genSuccessResult(result);
     }
 
-    
+
 
 //    //列出指定用户的指定订单记录
 //    @GetMapping("/orders")
@@ -102,41 +102,37 @@ public class AdminController {
         return ResultGenerator.genSuccessResult();
     }
 
-    //删除指定id的商家
+//    //删除指定id的商家
+//    @GetMapping("/delete_seller")
+//    public Result deleteSeller(int sellerID)
+//    {
+//
+//        int result=userService.delSeller(sellerID);
+//        if(result==-1)
+//        {
+//            return ResultGenerator.genFailResult("User not a seller");
+//        }
+//        else if(result==-2)
+//        {
+//            return ResultGenerator.genFailResult("User don't exist");
+//        }
+//        hotelService.delHotelOfUser(sellerID);
+//        return ResultGenerator.genSuccessResult(sellerID);
+//    }
+
     @GetMapping("/delete_seller")
-    public Result deleteSeller(int sellerID)
+    public Result deleteHotel(@RequestParam int hotelID)
     {
-
-        int result=userService.delSeller(sellerID);
-        if(result==-1)
-        {
-            return ResultGenerator.genFailResult("User not a seller");
-        }
-        else if(result==-2)
-        {
-            return ResultGenerator.genFailResult("User don't exist");
-        }
-        hotelService.delHotelOfUser(sellerID);
-        return ResultGenerator.genSuccessResult(sellerID);
-    }
-
-    //删除指定id的酒店
-    //！！没检查hotel是否存在
-    //！！这里是根据 需求版本3.0 里要求管理员可以删除酒店信息写的，需求整理上只安排了删除店家(seller)没写删除酒店。
-    @GetMapping("/delete")
-    public Result deleteHotel(int hotelID)
-    {
-        return ResultGenerator.genSuccessResult(hotelService.delHotel(hotelID));
+        hotelService.delHotel(hotelID);
+        return ResultGenerator.genSuccessResult();
     }
 
     //列出所有商家
     @GetMapping("/sellers")
     public Result listSellers()
     {
-        Map<String,Object> result=new HashMap<>();
-        result.put("seller",userService.listSellers());
-        result.put("hotels",hotelService.listHotelOfUsers(userService.listSellers()));
-        return ResultGenerator.genSuccessResult();
+        List<Hotel> list = hotelService.findAll();
+        return ResultGenerator.genSuccessResult(list);
     }
 
 

@@ -11,4 +11,6 @@ public interface RoomMapper extends Mapper<Room> {
     List<Room> selectByTypeIdAndStatus(int typeId, int status);
 
     List<Room> selectByHotelId(int hotelId);
+
+    void deleteByRoomTypeId(Integer typeId);
 }

@@ -28,6 +28,8 @@ public class HotelServiceImpl extends AbstractService<Hotel> implements HotelSer
     private CustomerMapper customerMapper;
     @Resource
     private RoomMapper roomMapper;
+    @Resource
+    private OrderMapper orderMapper;
 
     @Override
     public int sellerSignUp(HotelType hotel) {
@@ -78,15 +80,24 @@ public class HotelServiceImpl extends AbstractService<Hotel> implements HotelSer
         return commentList;
     }
 
-    public int delHotel(int hotelID)
+    public void delHotel(int hotelID)
     {
-        Hotel hotel=new Hotel();
-        hotel.setHotelId(hotelID);
-        hotelMapper.delete(hotel);
-        RoomType roomType=new RoomType();
-        roomType.setHotelId(hotelID);
-        roomtypeMapper.delete(roomType);
-        return hotelID;
+        // comments --> orders --> room --> room_type --> hotel --> user
+        List<Order> orderList = orderMapper.selectByHotelId(hotelID);
+        for (Order order : orderList) {
+            commentMapper.deleteByOrderId(order.getOrder_id());
+        }
+        orderMapper.deleteByHotelId(hotelID);
+        List<RoomType> roomTypeList = roomtypeMapper.selectByHotelId(hotelID);
+        for (RoomType roomType : roomTypeList) {
+            roomMapper.deleteByRoomTypeId(roomType.getTypeId());
+        }
+        roomtypeMapper.deleteByHotelId(hotelID);
+        Hotel hotel = hotelMapper.selectByPrimaryKey(hotelID);
+        int userId = hotel.getUserId();
+        hotelMapper.deleteByPrimaryKey(hotelID);
+        userMapper.deleteByPrimaryKey(userId);
+
     }
 
     public int delHotelOfUser(int userID)

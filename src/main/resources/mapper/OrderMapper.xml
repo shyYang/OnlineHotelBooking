@@ -16,7 +16,10 @@
     <delete id="deleteByUserId">
       delete from orders where user_id = #{userID}
     </delete>
-    <select id="selectByUserId" resultType="edu.fudan.onlinehotelbooking.entity.Order">
+  <delete id="deleteByHotelId">
+    delete from orders where hotel_id = #{hotelID};
+  </delete>
+  <select id="selectByUserId" resultType="edu.fudan.onlinehotelbooking.entity.Order">
       select * from orders where user_id = #{userId}
     </select>
     <select id="selectByHotelId" resultType="edu.fudan.onlinehotelbooking.entity.Order">

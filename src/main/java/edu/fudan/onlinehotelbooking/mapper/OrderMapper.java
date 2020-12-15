@@ -18,4 +18,6 @@ public interface OrderMapper extends Mapper<Order> {
     void deleteByUserId(int userID);
 
     List<OrderDetails> selectOrderDetailsList(int userID);
+
+    void deleteByHotelId(int hotelID);
 }

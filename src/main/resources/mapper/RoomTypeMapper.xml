@@ -14,6 +14,9 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="free_number" jdbcType="INTEGER" property="freeNumber" />
   </resultMap>
+    <delete id="deleteByHotelId">
+      delete from room_type where hotel_id = #{hotelID}
+    </delete>
     <select id="selectByHotelId" resultType="edu.fudan.onlinehotelbooking.entity.RoomType">
         select hotel_id as hotelId, price, photo, number, name, introduction, type_id as typeId,
                free_number as freeNumber from room_type where hotel_id = #{hotelId}

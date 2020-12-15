@@ -8,4 +8,6 @@ import java.util.List;
 public interface RoomTypeMapper extends Mapper<RoomType> {
 
     List<RoomType> selectByHotelId(int hotelId);
+
+    void deleteByHotelId(int hotelID);
 }

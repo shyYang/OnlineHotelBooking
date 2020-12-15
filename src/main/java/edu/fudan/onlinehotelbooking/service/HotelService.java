@@ -7,7 +7,7 @@ import edu.fudan.onlinehotelbooking.entity.*;
 import java.util.List;
 
 public interface HotelService extends Service<Hotel> {
-    int delHotel(int hotelID);
+    void delHotel(int hotelID);
     int delHotelOfUser(int userID);
     List<Hotel> listHotelOfUsers(List<User> users);
     int sellerSignUp(HotelType hotel);
