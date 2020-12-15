@@ -80,7 +80,7 @@
           (nzChange)="handleChange($event)"
         >
           <ng-container *ngIf="!photoAddress">
-            <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plu s'"></i>
+            <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
             <div class="ant-upload-text">Upload</div>
           </ng-container>
           <img *ngIf="photoAddress" [src]="photoAddress" style="width: 100%" />

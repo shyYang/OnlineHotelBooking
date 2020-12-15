@@ -1,0 +1,18 @@
+{
+  "code": 200,
+  "message": "success",
+  "data": [
+    {
+      "roomId": 1,
+      "typeId": 1,
+      "roomNumber": "6021",
+      "status": 0
+    },
+    {
+      "roomId": 1,
+      "typeId": 1,
+      "roomNumber": "6022",
+      "status": 0
+    }
+  ]
+}

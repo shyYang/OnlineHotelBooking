@@ -22,6 +22,7 @@ import {NzMessageService} from "ng-zorro-antd/message";
 import {HotelService} from "./service/hotel.service";
 import {OrderService} from "./service/order.service";
 import {MemoryService} from "./service/memory.service";
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 registerLocaleData(zh);
 
@@ -44,7 +45,8 @@ registerLocaleData(zh);
   exports: [
   ],
   providers: [
-    { provide: NZ_I18N, useValue: zh_CN },
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    {provide: NZ_I18N, useValue: zh_CN},
     NzModalService,
     AuthService,
     CustomerService,

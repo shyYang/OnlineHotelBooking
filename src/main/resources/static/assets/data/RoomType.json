@@ -1,0 +1,15 @@
+{
+  "code": 200,
+  "message": "success",
+  "data":
+    {
+      "hotelId": 1,
+      "price": 168,
+      "photo": "/assets/home_1.jpg",
+      "number": 20,
+      "name": "豪华单人间",
+      "introduction": "独立卫浴，配备电视，WiFi",
+      "typeId": 1,
+      "freeNumber": 13
+    }
+}
