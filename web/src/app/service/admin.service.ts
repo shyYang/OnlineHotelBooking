@@ -23,11 +23,13 @@ export class AdminService {
   //列出指定用户的所有订单的请求url
   private getOrderByUserUrl = '/admin/orders_all';
   //列出指定用户的所有评论信息的请求url
-  private getCommentByUserUrl = '/admin/comments';
+  private getCommentByUserUrl = '/admin/comments_all';
   //列出所有用户的所有评论信息的请求url
   private getAllCommentUrl = '/admin/comments_all';
   //删除指定的消费者用户的请求url
   private deleteCustomerUrl = '/admin/delete_consumer';
+  private deleteOrderUrl = '/admin/delete_order';
+  private deleteCommentUrl = '/admin/delete_comment';
   //删除指定的商家用户的请求url
   private deleteSellerUrl = '/admin/delete_seller';
   //删除指定的酒店的请求url
@@ -56,8 +58,22 @@ export class AdminService {
   }
 
   deleteUser(customerID:number):Observable<Result>{
-    //let url = this.deleteCustomerUrl + 'customerID=' + customerID;
-    let url = 'assets/data/success.json';
+    let url = this.deleteCustomerUrl + '?customerID=' + customerID;
+    // let url = 'assets/data/success.json';
+    return this.http.get<Result>(url)
+      .pipe(catchError(this.handleError));
+  }
+
+  deleteOrder(orderID:number):Observable<Result>{
+    let url = this.deleteOrderUrl + '?orderID=' + orderID;
+    // let url = 'assets/data/success.json';
+    return this.http.get<Result>(url)
+      .pipe(catchError(this.handleError));
+  }
+
+  deleteComment(commentID:number):Observable<Result>{
+    let url = this.deleteCommentUrl + '?commentID=' + commentID;
+    // let url = 'assets/data/success.json';
     return this.http.get<Result>(url)
       .pipe(catchError(this.handleError));
   }

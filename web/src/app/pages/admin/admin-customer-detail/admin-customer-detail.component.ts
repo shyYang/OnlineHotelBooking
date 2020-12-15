@@ -12,8 +12,10 @@ import {NzMessageService} from "ng-zorro-antd/message";
 export class AdminCustomerDetailComponent implements OnInit {
   userId:number=0;
   header = '';
-  orders:Order[] = [];
-  comments:Comment[]=[];
+  orders:any[] = [];
+  ordersTime:any[] = [];
+  comments:any[]=[];
+  commentsTime:any[] = [];
 
   constructor(
     private route:ActivatedRoute,
@@ -30,12 +32,18 @@ export class AdminCustomerDetailComponent implements OnInit {
         if (res.code==200){
           console.log(res.data);
           this.orders = res.data;
+          for (let item of this.orders){
+            this.ordersTime.push(String(new Intl.DateTimeFormat('zh-CN', { timeZone: "Asia/Shanghai" }).format(new Date(item.time))));
+          }
         }
       });
       this.adminService.getCommentsByUser(this.userId).subscribe(result => {
         if (result.code==200){
           console.log(result.data);
           this.comments = result.data;
+          for (let item of this.comments){
+            this.commentsTime.push(String(new Intl.DateTimeFormat('zh-CN', { timeZone: "Asia/Shanghai" }).format(new Date(item.time))));
+          }
         }
       });
     });
@@ -46,6 +54,34 @@ export class AdminCustomerDetailComponent implements OnInit {
       if (res.code==200){
         this.msg.success("删除成功");
         this.router.navigate(['/admin/customer'])
+      }else {
+        this.msg.error("删除失败，请稍后再试");
+      }
+    });
+  }
+
+  deleteOrder(orderId:number,index:number):void {
+    this.adminService.deleteOrder(orderId).subscribe(res => {
+      if (res.code==200){
+        this.msg.success("删除成功");
+        if(index > -1) {
+          this.orders.splice(index,1);
+          this.ordersTime.splice(index,1);
+        }
+      }else {
+        this.msg.error("删除失败，请稍后再试");
+      }
+    });
+  }
+
+  deleteComment(commentId:number,index:number):void {
+    this.adminService.deleteComment(commentId).subscribe(res => {
+      if (res.code==200){
+        this.msg.success("删除成功");
+        if(index > -1) {
+          this.comments.splice(index,1);
+          this.commentsTime.splice(index,1);
+        }
       }else {
         this.msg.error("删除失败，请稍后再试");
       }

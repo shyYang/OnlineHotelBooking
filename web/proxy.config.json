@@ -174,7 +174,22 @@
     "secure": false,
     "changeOrigin": true
   },
-  "/admin/comments":{
+  "/admin/comments_all":{
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/admin/delete_consumer": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/admin/delete_order": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/admin/delete_comment": {
     "target": "http://localhost:8080",
     "secure": false,
     "changeOrigin": true
