@@ -84,7 +84,7 @@ export class MerchantInfoComponent implements OnInit {
     this.addRoomTypeForm = this.fb.group({
       price: [null, [Validators.required]],
       name: [null, [Validators.required]],
-      number: [null , [Validators.required]],
+      // number: [null , [Validators.required]],
       introduction: [null, [Validators.required]],
     });
   }
@@ -95,7 +95,7 @@ export class MerchantInfoComponent implements OnInit {
           nzTitle: '无法删除该种房型',
           nzContent: result.message,
         });
-      }else {
+      } else {
         this.modal.success({
           nzTitle: '成功删除该种房型',
           nzContent: result.message,
@@ -151,6 +151,9 @@ export class MerchantInfoComponent implements OnInit {
         this.modal.success({
           nzTitle: '修改成功',
           nzContent: result.message,
+        });
+        this.hotelService.getRoomType().subscribe(roomTypes => {
+          this.roomTypes = roomTypes.data;
         });
       }
     });
@@ -243,7 +246,7 @@ export class MerchantInfoComponent implements OnInit {
       name: this.addRoomTypeForm.value.name,
       photo: this.photoAddress,
       introduction: this.addRoomTypeForm.value.introduction,
-      number: this.addRoomTypeForm.value.number,
+      number: 0,
       freeNumber: this.addRoomTypeForm.value.freeNumber,
     }).subscribe(result => {
       if (result.code != 200){

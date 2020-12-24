@@ -114,7 +114,7 @@ public class CustomerController {
         int userId = (int)session.getAttribute(USER_ID_SESSION);
         comment.setUser_id(userId);
         comment.setTime(new Date());
-        commentMapper.insert(comment);
+        customerService.comment(comment);
         return ResultGenerator.genSuccessResult();
     }
 

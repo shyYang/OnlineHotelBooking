@@ -27,4 +27,6 @@ public interface CustomerService extends Service<Customer> {
 
     //查询用户的订单记录
     List<OrderAndComment> findOrdersByUserId(int userId);
+
+    void comment(Comment comment);
 }

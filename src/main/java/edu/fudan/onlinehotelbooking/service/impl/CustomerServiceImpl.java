@@ -84,8 +84,12 @@ public class CustomerServiceImpl extends AbstractService<Customer> implements Cu
             order.setRoom_id(room.getRoomId());
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             order.setTime(new Date());
-            System.out.println(order);
-            System.out.println(new Date());
+//            System.out.println(order);
+//            System.out.println(new Date());
+            // 然后酒店已入住人数 + 1
+            Hotel hotel = hotelMapper.selectByPrimaryKey(roomType.getHotelId());
+            hotel.setGuestNumber(hotel.getGuestNumber() + 1);
+            hotelMapper.updateByPrimaryKey(hotel);
             orderMapper.insertSelective(order);
             return room;
         }
@@ -131,6 +135,22 @@ public class CustomerServiceImpl extends AbstractService<Customer> implements Cu
             resultList.add(o);
         }
         return resultList;
+    }
+
+    @Override
+    public void comment(Comment comment) {
+        // 更新酒店评分
+        Order order = orderMapper.selectByPrimaryKey(comment.getOrder_id());
+        int hotelId = order.getHotel_id();
+        Hotel hotel = hotelMapper.selectByPrimaryKey(hotelId);
+        List<CommentResponse> list = commentMapper.findCommentsByHotelId(hotelId);
+        int number = list==null ? 0 : list.size();
+        double commentRating = comment.getRating();
+        double preRating = hotel.getRating();
+        double newRating = (preRating * number + commentRating) / (number + 1);
+        hotel.setRating(newRating);
+        hotelMapper.updateByPrimaryKey(hotel);
+        commentMapper.insert(comment);
     }
 
 
