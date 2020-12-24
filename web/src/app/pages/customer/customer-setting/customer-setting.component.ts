@@ -142,7 +142,6 @@ export class CustomerSettingComponent implements OnInit {
     this.validateForm = this.fb.group({
       oldPassword: [null, [
         Validators.required,
-        Validators.minLength(8),
         Validators.maxLength(16),
       ]],
       newPassword: [null, [

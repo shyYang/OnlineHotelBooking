@@ -9,13 +9,16 @@
     <img [src]="hotelInfo.photo" alt="酒店图片" width="100%">
   </div>
   <div class="item right-item">
-  <nz-descriptions nzTitle="酒店信息" nzBordered nzSize="small" >
+  <nz-descriptions nzTitle="酒店信息" nzBordered nzSize="small"  [nzExtra]="extraTpl">
     <nz-descriptions-item nzTitle="酒店ID" [nzSpan]="2" >{{hotelInfo.userId}}</nz-descriptions-item>
     <nz-descriptions-item nzTitle="酒店名" [nzSpan]="2">{{hotelInfo.hotelName}}</nz-descriptions-item>
     <nz-descriptions-item nzTitle="地址" [nzSpan]="2">{{hotelInfo.address}}</nz-descriptions-item>
     <nz-descriptions-item nzTitle="联系方式" [nzSpan]="3">{{hotelInfo.phone}}</nz-descriptions-item>
     <nz-descriptions-item nzTitle="描述" [nzSpan]="3">{{hotelInfo.introduction}}</nz-descriptions-item>
   </nz-descriptions>
+    <ng-template #extraTpl>
+      <button nz-button nzType="default" (click)="logout()">退出登录</button>
+    </ng-template>
   </div>
 </div>
 <nz-tabset>

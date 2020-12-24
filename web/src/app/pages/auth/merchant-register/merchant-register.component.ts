@@ -90,10 +90,7 @@ export class MerchantRegisterComponent implements OnInit {
             });
           }else {
             this.router.navigate(['/','merchant','info']);
-            this.modal.success({
-              nzTitle: '注册成功',
-              nzContent: '',
-            });
+            this.msg.success("注册成功");
           }
         });
       }

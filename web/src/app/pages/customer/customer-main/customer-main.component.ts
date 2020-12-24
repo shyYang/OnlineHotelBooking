@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {CustomerService} from "../../../service/customer.service";
+import {AuthService} from "../../../service/auth.service";
+import {Router} from "@angular/router";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'app-customer-main',
@@ -15,6 +18,9 @@ export class CustomerMainComponent implements OnInit {
 
   constructor(
     private customerService: CustomerService,
+    private authService: AuthService,
+    private router:Router,
+    private msg:NzMessageService
   ) { }
 
   ngOnInit(): void {
@@ -29,4 +35,11 @@ export class CustomerMainComponent implements OnInit {
     })
   }
 
+  logout():void{
+    this.authService.logout().subscribe(res => {
+      if (res.code!=200){
+        this.msg.error("退出失败，请稍后再试");
+      }else this.router.navigate(['/auth/customer-login']);
+    });
+  }
 }

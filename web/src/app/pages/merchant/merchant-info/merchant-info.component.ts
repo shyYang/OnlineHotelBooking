@@ -10,6 +10,7 @@ import {Observable, Observer} from 'rxjs';
 import {RoomService} from '../../../service/room.service';
 import {RoomTypeService} from '../../../service/roomType.service';
 import {FileUploadService} from "../../../service/fileUpload.service";
+import {AuthService} from "../../../service/auth.service";
 
 
 @Component({
@@ -46,7 +47,8 @@ export class MerchantInfoComponent implements OnInit {
     private roomService: RoomService,
     private router: ActivatedRoute,
     private msg: NzMessageService,
-    private fileUploadService: FileUploadService
+    private fileUploadService: FileUploadService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -339,5 +341,13 @@ export class MerchantInfoComponent implements OnInit {
         this.loading = false;
         break;
     }
+  }
+
+  logout():void{
+    this.authService.logout().subscribe(res => {
+      if (res.code!=200){
+        this.msg.error("退出失败，请稍后再试");
+      }else this.router.navigate(['/auth/merchant-login']);
+    });
   }
 }
