@@ -90,7 +90,7 @@ export class MerchantRegisterComponent implements OnInit {
             });
           }else {
             this.router.navigate(['/','merchant','info']);
-            this.msg.success("注册成功");
+            this.msg.success("注册成功，您的id是"+result.data);
           }
         });
       }

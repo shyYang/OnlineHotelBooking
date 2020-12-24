@@ -45,7 +45,7 @@ export class MerchantInfoComponent implements OnInit {
     private modal: NzModalService,
     private roomTypeService: RoomTypeService,
     private roomService: RoomService,
-    private router: ActivatedRoute,
+    private router: Router,
     private msg: NzMessageService,
     private fileUploadService: FileUploadService,
     private authService: AuthService

@@ -21,7 +21,7 @@ export class CustomerSettingComponent implements OnInit {
   updateMessage: {[propName: string]: any} = {
     'username': {
       'required': '请填写用户名',
-      'minlength': '用户名长度最少为8个字符',
+      'minlength': '用户名长度最少为2个字符',
       'maxlength': '用户名长度最多为16个字符'
     },
     'phone': {
@@ -160,7 +160,7 @@ export class CustomerSettingComponent implements OnInit {
     this.updateForm = this.fb.group({
       username:[null, [
         Validators.required,
-        Validators.minLength(8),
+        Validators.minLength(2),
         Validators.maxLength(16),
       ]],
       gender:['男', [Validators.required,]],

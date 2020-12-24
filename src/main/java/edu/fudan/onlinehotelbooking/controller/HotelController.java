@@ -38,7 +38,8 @@ public class HotelController {
     public Result signUp(HttpServletRequest request, @RequestBody HotelType hotel) {
         System.out.println(hotel);
         int id = hotelService.sellerSignUp(hotel);
-        handleSession(request, id);
+        Hotel hotel1 = hotelService.findBy("userId", id);
+        handleSession(request, hotel1.getHotelId());
         return ResultGenerator.genSuccessResult(id);
     }
 
